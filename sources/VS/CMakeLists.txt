@@ -44,6 +44,4 @@ if(BUILD_USE_STATIC_RUNTIME)
     endforeach()
 endif()
 
-add_subdirectory(Client-PC)
-add_subdirectory(Device)
-add_subdirectory(MS-1)
+add_subdirectory(Network-PC)
