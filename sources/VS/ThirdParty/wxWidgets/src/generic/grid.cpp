@@ -2702,7 +2702,6 @@ wxBEGIN_EVENT_TABLE( wxGrid, wxScrolledCanvas )
     EVT_SIZE( wxGrid::OnSize )
     EVT_DPI_CHANGED( wxGrid::OnDPIChanged )
     EVT_KEY_DOWN( wxGrid::OnKeyDown )
-    EVT_KEY_UP( wxGrid::OnKeyUp )
     EVT_CHAR ( wxGrid::OnChar )
 wxEND_EVENT_TABLE()
 
@@ -2929,6 +2928,9 @@ wxGrid::SetTable(wxGridTableBase *table,
             HideCellEditControl();
             m_cellEditCtrlEnabled = false;
 
+            // Don't hold on to attributes cached from the old table
+            ClearAttrCache();
+
             m_table->SetView(0);
             if( m_ownTable )
                 delete m_table;
@@ -2971,6 +2973,8 @@ wxGrid::SetTable(wxGridTableBase *table,
     }
 
     InvalidateBestSize();
+
+    UpdateCurrentCellOnRedim();
 
     return m_created;
 }
@@ -6296,7 +6300,9 @@ void wxGrid::OnKeyDown( wxKeyEvent& event )
 
 void wxGrid::OnKeyUp( wxKeyEvent& WXUNUSED(event) )
 {
-    // try local handlers
+    // This function is unused and not connected to the corresponding event in
+    // the event table, it is only kept to prevent changing ABI in this branch
+    // and doesn't exist at all in the later wxWidgets versions.
 }
 
 void wxGrid::OnChar( wxKeyEvent& event )

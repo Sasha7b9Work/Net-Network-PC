@@ -1112,6 +1112,20 @@ outlineView:(NSOutlineView*)outlineView
     return cellFrame;
 }
 
+-(NSRect)expansionFrameWithFrame:(NSRect)cellFrame
+    inView:(NSView*)view
+{
+    // We override the default behaviour to avoid showing nonsensical tooltips
+    // for the custom cells: if we don't do this, NSTextFieldCell would show a
+    // tooltip with the debug representation of wxCustomRendererObject which is
+    // not very useful.
+    //
+    // Note: override outlineView:toolTipForCell:rect:tableColumn:item:mouseLocation:
+    // in NSOutlineViewDelegate if we ever want to support per-cell tooltips
+    // instead of just suppressing them.
+    return NSZeroRect;
+}
+
 @end
 
 // ============================================================================
@@ -1602,6 +1616,12 @@ outlineView:(NSOutlineView*)outlineView
     const wxDataViewItem item = wxDataViewItemFromItem([self itemAtRow:row]);
 
     const NSInteger col = [self clickedColumn];
+
+    // Column can be invalid too, e.g. when clicking beyond the last column,
+    // so check for this too for the same reason as we do it for the row above.
+    if ( col == -1 )
+      return;
+
     wxDataViewColumn* const dvCol = implementation->GetColumn(col);
 
     // Check if we need to activate a custom renderer first.

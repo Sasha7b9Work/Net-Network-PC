@@ -1,5 +1,5 @@
-wxWidgets 3.2.2.1 Release Notes
-===============================
+wxWidgets 3.2.5 Release Notes
+=============================
 
 Welcome to the new stable release of wxWidgets, a free and open source
 cross-platform C++ framework for writing advanced GUI applications using
@@ -16,7 +16,7 @@ more about wxWidgets at:
 
 Documentation is available online at:
 
-* https://docs.wxwidgets.org/3.2.2/
+* https://docs.wxwidgets.org/3.2.5/
 
 wxWidgets sources and binaries for the selected platforms are available for
 download from:
@@ -25,56 +25,38 @@ download from:
 
 or, for a more more permanent but less convenient to use link, from
 
-* https://github.com/wxWidgets/wxWidgets/releases/tag/v3.2.2.1/
+* https://github.com/wxWidgets/wxWidgets/releases/tag/v3.2.5/
 
-Please see https://docs.wxwidgets.org/3.2.2/overview_install.html for full
+Please see https://docs.wxwidgets.org/3.2.5/overview_install.html for full
 installation instructions.
 
 
 
-Changes since 3.2.1
+Changes since 3.2.4
 -------------------
 
-This release comes only a few months after the previous 3.2.1, but contains
-an important number of bug fixes and enhancements, further improving high DPI
-support, including:
+This release contains more than a hundred fixes and improvements for all
+platforms. Some of the most important ones are:
 
-- Better window resizing on DPI change in wxMSW.
-- Fix using native icons returned by wxArtProvider.
-- Fix menu items using custom font in high DPI.
-- High resolution icons support in wxGenericTreeCtrl and wxGenericListCtrl.
+- Support macOS 14 Sonoma (#23916, #24054, #24067, #24073, #24515).
+- Wayland-related fixes in wxGTK: clipboard (#24391), OpenGL (#24076, #24395)
+  and other (#24021, #24050, #24051).
+- Fix crash when using wxApp in console wxGTK programs (#24081).
+- Support for dates after 2038 in wxDateTime (#24464).
 
-and also improving locale-related code under Mac and Unix systems:
+Other changes include:
 
-- wxUILocale::UseDefault() works for locales using different language and
-  region under Mac and fails when used for unsupported locale under Unix.
-- New wxUILocale::GetSystemLocaleId() allows to retrieve such locales IDs.
-- wxUILocale::GetCurrent() works currently for "C" locale under Mac.
+- Fix support for using Chinese (zh-Hans-CN) locale under macOS (#24396).
+- Fix alpha channel in bitmaps loaded from SVG in wxGTK (#24064).
+- wxGenericListCtrl improvements (#24292, #24293, #24311, #24312, #24332).
+- wxGrid improvements (#24247, #24286).
+- More high DPI fixes in wxMSW (#24283, #24196, #24456).
+- Avoid new gcc 14 warnings in the headers (#24502).
 
-Some other user-visible enhancements made in this release:
 
-- Allow selecting and copying text in wxMessageDialog in wxGTK.
-- Improve size and behaviour of in-place editor in wxGenericTreeCtrl.
-- Fix sometimes missing overwrite prompt in "Save" file dialog in wxMSW.
-- Fix glitch in drawing wxStaticBox with a control as label in wxMSW.
+Please see the full change log for more details:
 
-There are also some important bug fixes:
-
-- Fix regression in saving TIFF images that could end up truncated.
-- Fix long standing bug in parsing wxHTTP responses.
-- Fix data race when processing events generated in a worker thread.
-- Avoid appending extraneous NUL bytes to wxTextDataObject text in wxMSW.
-- Fix handling of fonts with fractional sizes in wxOSX.
-- Fix resizing wxGLCanvas with EGL and Wayland in wxGTK.
-- Fix display artefacts when using AUI without compositor under X11.
-- Work around crashes when using wxTextCtrl with MinGW TDM 64.
-- Fix for a possible crash when handling menu events under Mac.
-- Third-party libraries have been updated to the latest versions.
-
-All in all, this release includes ~150 fixes from 27 unique contributors,
-please see the full change log for more details:
-
-https://raw.githubusercontent.com/wxWidgets/wxWidgets/v3.2.2.1/docs/changes.txt
+https://raw.githubusercontent.com/wxWidgets/wxWidgets/v3.2.5/docs/changes.txt
 
 This release is API and ABI-compatible with the previous 3.2.x releases, so
 the existing applications don't even need to be rebuilt to profit from all the
@@ -89,7 +71,7 @@ Supported Platforms
 This version of wxWidgets supports the following primary platforms:
 
 * Windows XP, Vista, 7, 8, 10 and 11 (32/64 bits).
-* Most Unix variants using the GTK+ toolkit (version 2.6 or newer)
+* Most Unix variants using the GTK toolkit (version 2.6 or newer)
 * macOS (10.10 or newer) using Cocoa (x86-64 or ARM).
 
 There is some support for the following platforms:
@@ -174,4 +156,4 @@ developed by its users and your contributions to it are always welcome!
 
 Have fun!
 
-The wxWidgets Team, February 2023
+The wxWidgets Team, May 2024
