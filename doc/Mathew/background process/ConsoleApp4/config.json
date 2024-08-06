@@ -1,0 +1,6 @@
+{
+  "ip": "127.0.0.1",
+  "port": 5454,
+  "connectionString": "Host=localhost;Port=5432;Database=diploma;Username=postgres;Password=Molodoy_123",
+  "lengthOfOscilliator": 50
+}

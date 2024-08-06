@@ -1,0 +1,23 @@
+/* The first icon in the resource file is the default icon in Explorer */
+
+MAIN_ICON           ICON "SKY.ico"
+                    
+TOOL_OPEN           BITMAP "tool_open.bmp"
+TOOL_SAVE           BITMAP "tool_save.bmp"
+TOOL_NEW            BITMAP "tool_new.bmp"
+                    
+TOOL_UNDO           BITMAP "tool_undo.bmp"
+TOOL_REDO           BITMAP "tool_redo.bmp"
+
+TOOL_VIEW_BRIEF     BITMAP "view_brief.bmp"
+TOOL_VIEW_FULL      BITMAP "view_full.bmp"
+
+MEAS_PRESSURE       BITMAP "meas_pressure.bmp"
+MEAS_ILLUMINATION   BITMAP "meas_illumination.bmp"
+MEAS_HUMIDITY       BITMAP "meas_humidity.bmp"
+MEAS_VELOCITY       BITMAP "meas_velocity.bmp"
+MEAS_TEMPERATURE    BITMAP "meas_temperature.bmp"
+
+
+#include "wx/msw/wx.rc"
+

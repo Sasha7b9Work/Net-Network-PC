@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web-Service-Diploma", "Web-Service-Diploma\Web-Service-Diploma.csproj", "{D10A93A9-DEF4-428C-9215-FBC9B0F3EDAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web-Service-Parameters", "Web-Service-Parameters\Web-Service-Parameters.csproj", "{33F3F8C7-1328-450B-A172-1E61422098C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D10A93A9-DEF4-428C-9215-FBC9B0F3EDAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D10A93A9-DEF4-428C-9215-FBC9B0F3EDAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D10A93A9-DEF4-428C-9215-FBC9B0F3EDAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D10A93A9-DEF4-428C-9215-FBC9B0F3EDAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33F3F8C7-1328-450B-A172-1E61422098C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33F3F8C7-1328-450B-A172-1E61422098C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33F3F8C7-1328-450B-A172-1E61422098C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33F3F8C7-1328-450B-A172-1E61422098C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {87A496DF-0947-41D7-A3DC-76F0788AE25D}
+	EndGlobalSection
+EndGlobal
