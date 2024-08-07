@@ -109,7 +109,7 @@ Frame::Frame(const wxString &title)
     SetClientSize(1024, 600);
     wxWindowBase::SetMinClientSize({ 800, 300 });
 
-    ConsoleSCPI::Self()->SwitchVisibility();
+    ConsoleSCPI::Create();
 
     SetModeView(mode_view);
 }
@@ -195,9 +195,9 @@ void Frame::OnMenuTool(wxCommandEvent &event)
 
     if (id == TOOL_CONSOLE)
     {
-        ConsoleSCPI::Self()->SwitchVisibility();
+        ConsoleSCPI::self->SwitchVisibility();
 
-        FindItemInMenuBar(TOOL_CONSOLE)->SetItemLabel(ConsoleSCPI::Self()->IsShown() ? _("Закрыть консоль") : _("Открыть консоль"));
+        FindItemInMenuBar(TOOL_CONSOLE)->SetItemLabel(ConsoleSCPI::self ->IsShown() ? _("Закрыть консоль") : _("Открыть консоль"));
     }
     else if (id == TOOL_DATABASE)
     {
@@ -214,7 +214,7 @@ void Frame::OnSocketEvent(wxSocketEvent &event)
 
 void Frame::OnCloseWindow(wxCloseEvent &event)
 {
-    delete ConsoleSCPI::Self();
+    delete ConsoleSCPI::self;
 
     event.Skip();
 }

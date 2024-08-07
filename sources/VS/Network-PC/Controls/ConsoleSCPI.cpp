@@ -95,14 +95,9 @@ void ConsoleSCPI::OnTimerComPort(wxTimerEvent &)
 }
 
 
-ConsoleSCPI *ConsoleSCPI::Self()
+void ConsoleSCPI::Create()
 {
-    if (!self)
-    {
-        self = new ConsoleSCPI(nullptr);
-    }
-
-    return self;
+    self = new ConsoleSCPI(nullptr);
 }
 
 
@@ -168,13 +163,13 @@ void ConsoleSCPI::AddText(const wxString &str)
 
 void ConsoleSCPI::SwitchVisibility()
 {
-    Self()->Show(!Self()->IsShown());
+    Show(!IsShown());
 }
 
 
 void ConsoleSCPI::OnClose(wxCloseEvent &)
 {
-    Self()->Show(false);
+    Show(false);
 }
 
 

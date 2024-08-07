@@ -10,7 +10,9 @@ class ConsoleSCPI : public wxFrame
 {
 public:
 
-    static ConsoleSCPI *Self();
+    static void Create();
+    static ConsoleSCPI *self;
+
     virtual ~ConsoleSCPI();
 
     void SwitchVisibility();
@@ -45,5 +47,4 @@ private:
 
     static wxTextCtrl *text;
     static wxTextCtrl *line;
-    static ConsoleSCPI *self;
 };
