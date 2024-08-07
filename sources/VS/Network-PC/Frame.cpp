@@ -6,6 +6,7 @@
 #include "Display/Diagram/Canvas.h"
 #include "Settings.h"
 #include "Controls/ConsoleSCPI.h"
+#include "Controls/ConsoleLog.h"
 #include "Communicator/Server/Server.h"
 
 
@@ -111,6 +112,8 @@ Frame::Frame(const wxString &title)
 
     ConsoleSCPI::Create();
 
+    ConsoleLog::Create();
+
     SetModeView(mode_view);
 }
 
@@ -215,6 +218,8 @@ void Frame::OnSocketEvent(wxSocketEvent &event)
 void Frame::OnCloseWindow(wxCloseEvent &event)
 {
     delete ConsoleSCPI::self;
+
+    delete ConsoleLog::self;
 
     event.Skip();
 }
