@@ -112,8 +112,6 @@ Frame::Frame(const wxString &title)
 
     ConsoleSCPI::Create();
 
-    ConsoleLog::Create();
-
     SetModeView(mode_view);
 }
 
@@ -219,7 +217,7 @@ void Frame::OnCloseWindow(wxCloseEvent &event)
 {
     delete ConsoleSCPI::self;
 
-    delete ConsoleLog::self;
+    Log::DeInit();
 
     event.Skip();
 }

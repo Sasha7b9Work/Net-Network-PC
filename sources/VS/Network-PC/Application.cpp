@@ -54,8 +54,6 @@ void Application::OnTimer(wxTimerEvent &)
 
 int Application::OnExit()
 {
-    Log::DeInit();
-
     wxConfigBase::Get(false)->Flush();
 
     wxConfigBase::Set(nullptr);

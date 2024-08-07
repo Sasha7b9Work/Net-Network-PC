@@ -10,6 +10,15 @@ public:
 
     static void Create();
 
+    void AddLine(const wxString &);
+
 private:
+
     ConsoleLog(wxFrame *parent);
+
+    static wxTextCtrl *text;
+    static wxTextCtrl *line;
+
+    void OnSize(wxSizeEvent &);
+    void OnClose(wxCloseEvent &);
 };

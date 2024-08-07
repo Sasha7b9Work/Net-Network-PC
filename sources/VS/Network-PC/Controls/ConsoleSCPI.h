@@ -21,6 +21,12 @@ public:
     void AddText(const wxString &text);
 
 private:
+
+    enum
+    {
+        ID_LINE
+    };
+
     ConsoleSCPI(wxFrame *parent);
 
     void OnSize(wxSizeEvent &);

@@ -12,12 +12,6 @@
 #pragma warning(pop)
 
 
-enum
-{
-    ID_LINE
-};
-
-
 wxTextCtrl *ConsoleSCPI::text = nullptr;
 wxTextCtrl *ConsoleSCPI::line = nullptr;
 ConsoleSCPI *ConsoleSCPI::self = nullptr;

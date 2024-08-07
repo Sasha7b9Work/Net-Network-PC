@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Log.h"
 #include "Frame.h"
+#include "Controls/ConsoleLog.h"
 #include <cstdarg>
 #include <cstring>
 #include <cstdio>
@@ -9,23 +10,19 @@
 
 namespace Log
 {
-    static HANDLE handle = nullptr;
-
     static const int SIZE_BUFFER = 1024;
 }
 
 
 void Log::Init()
 {
-    AllocConsole();
-
-    handle = GetStdHandle(STD_OUTPUT_HANDLE);
+    ConsoleLog::Create();
 }
 
 
 void Log::DeInit()
 {
-    FreeConsole();
+    delete ConsoleLog::self;
 }
 
 
@@ -38,11 +35,7 @@ void Log::Write(char *format, ...)
     std::vsprintf(pointer, format, args);
     va_end(args);
 
-    std::strcat(buffer, "\n");
-
-    DWORD written_bytes = 0;
-
-    WriteConsoleA(handle, buffer, std::strlen(buffer), &written_bytes, nullptr);
+    ConsoleLog::self->AddLine(buffer);
 }
 
 
@@ -56,9 +49,5 @@ void Log::Error(char *format, ...)
     std::vsprintf(pointer, format, args);
     va_end(args);
 
-    std::strcat(buffer, "\n");
-
-    DWORD written_bytes = 0;
-
-    WriteConsoleA(handle, buffer, std::strlen(buffer), &written_bytes, nullptr);
+    ConsoleLog::self->AddLine(buffer);
 }
