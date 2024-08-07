@@ -48,7 +48,7 @@ file(GLOB COMMUNICATOR_LAN        Communicator/LAN/*.*)
 file(GLOB COMMUNICATOR_LAN_LIBNET Communicator/LAN/libnet/*.*)
 file(GLOB COMMUNICATOR_RS232      Communicator/RS232/*.*)
 file(GLOB COMMUNICATOR_SERVER     Communicator/Server/*.*)
-file(GLOB CONTROLS                Controls/*.*)
+file(GLOB WINDOWS                 Windows/*.*)
 file(GLOB DATA                    Data/*.*)
 file(GLOB DISPLAY                 Display/*.*)
 file(GLOB DISPLAY_DIAGRAM         Display/Diagram/*.*)
@@ -66,7 +66,7 @@ source_group(Communicator/LAN        FILES ${COMMUNICATOR_LAN})
 source_group(Communicator/LAN/libnet FILES ${COMMUNICATOR_LAN_LIBNET})
 source_group(Communicator/RS232      FILES ${COMMUNICATOR_RS232})
 source_group(Communicator/Server     FILES ${COMMUNICATOR_SERVER})
-source_group(Controls                FILES ${CONTROLS})
+source_group(Windows                 FILES ${WINDOWS})
 source_group(Data                    FILES ${DATA})
 source_group(Display                 FILES ${DISPLAY})
 source_group(Display/Diagram         FILES ${DISPLAY_DIAGRAM})
@@ -93,7 +93,7 @@ add_executable( ${PROJECT_NAME}
     ${COMMUNICATOR_LAN_LIBNET}
     ${COMMUNICATOR_RS232}
     ${COMMUNICATOR_SERVER}
-    ${CONTROLS}
+    ${WINDOWS}
     ${DATA}
     ${DISPLAY}
     ${DISPLAY_DIAGRAM}

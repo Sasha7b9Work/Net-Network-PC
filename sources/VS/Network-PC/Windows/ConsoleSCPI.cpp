@@ -1,6 +1,6 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Controls/ConsoleSCPI.h"
+#include "Windows/ConsoleSCPI.h"
 #include "Communicator/ComPort/ComPort.h"
 #include "Utils/String.h"
 

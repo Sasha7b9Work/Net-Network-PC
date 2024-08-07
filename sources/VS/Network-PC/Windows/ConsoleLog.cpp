@@ -1,6 +1,6 @@
 // 2024/08/07 10:28:59 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Controls/ConsoleLog.h"
+#include "Windows/ConsoleLog.h"
 
 
 wxTextCtrl *ConsoleLog::text = nullptr;

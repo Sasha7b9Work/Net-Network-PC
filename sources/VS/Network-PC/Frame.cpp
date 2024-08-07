@@ -5,8 +5,8 @@
 #include "Display/Table/Table.h"
 #include "Display/Diagram/Canvas.h"
 #include "Settings.h"
-#include "Controls/ConsoleSCPI.h"
-#include "Controls/ConsoleLog.h"
+#include "Windows/ConsoleSCPI.h"
+#include "Windows/ConsoleLog.h"
 #include "Communicator/Server/Server.h"
 
 

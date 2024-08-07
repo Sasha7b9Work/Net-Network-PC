@@ -8,7 +8,7 @@
 #include "Data/ReceivedData.h"
 #include "Display/Diagram/Diagram.h"
 #include "Utils/Clock.h"
-#include "Controls/ConsoleSCPI.h"
+#include "Windows/ConsoleSCPI.h"
 #include "Communicator/Server/Server.h"
 #include "Utils/Timer.h"
 #include "Communicator/HTTP/HTTP.h"

@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "Log.h"
 #include "Frame.h"
-#include "Controls/ConsoleLog.h"
+#include "Windows/ConsoleLog.h"
 #include <cstdarg>
 #include <cstring>
 #include <cstdio>
