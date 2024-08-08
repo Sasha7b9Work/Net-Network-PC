@@ -6,9 +6,9 @@
 
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 1
-#define VERSION_BUILD 111
+#define VERSION_BUILD 112
 
-#define DATE_BUILD "2024-08-08 21:43:53"
+#define DATE_BUILD "2024-08-08 22:21:32"
 
 
 typedef const char *pchar;
@@ -17,6 +17,7 @@ typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef unsigned int uint;
 typedef signed char int8;
+typedef const char *pchar;
 
 
 #include "Log.h"

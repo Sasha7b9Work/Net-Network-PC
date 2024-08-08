@@ -4,7 +4,6 @@
 #include "Data/Sensors.h"
 #include "Utils/Clock.h"
 #include "Settings/Settings.h"
-#include <map>
 
 
 using namespace std;
@@ -79,7 +78,7 @@ void Canvas::DrawTimeScale(wxMemoryDC &dc)
 
         dc.DrawText(time.ToString().c_str(), { x + 1, y - 15 });
 
-        time.SubMin(TimeScale::Get());
+        time.SubMin(SET::DIAGRAM::time_scale.Get());
 
         x -= dx;
     }
@@ -94,7 +93,7 @@ int Canvas::TimeToX(const Time &time)
 
     Time difference = current_time - time;
 
-    return width - (difference.ToSec() / TimeScale::Get());
+    return width - (difference.ToSec() / SET::DIAGRAM::time_scale.Get());
 }
 
 

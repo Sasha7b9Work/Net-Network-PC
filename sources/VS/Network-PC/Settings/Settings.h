@@ -3,9 +3,18 @@
 #include "Settings/Values.h"
 
 
-namespace TimeScale
+namespace SET
 {
-    // Сколько секунд в одном пикселе
-    void Set(int);
-    int Get();
+    namespace DIAGRAM
+    {
+        extern Value<int> time_scale;
+    }
 }
+
+
+//namespace TimeScale
+//{
+//    // Сколько секунд в одном пикселе
+//    void Set(int);
+//    int Get();
+//}
