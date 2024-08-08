@@ -6,9 +6,9 @@
 
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 1
-#define VERSION_BUILD 101
+#define VERSION_BUILD 102
 
-#define DATE_BUILD "2024-08-08 14:44:15"
+#define DATE_BUILD "2024-08-08 14:54:34"
 
 
 typedef const char *pchar;
@@ -28,6 +28,7 @@ typedef signed char int8;
 #include <wx/socket.h>
 #include <wx/fileconf.h>
 #include <wx/webrequest.h>
+#include <map>
 #pragma warning(pop)
 
 

@@ -2,12 +2,12 @@
 #include "defines.h"
 #include "Frame.h"
 #include "Display/Diagram/Diagram.h"
-#include "Display/Table/Table.h"
 #include "Display/Diagram/Canvas.h"
 #include "Settings.h"
 #include "Windows/ConsoleSCPI.h"
 #include "Windows/ConsoleLog.h"
 #include "Communicator/Server/Server.h"
+#include "Windows/WindowTable.h"
 
 
 Frame *Frame::self = nullptr;

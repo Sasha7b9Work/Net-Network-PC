@@ -2,8 +2,8 @@
 #include "defines.h"
 #include "Display/Diagram/Diagram.h"
 #include "Display/Diagram/Canvas.h"
-#include "Display/Table/Table.h"
 #include "Utils/Clock.h"
+#include "Windows/WindowTable.h"
 
 
 Diagram::Pool *Diagram::Pool::self = nullptr;

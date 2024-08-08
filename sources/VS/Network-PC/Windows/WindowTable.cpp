@@ -1,12 +1,9 @@
-// 2022/09/05 10:18:54 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// 2024/08/08 14:46:34 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Display/Table/Table.h"
+#include "Windows/WindowTable.h"
 #include "Data/Sensors.h"
 #include "Communicator/Server/Server.h"
 #include "Communicator/HTTP/HTTP.h"
-
-
-using namespace std;
 
 
 Table *Table::self = nullptr;
@@ -50,7 +47,7 @@ Table::Table(wxWindow *parent, const wxSize &size) :
 
     StretchColumns();
 
-//    wxScrollHelperBase::SetScrollbars(20, 20, 5, 5);
+    //    wxScrollHelperBase::SetScrollbars(20, 20, 5, 5);
 }
 
 
@@ -80,11 +77,11 @@ void Table::SetMeasure(uint id, const wxColour &color, uint8 type, float value)
 
     auto row = rows.find(id);
 
-    if (row == rows.end()) 
+    if (row == rows.end())
     {
         AppendRows(1);
 
-        rows.emplace(pair<uint, int>(id, GetNumberRows() - 1));
+        rows.emplace(std::pair<uint, int>(id, GetNumberRows() - 1));
 
         SetCellValue(GetNumberRows() - 1, 0, (int)id, color);
     }

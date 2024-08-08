@@ -1,7 +1,11 @@
-// 2022/09/05 10:18:50 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// 2024/08/08 14:46:29 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Settings/Settings.h"
-#include <map>
+
+/*
+*  Окно, где размещаются все обнаруженные датчики
+*/
+
 
 
 class Table : public wxGrid
