@@ -1,9 +1,9 @@
-// 2024/08/08 14:46:29 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+п»ї// 2024/08/08 14:46:29 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Settings/Settings.h"
 
 /*
-*  Окно, где размещаются все обнаруженные датчики
+*  РћРєРЅРѕ, РіРґРµ СЂР°Р·РјРµС‰Р°СЋС‚СЃСЏ РІСЃРµ РѕР±РЅР°СЂСѓР¶РµРЅРЅС‹Рµ РґР°С‚С‡РёРєРё
 */
 
 
@@ -20,7 +20,7 @@ public:
 
     int GetCreatedWidth() const { return create_width; }
 
-    // Растянуть на ширину width
+    // Р Р°СЃС‚СЏРЅСѓС‚СЊ РЅР° С€РёСЂРёРЅСѓ width
     void StretchEntireWidth(int width);
 
     void OnEventSize(ModeView::E);
@@ -29,7 +29,7 @@ private:
 
     Table(wxWindow *, const wxSize &);
 
-    int create_width = 0;                   // Такую ширину имеет таблица во время создания
+    int create_width = 0;                   // РўР°РєСѓСЋ С€РёСЂРёРЅСѓ РёРјРµРµС‚ С‚Р°Р±Р»РёС†Р° РІРѕ РІСЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ
 
     //     <id, num_row>
     std::map<uint, int> rows;
@@ -37,6 +37,6 @@ private:
     void SetCellValue(int row, int col, float, const wxColour &color);
     void SetCellValue(int row, int col, int, const wxColour &color);
 
-    // Растянуть колонки на всю ширину
+    // Р Р°СЃС‚СЏРЅСѓС‚СЊ РєРѕР»РѕРЅРєРё РЅР° РІСЃСЋ С€РёСЂРёРЅСѓ
     void StretchColumns();
 };

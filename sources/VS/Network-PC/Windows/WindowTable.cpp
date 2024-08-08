@@ -1,4 +1,4 @@
-// 2024/08/08 14:46:34 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+﻿// 2024/08/08 14:46:34 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Windows/WindowTable.h"
 #include "Data/Sensors.h"
