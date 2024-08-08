@@ -79,7 +79,7 @@ void Canvas::DrawTimeScale(wxMemoryDC &dc)
 
         dc.DrawText(time.ToString().c_str(), { x + 1, y - 15 });
 
-        time.SubMin(Set::TimeScale::Get());
+        time.SubMin(TimeScale::Get());
 
         x -= dx;
     }
@@ -94,7 +94,7 @@ int Canvas::TimeToX(const Time &time)
 
     Time difference = current_time - time;
 
-    return width - (difference.ToSec() / Set::TimeScale::Get());
+    return width - (difference.ToSec() / TimeScale::Get());
 }
 
 

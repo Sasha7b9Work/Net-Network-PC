@@ -117,7 +117,7 @@ void Frame::OnMenuSettings(wxCommandEvent &event)
     {
         static const int scales[] = { 1, 2, 5, 30, 60 };
 
-        Set::TimeScale::Set(scales[event.GetId() - ID_SPEED_1]);
+        TimeScale::Set(scales[event.GetId() - ID_SPEED_1]);
     }
 }
 

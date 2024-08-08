@@ -2,12 +2,9 @@
 #pragma once
 
 
-namespace Set
+namespace TimeScale
 {
-    namespace TimeScale
-    {
-        // Сколько секунд в одном пикселе
-        void Set(int);
-        int Get();
-    }
+    // Сколько секунд в одном пикселе
+    void Set(int);
+    int Get();
 }

@@ -4,16 +4,13 @@
 #include "Display/Diagram/Diagram.h"
 
 
-namespace Set
+namespace TimeScale
 {
-    namespace TimeScale
-    {
-        static int value = 1;
-    }
+    static int value = 1;
 }
 
 
-void Set::TimeScale::Set(int scale)
+void TimeScale::Set(int scale)
 {
     value = scale;
 
@@ -21,7 +18,7 @@ void Set::TimeScale::Set(int scale)
 }
 
 
-int Set::TimeScale::Get()
+int TimeScale::Get()
 {
     return value;
 }
