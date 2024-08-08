@@ -78,15 +78,15 @@ Frame::Frame(const wxString &title)
     menuSettings->AppendSubMenu(menuSpeed, _("Скорость обновления"));
     menuSettings->AppendSubMenu(menuModeView, _("Вид"));
 
-    //    wxMenu *menuTools = new wxMenu();
-    //    menuTools->Append(TOOL_CONSOLE, _("Открыть консоль\tCtrl-K"), _("Открыть консоль"));
-    //    menuTools->Append(TOOL_DATABASE, _("База данных\tCtrl-D"), _("База данных"));
+//    wxMenu *menuTools = new wxMenu();
+//    menuTools->Append(TOOL_CONSOLE, _("Открыть консоль\tCtrl-K"), _("Открыть консоль"));
+//    menuTools->Append(TOOL_DATABASE, _("База данных\tCtrl-D"), _("База данных"));
 
     Bind(wxEVT_MENU, &Frame::OnMenuSettings, this);
 
     menuBar->Append(menuSettings, _("Настройки"));
 
-    //    menuBar->Append(menuTools, _("Инструменты"));
+//    menuBar->Append(menuTools, _("Инструменты"));
 
     wxFrameBase::SetMenuBar(menuBar);
 
