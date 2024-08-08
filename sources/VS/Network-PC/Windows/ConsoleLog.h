@@ -14,7 +14,7 @@ public:
 
 private:
 
-    ConsoleLog(wxFrame *parent);
+    ConsoleLog();
 
     static wxTextCtrl *text;
     static wxTextCtrl *line;

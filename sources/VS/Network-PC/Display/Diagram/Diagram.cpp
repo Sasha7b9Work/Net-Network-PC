@@ -94,11 +94,7 @@ void Diagram::Pool::OnEventSize(ModeView::E mode)
 {
     if (mode == ModeView::Full)
     {
-        SetSizeArea(GetParent()->GetClientRect().width - Table::self->GetSize().x, GetParent()->GetClientRect().height);
-
-        int x = Table::self->GetCreatedWidth();
-
-        SetPosition({ x, 0 });
+        SetSizeArea(GetParent()->GetClientRect().width, GetParent()->GetClientRect().height);
     }
     else if (mode == ModeView::Graph)
     {

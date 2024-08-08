@@ -7,14 +7,13 @@
 */
 
 
-
-class Table : public wxGrid
+class WindowTable : public wxGrid
 {
 public:
 
-    static Table *Create(wxWindow *, const wxSize &);
+    static WindowTable *self;
 
-    static Table *self;
+    static void Create(const wxSize &);
 
     void SetMeasure(uint id, const wxColour &color, uint8 type, float value);
 
@@ -27,7 +26,7 @@ public:
 
 private:
 
-    Table(wxWindow *, const wxSize &);
+    WindowTable(const wxSize &);
 
     int create_width = 0;                   // Такую ширину имеет таблица во время создания
 

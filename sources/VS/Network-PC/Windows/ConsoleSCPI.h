@@ -27,7 +27,7 @@ private:
         ID_LINE
     };
 
-    ConsoleSCPI(wxFrame *parent);
+    ConsoleSCPI();
 
     void OnSize(wxSizeEvent &);
     void OnTextEnter(wxCommandEvent &);

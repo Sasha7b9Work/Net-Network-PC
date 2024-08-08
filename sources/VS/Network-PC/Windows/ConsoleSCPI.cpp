@@ -17,7 +17,7 @@ wxTextCtrl *ConsoleSCPI::line = nullptr;
 ConsoleSCPI *ConsoleSCPI::self = nullptr;
 
 
-ConsoleSCPI::ConsoleSCPI(wxFrame *parent) : wxFrame(parent, wxID_ANY, wxT("√“÷-3 SCPI"))
+ConsoleSCPI::ConsoleSCPI() : wxFrame(nullptr, wxID_ANY, wxT("√“÷-3 SCPI"))
 {
     text = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, { 600, 300 }, wxTE_MULTILINE | wxTE_READONLY);
 
@@ -91,7 +91,7 @@ void ConsoleSCPI::OnTimerComPort(wxTimerEvent &)
 
 void ConsoleSCPI::Create()
 {
-    self = new ConsoleSCPI(nullptr);
+    self = new ConsoleSCPI();
 }
 
 

@@ -15,7 +15,7 @@ enum
 
 
 
-ConsoleLog::ConsoleLog(wxFrame *parent) : wxFrame(parent, wxID_ANY, _("Ћог"))
+ConsoleLog::ConsoleLog() : wxFrame(nullptr, wxID_ANY, _("Ћог"))
 {
     text = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, { 600, 300 }, wxTE_MULTILINE | wxTE_READONLY);
 
@@ -35,7 +35,7 @@ ConsoleLog::ConsoleLog(wxFrame *parent) : wxFrame(parent, wxID_ANY, _("Ћог"))
 
 void ConsoleLog::Create()
 {
-    self = new ConsoleLog(nullptr);
+    self = new ConsoleLog();
 }
 
 

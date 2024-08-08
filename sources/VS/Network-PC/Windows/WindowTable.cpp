@@ -6,19 +6,17 @@
 #include "Communicator/HTTP/HTTP.h"
 
 
-Table *Table::self = nullptr;
+WindowTable *WindowTable::self = nullptr;
 
 
-Table *Table::Create(wxWindow *parent, const wxSize &size)
+void WindowTable::Create(const wxSize &size)
 {
-    self = new Table(parent, size);
-
-    return self;
+    self = new WindowTable(size);
 }
 
 
-Table::Table(wxWindow *parent, const wxSize &size) :
-    wxGrid(parent, wxID_ANY, { 0, 0 }, size)
+WindowTable::WindowTable(const wxSize &size) :
+    wxGrid(nullptr, wxID_ANY, { 0, 0 }, size)
 {
     create_width = size.x;
 
@@ -47,11 +45,11 @@ Table::Table(wxWindow *parent, const wxSize &size) :
 
     StretchColumns();
 
-    //    wxScrollHelperBase::SetScrollbars(20, 20, 5, 5);
+//    wxScrollHelperBase::SetScrollbars(20, 20, 5, 5);
 }
 
 
-void Table::StretchColumns()
+void WindowTable::StretchColumns()
 {
     int width = wxGrid::GetSize().x;
 
@@ -68,7 +66,7 @@ void Table::StretchColumns()
 }
 
 
-void Table::SetMeasure(uint id, const wxColour &color, uint8 type, float value)
+void WindowTable::SetMeasure(uint id, const wxColour &color, uint8 type, float value)
 {
     if (id == 0)
     {
@@ -98,7 +96,7 @@ void Table::SetMeasure(uint id, const wxColour &color, uint8 type, float value)
 }
 
 
-void Table::SetCellValue(int row, int col, float value, const wxColour &color)
+void WindowTable::SetCellValue(int row, int col, float value, const wxColour &color)
 {
     if (col >= 0)
     {
@@ -109,7 +107,7 @@ void Table::SetCellValue(int row, int col, float value, const wxColour &color)
 }
 
 
-void Table::SetCellValue(int row, int col, int value, const wxColour &color)
+void WindowTable::SetCellValue(int row, int col, int value, const wxColour &color)
 {
     if (col >= 0)
     {
@@ -120,7 +118,7 @@ void Table::SetCellValue(int row, int col, int value, const wxColour &color)
 }
 
 
-void Table::StretchEntireWidth(int width)
+void WindowTable::StretchEntireWidth(int width)
 {
     wxSize size = GetParent()->GetClientSize();
 
@@ -135,15 +133,15 @@ void Table::StretchEntireWidth(int width)
 }
 
 
-void Table::OnEventSize(ModeView::E mode)
+void WindowTable::OnEventSize(ModeView::E mode)
 {
     if (mode == ModeView::Full)
     {
         wxSize size = { GetSize().GetWidth(), GetParent()->GetClientSize().y };
 
-        Table::self->SetMinClientSize(size);
-        Table::self->SetClientSize(size);
-        Table::self->SetSize(size);
+        SetMinClientSize(size);
+        SetClientSize(size);
+        SetSize(size);
 
         StretchEntireWidth(create_width);
     }

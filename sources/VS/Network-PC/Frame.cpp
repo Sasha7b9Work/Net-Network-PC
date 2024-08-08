@@ -8,6 +8,7 @@
 #include "Windows/ConsoleLog.h"
 #include "Communicator/Server/Server.h"
 #include "Windows/WindowTable.h"
+#include "Windows/WindowTable.h"
 
 
 Frame *Frame::self = nullptr;
@@ -101,8 +102,6 @@ Frame::Frame(const wxString &title)
 
     sizer = new wxBoxSizer(wxHORIZONTAL);
 
-    sizer->Add(Table::Create(this, FromDIP(wxSize((TypeMeasure::NumMeasures() + 1) * 60, 400))));
-
     sizer->Add(Diagram::Pool::Create(this));
 
     SetSizer(sizer);
@@ -111,6 +110,8 @@ Frame::Frame(const wxString &title)
     wxWindowBase::SetMinClientSize({ 800, 300 });
 
     ConsoleSCPI::Create();
+
+    WindowTable::Create(FromDIP(wxSize((TypeMeasure::NumMeasures() + 1) * 60, 400)));
 
     SetModeView(mode_view);
 }
@@ -137,19 +138,13 @@ void Frame::SetModeView(ModeView::E mode)
 {
     mode_view = mode;
 
-    sizer->Show(Table::self);
     sizer->Show(Diagram::Pool::self);
 
     if (mode_view == ModeView::Table)
     {
         sizer->Hide(Diagram::Pool::self);
     }
-    else if (mode_view == ModeView::Graph)
-    {
-        sizer->Hide(Table::self);
-    }
 
-    Table::self->OnEventSize(mode);
     Diagram::Pool::self->OnEventSize(mode);
 
     Layout();
@@ -158,7 +153,6 @@ void Frame::SetModeView(ModeView::E mode)
 
 void Frame::OnSize(wxSizeEvent &event)
 {
-    Table::self->OnEventSize(mode_view);
     Diagram::Pool::self->OnEventSize(mode_view);
 
     Layout();
