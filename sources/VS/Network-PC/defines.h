@@ -4,7 +4,11 @@
 #include "opt.h"
 
 
-#define VERSION 7
+#define VERSION_MAJOR 0
+#define VERSION_MINOR 1
+#define VERSION_BUILD 101
+
+#define DATE_BUILD "2024-08-08 14:44:15"
 
 
 typedef const char *pchar;
