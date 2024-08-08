@@ -211,6 +211,8 @@ void Frame::OnCloseWindow(wxCloseEvent &event)
 {
     delete ConsoleSCPI::self;
 
+    delete WindowTable::self;
+
     Log::DeInit();
 
     event.Skip();
