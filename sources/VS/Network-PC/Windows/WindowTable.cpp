@@ -16,21 +16,23 @@ void WindowTable::Create(const wxSize &size)
 
 
 WindowTable::WindowTable(const wxSize &size) :
-    wxGrid(nullptr, wxID_ANY, { 0, 0 }, size)
+    wxFrame(nullptr, wxID_ANY, _("Датчики"), wxDefaultPosition, size)
 {
     create_width = size.x;
 
-    CreateGrid(0, 0);
+    grid = new wxGrid(this, wxID_ANY, { 0, 0 }, size);
 
-    AppendCols(TypeMeasure::NumMeasures() + 1);
+    grid->CreateGrid(0, 0);
 
-    EnableEditing(false);
+    grid->AppendCols(TypeMeasure::NumMeasures() + 1);
 
-    DisableCellEditControl();
+    grid->EnableEditing(false);
 
-    SetRowLabelSize(0);
+    grid->DisableCellEditControl();
 
-    SetColLabelValue(0, "ID");
+    grid->SetRowLabelSize(0);
+
+    grid->SetColLabelValue(0, "ID");
 
     for (int meas = 0; meas < TypeMeasure::Count; meas++)
     {
@@ -38,12 +40,14 @@ WindowTable::WindowTable(const wxSize &size) :
 
         if (col >= 0)
         {
-            SetColLabelValue(TypeMeasure::NumColumn((TypeMeasure::E)meas), wxString(TypeMeasure::GetTitle((TypeMeasure::E)meas)) +
+            grid->SetColLabelValue(TypeMeasure::NumColumn((TypeMeasure::E)meas), wxString(TypeMeasure::GetTitle((TypeMeasure::E)meas)) +
                 wxString("\n") + wxString(TypeMeasure::GetUnits((TypeMeasure::E)meas)));
         }
     }
 
     StretchColumns();
+
+    wxTopLevelWindowMSW::Show();
 
 //    wxScrollHelperBase::SetScrollbars(20, 20, 5, 5);
 }
@@ -51,18 +55,18 @@ WindowTable::WindowTable(const wxSize &size) :
 
 void WindowTable::StretchColumns()
 {
-    int width = wxGrid::GetSize().x;
+    int width = grid->GetSize().x;
 
-    int size = width / GetNumberCols();
+    int size = width / grid->GetNumberCols();
 
-    for (int i = 0; i < GetNumberCols() - 1; i++)
+    for (int i = 0; i < grid->GetNumberCols() - 1; i++)
     {
-        SetColSize(i, size);
+        grid->SetColSize(i, size);
 
         width -= size;
     }
 
-    SetColSize(GetNumberCols() - 1, width);
+    grid->SetColSize(grid->GetNumberCols() - 1, width);
 }
 
 
@@ -77,11 +81,11 @@ void WindowTable::SetMeasure(uint id, const wxColour &color, uint8 type, float v
 
     if (row == rows.end())
     {
-        AppendRows(1);
+        grid->AppendRows(1);
 
-        rows.emplace(std::pair<uint, int>(id, GetNumberRows() - 1));
+        rows.emplace(std::pair<uint, int>(id, grid->GetNumberRows() - 1));
 
-        SetCellValue(GetNumberRows() - 1, 0, (int)id, color);
+        SetCellValue(grid->GetNumberRows() - 1, 0, (int)id, color);
     }
 
     row = rows.find(id);
@@ -100,9 +104,9 @@ void WindowTable::SetCellValue(int row, int col, float value, const wxColour &co
 {
     if (col >= 0)
     {
-        SetCellTextColour(row, col, color);
+        grid->SetCellTextColour(row, col, color);
 
-        wxGrid::SetCellValue(row, col, wxString::Format("%10.2f", value));
+        grid->SetCellValue(row, col, wxString::Format("%10.2f", value));
     }
 }
 
@@ -111,9 +115,9 @@ void WindowTable::SetCellValue(int row, int col, int value, const wxColour &colo
 {
     if (col >= 0)
     {
-        SetCellTextColour(row, col, color);
+        grid->SetCellTextColour(row, col, color);
 
-        wxGrid::SetCellValue(row, col, wxString::Format("%08X", value));
+        grid->SetCellValue(row, col, wxString::Format("%08X", value));
     }
 }
 

@@ -7,7 +7,7 @@
 */
 
 
-class WindowTable : public wxGrid
+class WindowTable : public wxFrame
 {
 public:
 
@@ -38,4 +38,6 @@ private:
 
     // Растянуть колонки на всю ширину
     void StretchColumns();
+
+    wxGrid *grid = nullptr;
 };
