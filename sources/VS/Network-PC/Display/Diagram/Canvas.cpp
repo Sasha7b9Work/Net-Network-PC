@@ -3,7 +3,7 @@
 #include "Display/Diagram/Canvas.h"
 #include "Data/Sensors.h"
 #include "Utils/Clock.h"
-#include "Settings.h"
+#include "Settings/Settings.h"
 #include <map>
 
 

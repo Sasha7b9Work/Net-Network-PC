@@ -3,7 +3,7 @@
 #include "Frame.h"
 #include "Display/Diagram/Diagram.h"
 #include "Display/Diagram/Canvas.h"
-#include "Settings.h"
+#include "Settings/Settings.h"
 #include "Windows/ConsoleSCPI.h"
 #include "Windows/ConsoleLog.h"
 #include "Communicator/Server/Server.h"
