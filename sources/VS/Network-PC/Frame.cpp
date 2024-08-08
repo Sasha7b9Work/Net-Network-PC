@@ -64,7 +64,6 @@ Frame::Frame(const wxString &title)
 
     wxMenu *menuSettings = new wxMenu();
     wxMenu *menuSpeed = new wxMenu();
-    wxMenu *menuModeView = new wxMenu();
 
     menuSpeed->Append(new wxMenuItem(menuSpeed, ID_SPEED_1, "1 сек", wxEmptyString, wxITEM_RADIO));
     menuSpeed->Append(new wxMenuItem(menuSpeed, ID_SPEED_2, "2 сек", wxEmptyString, wxITEM_RADIO));
@@ -72,12 +71,7 @@ Frame::Frame(const wxString &title)
     menuSpeed->Append(new wxMenuItem(menuSpeed, ID_SPEED_30, "30 сек", wxEmptyString, wxITEM_RADIO));
     menuSpeed->Append(new wxMenuItem(menuSpeed, ID_SPEED_60, "60 сек", wxEmptyString, wxITEM_RADIO));
 
-    menuModeView->Append(new wxMenuItem(menuModeView, ID_MODE_VIEW_FULL, "Полный", wxEmptyString, wxITEM_RADIO));
-    menuModeView->Append(new wxMenuItem(menuModeView, ID_MODE_VIEW_TABLE, "Таблица", wxEmptyString, wxITEM_RADIO));
-    menuModeView->Append(new wxMenuItem(menuModeView, ID_MODE_VIEW_GRAPH, "График", wxEmptyString, wxITEM_RADIO));
-
     menuSettings->AppendSubMenu(menuSpeed, _("Скорость обновления"));
-    menuSettings->AppendSubMenu(menuModeView, _("Вид"));
 
 //    wxMenu *menuTools = new wxMenu();
 //    menuTools->Append(TOOL_CONSOLE, _("Открыть консоль\tCtrl-K"), _("Открыть консоль"));
@@ -112,8 +106,6 @@ Frame::Frame(const wxString &title)
     ConsoleSCPI::Create();
 
     WindowTable::Create(FromDIP(wxSize((TypeMeasure::NumMeasures() + 1) * 60, 400)));
-
-    SetModeView(mode_view);
 }
 
 
@@ -127,33 +119,12 @@ void Frame::OnMenuSettings(wxCommandEvent &event)
 
         Set::TimeScale::Set(scales[event.GetId() - ID_SPEED_1]);
     }
-    else if (id >= ID_MODE_VIEW_FULL && id <= ID_MODE_VIEW_GRAPH)
-    {
-        SetModeView((ModeView::E)(id - ID_MODE_VIEW_FULL));
-    }
-}
-
-
-void Frame::SetModeView(ModeView::E mode)
-{
-    mode_view = mode;
-
-    sizer->Show(Diagram::Pool::self);
-
-    if (mode_view == ModeView::Table)
-    {
-        sizer->Hide(Diagram::Pool::self);
-    }
-
-    Diagram::Pool::self->OnEventSize(mode);
-
-    Layout();
 }
 
 
 void Frame::OnSize(wxSizeEvent &event)
 {
-    Diagram::Pool::self->OnEventSize(mode_view);
+    Diagram::Pool::self->OnEventSize();
 
     Layout();
 

@@ -19,8 +19,6 @@ public:
 
 private:
 
-    ModeView::E mode_view = ModeView::Full;
-
     wxToolBar *toolBar = nullptr;
 
     wxBoxSizer *sizer = nullptr;
@@ -32,8 +30,6 @@ private:
     void OnMenuTool(wxCommandEvent &);
 
     void OnMenuSettings(wxCommandEvent &);
-
-    void SetModeView(ModeView::E);
 
     void OnSocketEvent(wxSocketEvent &);
 };

@@ -36,7 +36,7 @@ public:
 
         void UpdateArea();
 
-        void OnEventSize(ModeView::E);
+        void OnEventSize();
 
     private:
 

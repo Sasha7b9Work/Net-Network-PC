@@ -137,20 +137,13 @@ void WindowTable::StretchEntireWidth(int width)
 }
 
 
-void WindowTable::OnEventSize(ModeView::E mode)
+void WindowTable::OnEventSize()
 {
-    if (mode == ModeView::Full)
-    {
-        wxSize size = { GetSize().GetWidth(), GetParent()->GetClientSize().y };
+    wxSize size = { GetSize().GetWidth(), GetParent()->GetClientSize().y };
 
-        SetMinClientSize(size);
-        SetClientSize(size);
-        SetSize(size);
+    SetMinClientSize(size);
+    SetClientSize(size);
+    SetSize(size);
 
-        StretchEntireWidth(create_width);
-    }
-    else if (mode == ModeView::Table)
-    {
-        StretchEntireWidth(GetParent()->GetClientSize().x);
-    }
+    StretchEntireWidth(create_width);
 }

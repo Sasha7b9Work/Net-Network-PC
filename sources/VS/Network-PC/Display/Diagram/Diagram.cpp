@@ -90,16 +90,9 @@ void Diagram::Pool::UpdateArea()
 }
 
 
-void Diagram::Pool::OnEventSize(ModeView::E mode)
+void Diagram::Pool::OnEventSize()
 {
-    if (mode == ModeView::Full)
-    {
-        SetSizeArea(GetParent()->GetClientRect().width, GetParent()->GetClientRect().height);
-    }
-    else if (mode == ModeView::Graph)
-    {
-        wxSize size = GetParent()->GetClientSize();
+    wxSize size = GetParent()->GetClientSize();
 
-        SetSizeArea(size.x, size.y);
-    }
+    SetSizeArea(size.x, size.y);
 }

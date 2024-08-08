@@ -22,7 +22,7 @@ public:
     // Растянуть на ширину width
     void StretchEntireWidth(int width);
 
-    void OnEventSize(ModeView::E);
+    void OnEventSize();
 
 private:
 
