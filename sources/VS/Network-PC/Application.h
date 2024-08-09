@@ -13,8 +13,6 @@ private:
 
     wxTimer timer;
 
-    void Init();
-
     void Update();
 
     virtual int OnExit() wxOVERRIDE;

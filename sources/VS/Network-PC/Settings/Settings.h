@@ -5,16 +5,18 @@
 
 namespace SET
 {
+    void Init();
+
+    void DeInit();
+
     namespace DIAGRAM
     {
         extern Value<int> time_scale;
     }
+
+    namespace NETWORK
+    {
+        extern Value<wxString> host_ip;
+        extern Value<int> host_port;
+    }
 }
-
-
-//namespace TimeScale
-//{
-//    // Сколько секунд в одном пикселе
-//    void Set(int);
-//    int Get();
-//}

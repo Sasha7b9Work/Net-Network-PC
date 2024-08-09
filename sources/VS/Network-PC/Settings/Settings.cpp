@@ -10,4 +10,22 @@ namespace SET
     {
         Value<int> time_scale{ "time_scale", 1 };
     }
+
+    namespace NETWORK
+    {
+        Value<wxString> host_ip{ "host_ip", "localhost" };
+        Value<int>      host_port{ "host_port", 3333 };
+    }
+}
+
+
+void SET::Init()
+{
+
+}
+
+
+void SET::DeInit()
+{
+
 }

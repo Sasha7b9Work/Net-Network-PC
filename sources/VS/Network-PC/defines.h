@@ -6,9 +6,9 @@
 
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 1
-#define VERSION_BUILD 112
+#define VERSION_BUILD 113
 
-#define DATE_BUILD "2024-08-08 22:21:32"
+#define DATE_BUILD "2024-08-09 23:30:27"
 
 
 typedef const char *pchar;
@@ -37,6 +37,3 @@ enum
 {
     SOCKET_ID = wxID_HIGHEST + 1000
 };
-
-
-extern wxFileConfig *g_file_config;

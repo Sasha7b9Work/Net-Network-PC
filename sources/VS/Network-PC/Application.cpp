@@ -4,12 +4,12 @@
 #include "Frame.h"
 #include "Communicator/Server/Server.h"
 #include "Windows/ConsoleSCPI.h"
-
-
-wxFileConfig *g_file_config = nullptr;
+#include "Communicator/Communicator.h"
+#include "Utils/Config.h"
 
 
 wxIMPLEMENT_APP(Application);
+
 
 enum
 {
@@ -22,9 +22,9 @@ bool Application::OnInit()
     if (!wxApp::OnInit())
         return false;
 
-    g_file_config = new wxFileConfig("", "", wxGetCwd() + "/config.cfg");
+    Log::Init();
 
-    wxConfigBase::Set(g_file_config);
+    Config::Init();
 
     // we use a PNG image in our HTML page
     wxImage::AddHandler(new wxPNGHandler);
@@ -32,7 +32,7 @@ bool Application::OnInit()
     // create and show the main application window
     Frame *frame = new Frame(_("ГТЦ-3"));
 
-    Init();
+    Communicator::Init();
 
     Bind(wxEVT_TIMER, &Application::OnTimer, this, TIMER_ID);
 
@@ -54,13 +54,7 @@ void Application::OnTimer(wxTimerEvent &)
 
 int Application::OnExit()
 {
-    wxConfigBase::Get(false)->Flush();
-
-    wxConfigBase::Set(nullptr);
-
-    delete g_file_config;
-
-    g_file_config = nullptr;
+    Config::DeInit();
 
     ServerMeasures::DeInit();
 

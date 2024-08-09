@@ -3,6 +3,7 @@
 #include "Communicator/Server/Server.h"
 #include "Frame.h"
 #include "Utils/Timer.h"
+#include "Settings/Settings.h"
 
 
 namespace ServerMeasures
@@ -41,11 +42,9 @@ void ServerMeasures::Init()
         wxIPV4address addr4;
         addr = &addr4;
 
-        wxString host_name;
-        g_file_config->Read("ip", &host_name, "localhost");
+        wxString host_name = SET::NETWORK::host_ip.Get();
 
-        int port = 0;
-        g_file_config->Read("port", &port, 3333);
+        int port = SET::NETWORK::host_port.Get();
 
         LOG_WRITE("Connect to %s:%d", host_name.c_str().AsChar(), port);
 

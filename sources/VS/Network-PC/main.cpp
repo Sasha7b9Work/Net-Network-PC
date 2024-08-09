@@ -17,14 +17,6 @@
 using namespace std;
 
 
-void Application::Init()
-{
-    Log::Init();
-
-    Communicator::Init();
-}
-
-
 void Application::Update()
 {
     Clock::Update();
