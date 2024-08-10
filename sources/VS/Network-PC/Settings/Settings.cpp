@@ -6,13 +6,19 @@
 
 namespace SET
 {
+    static void LoadSave(bool load);
+
     namespace DIAGRAM
     {
+        static void LoadSave(bool load);
+
         Value<int> time_scale{ "time_scale", 1 };
     }
 
     namespace NETWORK
     {
+        static void LoadSave(bool load);
+
         Value<wxString> host_ip{ "host_ip", "localhost" };
         Value<int>      host_port{ "host_port", 3333 };
     }
@@ -21,11 +27,31 @@ namespace SET
 
 void SET::Init()
 {
-
+    LoadSave(true);
 }
 
 
 void SET::DeInit()
 {
+    LoadSave(false);
+}
 
+
+void SET::LoadSave(bool load)
+{
+    DIAGRAM::LoadSave(load);
+    NETWORK::LoadSave(load);
+}
+
+
+void SET::DIAGRAM::LoadSave(bool load)
+{
+    time_scale.LoadSave(load);
+}
+
+
+void SET::NETWORK::LoadSave(bool load)
+{
+    host_ip.LoadSave(load);
+    host_port.LoadSave(load);
 }

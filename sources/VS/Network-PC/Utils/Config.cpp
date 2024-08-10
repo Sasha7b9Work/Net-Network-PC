@@ -5,7 +5,7 @@
 
 namespace Config
 {
-    static wxConfigBase *config = nullptr;
+    wxConfigBase *config = nullptr;
     static wxFileConfig *file_config = nullptr;
 
     static void SetFile(const wxString &);
@@ -14,7 +14,7 @@ namespace Config
 
 void Config::Init()
 {
-    file_config = new wxFileConfig("", "", "config.cfg");
+    file_config = new wxFileConfig("", "", wxGetCwd() + "/config.cfg");
 
     SetFile("");
 }
@@ -22,7 +22,12 @@ void Config::Init()
 
 void Config::DeInit()
 {
+    wxConfigBase::Get(false)->Flush();
+    wxConfigBase::Set(nullptr);
 
+    delete file_config;
+
+    file_config = nullptr;
 }
 
 

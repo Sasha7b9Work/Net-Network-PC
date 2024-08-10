@@ -26,6 +26,8 @@ bool Application::OnInit()
 
     Config::Init();
 
+    SET::Init();
+
     // we use a PNG image in our HTML page
     wxImage::AddHandler(new wxPNGHandler);
 
@@ -54,6 +56,8 @@ void Application::OnTimer(wxTimerEvent &)
 
 int Application::OnExit()
 {
+    SET::DeInit();
+
     Config::DeInit();
 
     ServerMeasures::DeInit();
