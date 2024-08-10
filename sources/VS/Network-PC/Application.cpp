@@ -22,11 +22,11 @@ bool Application::OnInit()
     if (!wxApp::OnInit())
         return false;
 
-    Log::Init();
-
     Config::Init();
 
     SET::Init();
+
+    Log::Init();
 
     // we use a PNG image in our HTML page
     wxImage::AddHandler(new wxPNGHandler);

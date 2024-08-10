@@ -1,6 +1,7 @@
 // 2024/08/07 10:28:59 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Windows/ConsoleLog.h"
+#include "Settings/Settings.h"
 
 
 wxTextCtrl *ConsoleLog::text = nullptr;
@@ -30,6 +31,17 @@ ConsoleLog::ConsoleLog() : wxFrame(nullptr, wxID_ANY, _("ÀÓ„"))
     Bind(wxEVT_CLOSE_WINDOW, &ConsoleLog::OnClose, this);
 
     wxTopLevelWindowMSW::Show();
+
+    wxRect rect = SET::GUI::window_log.Get();
+
+    SetPosition({ rect.x, rect.y });
+    SetSize({ rect.width, rect.height });
+}
+
+
+ConsoleLog::~ConsoleLog()
+{
+    SET::GUI::window_log.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
 }
 
 

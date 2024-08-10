@@ -1,21 +1,22 @@
 ﻿// 2024/08/08 14:46:34 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Windows/WindowTable.h"
 #include "Data/Sensors.h"
 #include "Communicator/Server/Server.h"
 #include "Communicator/HTTP/HTTP.h"
+#include "Settings/Settings.h"
+#include "Windows/WindowSensors.h"
 
 
-WindowTable *WindowTable::self = nullptr;
+WindowSensors *WindowSensors::self = nullptr;
 
 
-void WindowTable::Create(const wxSize &size)
+void WindowSensors::Create(const wxSize &size)
 {
-    self = new WindowTable(size);
+    self = new WindowSensors(size);
 }
 
 
-WindowTable::WindowTable(const wxSize &size) :
+WindowSensors::WindowSensors(const wxSize &size) :
     wxFrame(nullptr, wxID_ANY, _("Датчики"), wxDefaultPosition, size)
 {
     create_width = size.x;
@@ -49,11 +50,20 @@ WindowTable::WindowTable(const wxSize &size) :
 
     wxTopLevelWindowMSW::Show();
 
-//    wxScrollHelperBase::SetScrollbars(20, 20, 5, 5);
+    wxRect rect = SET::GUI::window_sensors.Get();
+
+    SetPosition({ rect.x, rect.y });
+    SetSize({ rect.width, rect.height });
 }
 
 
-void WindowTable::StretchColumns()
+WindowSensors::~WindowSensors()
+{
+    SET::GUI::window_sensors.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
+}
+
+
+void WindowSensors::StretchColumns()
 {
     int width = grid->GetSize().x;
 
@@ -70,7 +80,7 @@ void WindowTable::StretchColumns()
 }
 
 
-void WindowTable::SetMeasure(uint id, const wxColour &color, uint8 type, float value)
+void WindowSensors::SetMeasure(uint id, const wxColour &color, uint8 type, float value)
 {
     if (id == 0)
     {
@@ -100,7 +110,7 @@ void WindowTable::SetMeasure(uint id, const wxColour &color, uint8 type, float v
 }
 
 
-void WindowTable::SetCellValue(int row, int col, float value, const wxColour &color)
+void WindowSensors::SetCellValue(int row, int col, float value, const wxColour &color)
 {
     if (col >= 0)
     {
@@ -111,7 +121,7 @@ void WindowTable::SetCellValue(int row, int col, float value, const wxColour &co
 }
 
 
-void WindowTable::SetCellValue(int row, int col, int value, const wxColour &color)
+void WindowSensors::SetCellValue(int row, int col, int value, const wxColour &color)
 {
     if (col >= 0)
     {
@@ -122,7 +132,7 @@ void WindowTable::SetCellValue(int row, int col, int value, const wxColour &colo
 }
 
 
-void WindowTable::StretchEntireWidth(int width)
+void WindowSensors::StretchEntireWidth(int width)
 {
     wxSize size = GetParent()->GetClientSize();
 
@@ -137,7 +147,7 @@ void WindowTable::StretchEntireWidth(int width)
 }
 
 
-void WindowTable::OnEventSize()
+void WindowSensors::OnEventSize()
 {
     wxSize size = { GetSize().GetWidth(), GetParent()->GetClientSize().y };
 

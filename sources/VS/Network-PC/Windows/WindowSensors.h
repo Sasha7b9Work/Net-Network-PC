@@ -7,11 +7,13 @@
 */
 
 
-class WindowTable : public wxFrame
+class WindowSensors : public wxFrame
 {
 public:
 
-    static WindowTable *self;
+    virtual ~WindowSensors();
+
+    static WindowSensors *self;
 
     static void Create(const wxSize &);
 
@@ -26,7 +28,7 @@ public:
 
 private:
 
-    WindowTable(const wxSize &);
+    WindowSensors(const wxSize &);
 
     int create_width = 0;                   // Такую ширину имеет таблица во время создания
 

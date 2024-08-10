@@ -6,6 +6,8 @@ class ConsoleLog : public wxFrame
 {
 public:
 
+    virtual ~ConsoleLog();
+
     static ConsoleLog *self;
 
     static void Create();

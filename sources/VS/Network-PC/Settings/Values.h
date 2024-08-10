@@ -11,9 +11,16 @@ struct Value
 
     }
 
+    void SetDefault(const T &_def)
+    {
+        def = _def;
+    }
+
     void Set(T _value)
     {
         value = _value;
+
+        LoadSave(false);
     }
 
     T Get() const

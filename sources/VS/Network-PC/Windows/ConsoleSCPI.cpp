@@ -1,8 +1,9 @@
-// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+п»ї// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Windows/ConsoleSCPI.h"
 #include "Communicator/ComPort/ComPort.h"
 #include "Utils/String.h"
+#include "Settings/Settings.h"
 
 #undef CRC
 
@@ -17,7 +18,7 @@ wxTextCtrl *ConsoleSCPI::line = nullptr;
 ConsoleSCPI *ConsoleSCPI::self = nullptr;
 
 
-ConsoleSCPI::ConsoleSCPI() : wxFrame(nullptr, wxID_ANY, wxT("ГТЦ-3 SCPI"))
+ConsoleSCPI::ConsoleSCPI() : wxFrame(nullptr, wxID_ANY, wxT("Р“РўР¦-3 SCPI"))
 {
     text = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, { 600, 300 }, wxTE_MULTILINE | wxTE_READONLY);
 
@@ -37,18 +38,25 @@ ConsoleSCPI::ConsoleSCPI() : wxFrame(nullptr, wxID_ANY, wxT("ГТЦ-3 SCPI"))
 
     if (ComPort::Open())
     {
-        AddLine("Обнаружено внешнее устройство");
+        AddLine("РћР±РЅР°СЂСѓР¶РµРЅРѕ РІРЅРµС€РЅРµРµ СѓСЃС‚СЂРѕР№СЃС‚РІРѕ");
         timerComPort.Bind(wxEVT_TIMER, &ConsoleSCPI::OnTimerComPort, this);
         timerComPort.Start(10);
     }
     else
     {
-        AddLine("Внешнее устройство не обнаружено. Работает эмулятор");
+        AddLine("Р’РЅРµС€РЅРµРµ СѓСЃС‚СЂРѕР№СЃС‚РІРѕ РЅРµ РѕР±РЅР°СЂСѓР¶РµРЅРѕ. Р Р°Р±РѕС‚Р°РµС‚ СЌРјСѓР»СЏС‚РѕСЂ");
     }
+
+    wxRect rect = SET::GUI::window_scpi.Get();
+
+    SetPosition({ rect.x, rect.y });
+    SetSize({ rect.width, rect.height });
 }
 
 ConsoleSCPI::~ConsoleSCPI()
 {
+    SET::GUI::window_scpi.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
+
     ComPort::Close();
 }
 

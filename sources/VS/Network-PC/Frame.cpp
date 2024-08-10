@@ -7,8 +7,7 @@
 #include "Windows/ConsoleSCPI.h"
 #include "Windows/ConsoleLog.h"
 #include "Communicator/Server/Server.h"
-#include "Windows/WindowTable.h"
-#include "Windows/WindowTable.h"
+#include "Windows/WindowSensors.h"
 
 
 Frame *Frame::self = nullptr;
@@ -105,7 +104,12 @@ Frame::Frame(const wxString &title)
 
     ConsoleSCPI::Create();
 
-    WindowTable::Create(FromDIP(wxSize((TypeMeasure::NumMeasures() + 1) * 60, 400)));
+    WindowSensors::Create(FromDIP(wxSize((TypeMeasure::NumMeasures() + 1) * 60, 400)));
+
+    wxRect rect = SET::GUI::window_main.Get();
+
+    SetPosition({ rect.x, rect.y });
+    SetSize({ rect.width, rect.height });
 }
 
 
@@ -180,9 +184,11 @@ void Frame::OnSocketEvent(wxSocketEvent &event)
 
 void Frame::OnCloseWindow(wxCloseEvent &event)
 {
+    SET::GUI::window_main.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
+
     delete ConsoleSCPI::self;
 
-    delete WindowTable::self;
+    delete WindowSensors::self;
 
     Log::DeInit();
 

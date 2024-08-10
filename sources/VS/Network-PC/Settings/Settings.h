@@ -19,4 +19,12 @@ namespace SET
         extern Value<wxString> host_ip;
         extern Value<int> host_port;
     }
+
+    namespace GUI
+    {
+        extern Value<wxRect> window_main;
+        extern Value<wxRect> window_sensors;
+        extern Value<wxRect> window_log;
+        extern Value<wxRect> window_scpi;
+    }
 }

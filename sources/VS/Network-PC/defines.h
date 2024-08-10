@@ -6,9 +6,9 @@
 
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 1
-#define VERSION_BUILD 114
+#define VERSION_BUILD 115
 
-#define DATE_BUILD "2024-08-10 10:56:57"
+#define DATE_BUILD "2024-08-10 12:38:10"
 
 
 typedef const char *pchar;
@@ -30,6 +30,7 @@ typedef const char *pchar;
 #include <wx/fileconf.h>
 #include <wx/webrequest.h>
 #include <map>
+#include <vector>
 #pragma warning(pop)
 
 
