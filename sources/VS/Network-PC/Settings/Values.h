@@ -46,3 +46,9 @@ private:
     T value;
     T def;
 };
+
+
+struct TimeScale : public Value<int>
+{
+    TimeScale(pchar _key, const int &_def) : Value(_key, _def) { }
+};

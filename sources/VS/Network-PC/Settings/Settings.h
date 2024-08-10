@@ -3,6 +3,9 @@
 #include "Settings/Values.h"
 
 
+
+
+
 namespace SET
 {
     void Init();
@@ -11,7 +14,7 @@ namespace SET
 
     namespace DIAGRAM
     {
-        extern Value<int> time_scale;
+        extern TimeScale time_scale;
     }
 
     namespace NETWORK

@@ -8,7 +8,7 @@ namespace SET
 {
     namespace DIAGRAM
     {
-        Value<int> time_scale{ "time_scale", 1 };
+        TimeScale time_scale{ "time_scale", 1 };
 
         static void LoadSave(bool load)
         {
