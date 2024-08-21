@@ -78,7 +78,7 @@ void Canvas::DrawTimeScale(wxMemoryDC &dc)
 
         dc.DrawText(time.ToString().c_str(), { x + 1, y - 15 });
 
-        time.SubMin(SET::DIAGRAM::time_scale.Get());
+        time.SubMin(SET::DIAGRAM::time_scale.SecsToPixel());
 
         x -= dx;
     }
@@ -93,7 +93,7 @@ int Canvas::TimeToX(const Time &time)
 
     Time difference = current_time - time;
 
-    return width - (difference.ToSec() / SET::DIAGRAM::time_scale.Get());
+    return width - (difference.ToSec() / SET::DIAGRAM::time_scale.SecsToPixel());
 }
 
 

@@ -3,5 +3,9 @@
 #include "Settings/Values.h"
 
 
+int TimeScale::SecsToPixel() const
+{
+    static const int scales[] = { 1, 2, 5, 30, 60 };
 
-
+    return scales[value];
+}

@@ -6,10 +6,12 @@
 template<class T>
 struct Value
 {
-    Value(pchar _key, const T &_def) : key(_key), value(_def), def(_def)
+    Value(pchar _key, const T &_def) : value(_def), key(_key), def(_def)
     {
 
     }
+
+    virtual ~Value() { }
 
     void SetDefault(const T &_def)
     {
@@ -40,10 +42,13 @@ struct Value
         }
     }
 
+protected:
+
+    T value;
+
 private:
 
     pchar key;
-    T value;
     T def;
 };
 
@@ -51,4 +56,6 @@ private:
 struct TimeScale : public Value<int>
 {
     TimeScale(pchar _key, const int &_def) : Value(_key, _def) { }
+
+    int SecsToPixel() const;
 };

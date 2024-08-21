@@ -119,9 +119,7 @@ void Frame::OnMenuSettings(wxCommandEvent &event)
 
     if (id >= ID_SPEED_1 && id <= ID_SPEED_60)
     {
-        static const int scales[] = { 1, 2, 5, 30, 60 };
-
-        SET::DIAGRAM::time_scale.Set(scales[event.GetId() - ID_SPEED_1]);
+        SET::DIAGRAM::time_scale.Set(event.GetId() - ID_SPEED_1);
     }
 }
 
