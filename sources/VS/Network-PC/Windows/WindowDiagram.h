@@ -10,7 +10,7 @@ public:
 
     static WindowDiagram *self;
 
-    static void Create(const wxSize &);
+    static void Create();
 
     static void UpdateArea();
 
@@ -18,7 +18,7 @@ public:
 
 private:
 
-    WindowDiagram(const wxSize &);
+    WindowDiagram();
 
     void OnEventSize(wxSizeEvent &);
 

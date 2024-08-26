@@ -7,14 +7,14 @@
 WindowDiagram *WindowDiagram::self = nullptr;
 
 
-void WindowDiagram::Create(const wxSize &size)
+void WindowDiagram::Create()
 {
-    self = new WindowDiagram(size);
+    self = new WindowDiagram();
 }
 
 
-WindowDiagram::WindowDiagram(const wxSize &size) :
-    wxFrame(nullptr, wxID_ANY, _("Графики"), wxDefaultPosition, size)
+WindowDiagram::WindowDiagram() :
+    wxFrame(nullptr, wxID_ANY, _("Графики"))
 {
     Bind(wxEVT_SIZE, &WindowDiagram::OnEventSize, this);
 
