@@ -28,7 +28,7 @@ enum
     TOOL_VIEW_BRIEF,        // Сокращённый вид отображения
     TOOL_VIEW_FULL,         // Полный вид отображения
 
-    TOOL_CONSOLE,
+    VIEW_TERMINAL,          // Открыть/закрыть терминал
     TOOL_DATABASE,
 
     MEAS_PRESSURE,          // Давление
@@ -77,21 +77,23 @@ MainWindow::MainWindow(const wxString &title)
 
     menuSettings->AppendSubMenu(menuSpeed, _("Скорость обновления"));
 
-//    wxMenu *menuTools = new wxMenu();
-//    menuTools->Append(TOOL_CONSOLE, _("Открыть консоль\tCtrl-K"), _("Открыть консоль"));
+    wxMenu *menuView = new wxMenu();
+    menuView->Append(VIEW_TERMINAL, _("Открыть терминал\tCtrl-K"), _("Открыть терминал"));
 //    menuTools->Append(TOOL_DATABASE, _("База данных\tCtrl-D"), _("База данных"));
 
     Bind(wxEVT_MENU, &MainWindow::OnMenuSettings, this);
 
     menuBar->Append(menuSettings, _("Настройки"));
 
+    menuBar->Append(menuView, _("Вид"));
+
 //    menuBar->Append(menuTools, _("Инструменты"));
 
     wxFrameBase::SetMenuBar(menuBar);
 
     Bind(wxEVT_MENU, &MainWindow::OnAbout, this, wxID_ABOUT);
-    Bind(wxEVT_MENU, &MainWindow::OnMenuTool, this, TOOL_CONSOLE);
-    Bind(wxEVT_MENU, &MainWindow::OnMenuTool, this, TOOL_DATABASE);
+    Bind(wxEVT_MENU, &MainWindow::OnMenuView, this, VIEW_TERMINAL);
+    Bind(wxEVT_MENU, &MainWindow::OnMenuView, this, TOOL_DATABASE);
     Bind(wxEVT_CLOSE_WINDOW, &MainWindow::OnCloseWindow, this);
 
     Bind(wxEVT_SOCKET, &MainWindow::OnSocketEvent, this, SOCKET_ID);
@@ -254,15 +256,15 @@ void MainWindow::OnAbout(wxCommandEvent &WXUNUSED(event))
 }
 
 
-void MainWindow::OnMenuTool(wxCommandEvent &event)
+void MainWindow::OnMenuView(wxCommandEvent &event)
 {
     int id = event.GetId();
 
-    if (id == TOOL_CONSOLE)
+    if (id == VIEW_TERMINAL)
     {
         ConsoleSCPI::self->SwitchVisibility();
 
-        FindItemInMenuBar(TOOL_CONSOLE)->SetItemLabel(ConsoleSCPI::self ->IsShown() ? _("Закрыть консоль") : _("Открыть консоль"));
+        FindItemInMenuBar(VIEW_TERMINAL)->SetItemLabel(ConsoleSCPI::self ->IsShown() ? _("Закрыть консоль") : _("Открыть консоль"));
     }
     else if (id == TOOL_DATABASE)
     {

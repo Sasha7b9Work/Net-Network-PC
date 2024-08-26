@@ -49,7 +49,7 @@ private:
 
     void OnCloseWindow(wxCloseEvent &);
 
-    void OnMenuTool(wxCommandEvent &);
+    void OnMenuView(wxCommandEvent &);
 
     void OnMenuSettings(wxCommandEvent &);
 
