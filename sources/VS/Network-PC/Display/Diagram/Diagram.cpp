@@ -3,6 +3,7 @@
 #include "Display/Diagram/Diagram.h"
 #include "Display/Diagram/Canvas.h"
 #include "Utils/Clock.h"
+#include "Windows/WindowDiagram.h"
 
 
 Diagram::Pool *Diagram::Pool::self = nullptr;

@@ -23,6 +23,28 @@ WindowDiagram::WindowDiagram(const wxSize &size) :
     sizer->Add(Diagram::Pool::Create(this));
 
     SetSizer(sizer);
+
+    wxRect rect = SET::GUI::window_diagram.Get();
+
+    SetPosition({ rect.x, rect.y });
+    SetSize({ rect.width, rect.height });
+
+    Bind(wxEVT_CLOSE_WINDOW, &WindowDiagram::OnEventClose, this);
+}
+
+
+WindowDiagram::~WindowDiagram()
+{
+    if (IsShown())
+    {
+        SET::GUI::window_diagram.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
+    }
+
+    delete Diagram::Pool::self;
+
+    Diagram::Pool::self = nullptr;
+
+    self = nullptr;
 }
 
 
@@ -33,4 +55,21 @@ void WindowDiagram::OnEventSize(wxSizeEvent &event)
     Layout();
 
     event.Skip();
+}
+
+
+void WindowDiagram::OnEventClose(wxCloseEvent &event)
+{
+    SET::GUI::window_diagram.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
+
+    event.Skip();
+}
+
+
+void WindowDiagram::UpdateArea()
+{
+    if (self && self->IsShown())
+    {
+        Diagram::Pool::self->UpdateArea();
+    }
 }

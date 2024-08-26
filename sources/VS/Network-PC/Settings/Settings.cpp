@@ -31,7 +31,7 @@ namespace SET
     namespace GUI
     {
         Value<wxRect> window_main{ "gui_window_main", { 0, 0, 320, 240} };
-        Value<wxRect> window_sensors{ "gui_window_sensors", {0, 240, 320, 240} };
+        Value<wxRect> window_diagram{ "gui_window_diagram", {0, 240, 320, 240} };
         Value<wxRect> window_log{ "gui_window_log", {320, 0, 320, 240} };
         Value<wxRect> window_scpi{ "gui_window_scpi", {320, 240, 320, 240} };
 
@@ -43,13 +43,13 @@ namespace SET
                 wxSize size{ d_size.GetWidth() / 2, d_size.GetHeight() / 2 };
 
                 window_main.SetDefault({ 0, 0, size.GetWidth(), size.GetHeight() });
-                window_sensors.SetDefault({ 0, d_size.GetHeight() / 2, size.GetWidth(), size.GetHeight() });
+                window_diagram.SetDefault({ 0, d_size.GetHeight() / 2, size.GetWidth(), size.GetHeight() });
                 window_log.SetDefault({ d_size.GetWidth() / 2, 0, size.GetWidth(), size.GetHeight() });
                 window_scpi.SetDefault({ d_size.GetWidth() / 2, d_size.GetHeight() / 2, size.GetWidth(), size.GetHeight() });
             }
 
             window_main.LoadSave(load);
-            window_sensors.LoadSave(load);
+            window_diagram.LoadSave(load);
             window_log.LoadSave(load);
             window_scpi.LoadSave(load);
         }

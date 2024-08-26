@@ -26,7 +26,7 @@ namespace SET
     namespace GUI
     {
         extern Value<wxRect> window_main;
-        extern Value<wxRect> window_sensors;
+        extern Value<wxRect> window_diagram;
         extern Value<wxRect> window_log;
         extern Value<wxRect> window_scpi;
     }

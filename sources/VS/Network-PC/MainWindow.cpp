@@ -50,7 +50,7 @@ enum
 
 
 MainWindow::MainWindow(const wxString &title)
-    : wxFrame((wxFrame *)NULL, wxID_ANY, title)
+    : wxFrame((wxFrame *)NULL, wxID_ANY, title, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE | wxSTAY_ON_TOP)
 {
     wxSize size = FromDIP(wxSize((TypeMeasure::NumMeasures() + 1) * 60, 400));
 

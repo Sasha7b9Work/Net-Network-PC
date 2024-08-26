@@ -26,6 +26,7 @@ public:
 
     class Pool : public wxPanel
     {
+        friend class WindowDiagram;
     public:
 
         static Pool *Create(wxWindow *);
@@ -34,11 +35,11 @@ public:
 
         void SetSizeArea(int width, int height);
 
-        void UpdateArea();
-
         void OnEventSize();
 
     private:
+
+        void UpdateArea();
 
         Pool(wxWindow *parent);
 
