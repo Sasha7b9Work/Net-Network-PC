@@ -1,7 +1,7 @@
 // 2022/08/25 08:50:23 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Log.h"
-#include "Windows/ConsoleLog.h"
+#include "Windows/WindowLog.h"
 #include <cstdarg>
 #include <cstring>
 #include <cstdio>
@@ -15,13 +15,13 @@ namespace Log
 
 void Log::Init()
 {
-    ConsoleLog::Create();
+    WindowLog::Create();
 }
 
 
 void Log::DeInit()
 {
-    delete ConsoleLog::self;
+    delete WindowLog::self;
 }
 
 
@@ -34,7 +34,7 @@ void Log::Write(char *format, ...)
     std::vsprintf(pointer, format, args);
     va_end(args);
 
-    ConsoleLog::self->AddLine(buffer);
+    WindowLog::self->AddLine(buffer);
 }
 
 
@@ -48,5 +48,5 @@ void Log::Error(char *format, ...)
     std::vsprintf(pointer, format, args);
     va_end(args);
 
-    ConsoleLog::self->AddLine(buffer);
+    WindowLog::self->AddLine(buffer);
 }

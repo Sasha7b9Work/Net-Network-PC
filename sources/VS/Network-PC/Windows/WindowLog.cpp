@@ -1,12 +1,12 @@
 // 2024/08/07 10:28:59 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Windows/ConsoleLog.h"
+#include "Windows/WindowLog.h"
 #include "Settings/Settings.h"
 
 
-wxTextCtrl *ConsoleLog::text = nullptr;
-wxTextCtrl *ConsoleLog::line = nullptr;
-ConsoleLog *ConsoleLog::self = nullptr;
+wxTextCtrl *WindowLog::text = nullptr;
+wxTextCtrl *WindowLog::line = nullptr;
+WindowLog *WindowLog::self = nullptr;
 
 
 enum
@@ -16,7 +16,7 @@ enum
 
 
 
-ConsoleLog::ConsoleLog() : wxFrame(nullptr, wxID_ANY, _("Ëîã"))
+WindowLog::WindowLog() : wxFrame(nullptr, wxID_ANY, _("Ëîã"))
 {
     text = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, { 600, 300 }, wxTE_MULTILINE | wxTE_READONLY);
 
@@ -27,8 +27,8 @@ ConsoleLog::ConsoleLog() : wxFrame(nullptr, wxID_ANY, _("Ëîã"))
     line->SetFont(font);
     text->SetFont(font);
 
-    Bind(wxEVT_SIZE, &ConsoleLog::OnSize, this);
-    Bind(wxEVT_CLOSE_WINDOW, &ConsoleLog::OnClose, this);
+    Bind(wxEVT_SIZE, &WindowLog::OnSize, this);
+    Bind(wxEVT_CLOSE_WINDOW, &WindowLog::OnClose, this);
 
     wxTopLevelWindowMSW::Show();
 
@@ -39,25 +39,25 @@ ConsoleLog::ConsoleLog() : wxFrame(nullptr, wxID_ANY, _("Ëîã"))
 }
 
 
-ConsoleLog::~ConsoleLog()
+WindowLog::~WindowLog()
 {
     SET::GUI::window_log.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
 }
 
 
-void ConsoleLog::Create()
+void WindowLog::Create()
 {
-    self = new ConsoleLog();
+    self = new WindowLog();
 }
 
 
-void ConsoleLog::AddLine(const wxString &str)
+void WindowLog::AddLine(const wxString &str)
 {
     text->WriteText(str + "\n");
 }
 
 
-void ConsoleLog::OnSize(wxSizeEvent &)
+void WindowLog::OnSize(wxSizeEvent &)
 {
     wxPoint clientOrigin = GetClientAreaOrigin();
 
@@ -75,13 +75,13 @@ void ConsoleLog::OnSize(wxSizeEvent &)
 }
 
 
-void ConsoleLog::OnClose(wxCloseEvent &)
+void WindowLog::OnClose(wxCloseEvent &)
 {
     Show(false);
 }
 
 
-void ConsoleLog::SwitchVisibility()
+void WindowLog::SwitchVisibility()
 {
     Show(!IsShown());
 }

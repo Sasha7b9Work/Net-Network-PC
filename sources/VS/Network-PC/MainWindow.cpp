@@ -3,8 +3,8 @@
 #include "Display/Diagram/Diagram.h"
 #include "Display/Diagram/Canvas.h"
 #include "Settings/Settings.h"
-#include "Windows/ConsoleSCPI.h"
-#include "Windows/ConsoleLog.h"
+#include "Windows/WindowTerminal.h"
+#include "Windows/WindowLog.h"
 #include "Communicator/Server/Server.h"
 #include "Windows/WindowDiagram.h"
 #include "Communicator/HTTP/HTTP.h"
@@ -129,7 +129,7 @@ MainWindow::MainWindow(const wxString &title)
     SetClientSize(1024, 600);
     wxWindowBase::SetMinClientSize({ 800, 300 });
 
-    ConsoleSCPI::Create();
+    WindowTerminal::Create();
 
     wxRect rect = SET::GUI::window_main.Get();
 
@@ -263,15 +263,15 @@ void MainWindow::OnMenuView(wxCommandEvent &event)
 
     if (id == VIEW_TERMINAL)
     {
-        ConsoleSCPI::self->SwitchVisibility();
+        WindowTerminal::self->SwitchVisibility();
 
-        FindItemInMenuBar(VIEW_TERMINAL)->SetItemLabel(ConsoleSCPI::self ->IsShown() ? _("Закрыть консоль") : _("Открыть консоль"));
+        FindItemInMenuBar(VIEW_TERMINAL)->SetItemLabel(WindowTerminal::self ->IsShown() ? _("Закрыть консоль") : _("Открыть консоль"));
     }
     else if (id == VIEW_LOG)
     {
-        ConsoleLog::self->SwitchVisibility();
+        WindowLog::self->SwitchVisibility();
 
-        FindItemInMenuBar(VIEW_LOG)->SetItemLabel(ConsoleLog::self->IsShown() ? _("Закрыть лог") : _("Открыть лог"));
+        FindItemInMenuBar(VIEW_LOG)->SetItemLabel(WindowLog::self->IsShown() ? _("Закрыть лог") : _("Открыть лог"));
     }
     else if (id == VIEW_DIAGRAM)
     {
@@ -292,7 +292,7 @@ void MainWindow::OnCloseWindow(wxCloseEvent &event)
 {
     SET::GUI::window_main.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
 
-    delete ConsoleSCPI::self;
+    delete WindowTerminal::self;
 
     delete WindowDiagram::self;
 

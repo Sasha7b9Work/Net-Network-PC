@@ -2,13 +2,13 @@
 #pragma once
 
 
-class ConsoleLog : public wxFrame
+class WindowLog : public wxFrame
 {
 public:
 
-    virtual ~ConsoleLog();
+    virtual ~WindowLog();
 
-    static ConsoleLog *self;
+    static WindowLog *self;
 
     static void Create();
 
@@ -18,7 +18,7 @@ public:
 
 private:
 
-    ConsoleLog();
+    WindowLog();
 
     static wxTextCtrl *text;
     static wxTextCtrl *line;

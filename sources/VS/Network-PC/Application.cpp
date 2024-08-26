@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "Application.h"
 #include "Communicator/Server/Server.h"
-#include "Windows/ConsoleSCPI.h"
+#include "Windows/WindowTerminal.h"
 #include "Communicator/Communicator.h"
 #include "Utils/Config.h"
 #include "Windows/WindowDiagram.h"

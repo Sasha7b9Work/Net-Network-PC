@@ -1,6 +1,6 @@
 ﻿// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Windows/ConsoleSCPI.h"
+#include "Windows/WindowTerminal.h"
 #include "Communicator/ComPort/ComPort.h"
 #include "Utils/String.h"
 #include "Settings/Settings.h"
@@ -13,12 +13,12 @@
 #pragma warning(pop)
 
 
-wxTextCtrl *ConsoleSCPI::text = nullptr;
-wxTextCtrl *ConsoleSCPI::line = nullptr;
-ConsoleSCPI *ConsoleSCPI::self = nullptr;
+wxTextCtrl *WindowTerminal::text = nullptr;
+wxTextCtrl *WindowTerminal::line = nullptr;
+WindowTerminal *WindowTerminal::self = nullptr;
 
 
-ConsoleSCPI::ConsoleSCPI() : wxFrame(nullptr, wxID_ANY, wxT("Терминал"))
+WindowTerminal::WindowTerminal() : wxFrame(nullptr, wxID_ANY, wxT("Терминал"))
 {
     text = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, { 600, 300 }, wxTE_MULTILINE | wxTE_READONLY);
 
@@ -29,17 +29,17 @@ ConsoleSCPI::ConsoleSCPI() : wxFrame(nullptr, wxID_ANY, wxT("Терминал"))
     line->SetFont(font);
     text->SetFont(font);
 
-    Bind(wxEVT_SIZE, &ConsoleSCPI::OnSize, this);
-    line->Bind(wxEVT_TEXT_ENTER, &ConsoleSCPI::OnTextEnter, this, ID_LINE);
-    line->Bind(wxEVT_KEY_DOWN, &ConsoleSCPI::OnTextControlKeyDown, this, ID_LINE);
-    Bind(wxEVT_CLOSE_WINDOW, &ConsoleSCPI::OnClose, this);
+    Bind(wxEVT_SIZE, &WindowTerminal::OnSize, this);
+    line->Bind(wxEVT_TEXT_ENTER, &WindowTerminal::OnTextEnter, this, ID_LINE);
+    line->Bind(wxEVT_KEY_DOWN, &WindowTerminal::OnTextControlKeyDown, this, ID_LINE);
+    Bind(wxEVT_CLOSE_WINDOW, &WindowTerminal::OnClose, this);
 
     wxTopLevelWindowMSW::Show();
 
     if (ComPort::Open())
     {
         AddLine("Обнаружено внешнее устройство");
-        timerComPort.Bind(wxEVT_TIMER, &ConsoleSCPI::OnTimerComPort, this);
+        timerComPort.Bind(wxEVT_TIMER, &WindowTerminal::OnTimerComPort, this);
         timerComPort.Start(10);
     }
     else
@@ -53,7 +53,7 @@ ConsoleSCPI::ConsoleSCPI() : wxFrame(nullptr, wxID_ANY, wxT("Терминал"))
     SetSize({ rect.width, rect.height });
 }
 
-ConsoleSCPI::~ConsoleSCPI()
+WindowTerminal::~WindowTerminal()
 {
     SET::GUI::window_scpi.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
 
@@ -61,7 +61,7 @@ ConsoleSCPI::~ConsoleSCPI()
 }
 
 
-void ConsoleSCPI::OnSize(wxSizeEvent &)
+void WindowTerminal::OnSize(wxSizeEvent &)
 {
     wxPoint clientOrigin = GetClientAreaOrigin();
 
@@ -79,7 +79,7 @@ void ConsoleSCPI::OnSize(wxSizeEvent &)
 }
 
 
-void ConsoleSCPI::OnTimerComPort(wxTimerEvent &)
+void WindowTerminal::OnTimerComPort(wxTimerEvent &)
 {
     if (ComPort::IsOpened())
     {
@@ -97,13 +97,13 @@ void ConsoleSCPI::OnTimerComPort(wxTimerEvent &)
 }
 
 
-void ConsoleSCPI::Create()
+void WindowTerminal::Create()
 {
-    self = new ConsoleSCPI();
+    self = new WindowTerminal();
 }
 
 
-void ConsoleSCPI::OnTextEnter(wxCommandEvent &)
+void WindowTerminal::OnTextEnter(wxCommandEvent &)
 {
     history.Add(line->GetLineText(0));
 
@@ -122,7 +122,7 @@ void ConsoleSCPI::OnTextEnter(wxCommandEvent &)
 }
 
 
-void ConsoleSCPI::OnTextControlKeyDown(wxKeyEvent &event)
+void WindowTerminal::OnTextControlKeyDown(wxKeyEvent &event)
 {
     if (event.GetKeyCode() == WXK_UP)
     {
@@ -151,31 +151,31 @@ void ConsoleSCPI::OnTextControlKeyDown(wxKeyEvent &event)
 }
 
 
-void ConsoleSCPI::AddLine(const wxString &str)
+void WindowTerminal::AddLine(const wxString &str)
 {
     AddText(str);
     AddText(wxT("\n"));
 }
 
-void ConsoleSCPI::AddText(const wxString &str)
+void WindowTerminal::AddText(const wxString &str)
 {
     text->WriteText(str);
 }
 
 
-void ConsoleSCPI::SwitchVisibility()
+void WindowTerminal::SwitchVisibility()
 {
     Show(!IsShown());
 }
 
 
-void ConsoleSCPI::OnClose(wxCloseEvent &)
+void WindowTerminal::OnClose(wxCloseEvent &)
 {
     Show(false);
 }
 
 
-void ConsoleSCPI::History::Add(const wxString &txt)
+void WindowTerminal::History::Add(const wxString &txt)
 {
     if ((history.size() == 0) || 
         (history[history.size() - 1].compare(txt) != 0))
@@ -186,7 +186,7 @@ void ConsoleSCPI::History::Add(const wxString &txt)
 }
 
 
-wxString ConsoleSCPI::History::Next()
+wxString WindowTerminal::History::Next()
 {
     if (history.size() == 0)
     {
@@ -205,7 +205,7 @@ wxString ConsoleSCPI::History::Next()
 }
 
 
-wxString ConsoleSCPI::History::Prev()
+wxString WindowTerminal::History::Prev()
 {
     if (history.size() == 0)
     {

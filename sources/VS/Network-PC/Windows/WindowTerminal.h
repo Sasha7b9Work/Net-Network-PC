@@ -6,14 +6,14 @@
 #pragma warning(pop)
 
 
-class ConsoleSCPI : public wxFrame
+class WindowTerminal : public wxFrame
 {
 public:
 
     static void Create();
-    static ConsoleSCPI *self;
+    static WindowTerminal *self;
 
-    virtual ~ConsoleSCPI();
+    virtual ~WindowTerminal();
 
     void SwitchVisibility();
 
@@ -27,7 +27,7 @@ private:
         ID_LINE
     };
 
-    ConsoleSCPI();
+    WindowTerminal();
 
     void OnSize(wxSizeEvent &);
     void OnTextEnter(wxCommandEvent &);
