@@ -33,12 +33,12 @@ bool Application::OnInit()
     // we use a PNG image in our HTML page
     wxImage::AddHandler(new wxPNGHandler);
 
-    // create and show the main application window
-    MainWindow *frame = new MainWindow(_("Датчики"));
-
     WindowDiagram::Create();
 
     WindowDiagram::self->Show();
+
+    // create and show the main application window
+    MainWindow *frame = new MainWindow(_("Датчики"));
 
     Communicator::Init();
 
