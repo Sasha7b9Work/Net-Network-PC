@@ -7,8 +7,8 @@
 #include "Windows/ConsoleSCPI.h"
 #include "Windows/ConsoleLog.h"
 #include "Communicator/Server/Server.h"
-#include "Windows/WindowSensors.h"
 #include "Windows/WindowDiagram.h"
+#include "Communicator/HTTP/HTTP.h"
 
 
 Frame *Frame::self = nullptr;
@@ -52,6 +52,10 @@ enum
 Frame::Frame(const wxString &title)
     : wxFrame((wxFrame *)NULL, wxID_ANY, title)
 {
+    wxSize size = FromDIP(wxSize((TypeMeasure::NumMeasures() + 1) * 60, 400));
+
+    create_width = size.x;
+
     self = this;
 
     SetIcon(wxICON(MAIN_ICON));
@@ -90,28 +94,115 @@ Frame::Frame(const wxString &title)
     Bind(wxEVT_MENU, &Frame::OnMenuTool, this, TOOL_DATABASE);
     Bind(wxEVT_CLOSE_WINDOW, &Frame::OnCloseWindow, this);
 
-    Bind(wxEVT_SIZE, &Frame::OnEventSize, this);
-
     Bind(wxEVT_SOCKET, &Frame::OnSocketEvent, this, SOCKET_ID);
 
-    wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
+    grid = new wxGrid(this, wxID_ANY, { 0, 0 }, size);
 
-    sizer->Add(Diagram::Pool::Create(this));
+    grid->CreateGrid(0, 0);
 
-    SetSizer(sizer);
+    grid->AppendCols(TypeMeasure::NumMeasures() + 1);
+
+    grid->EnableEditing(false);
+
+    grid->DisableCellEditControl();
+
+    grid->SetRowLabelSize(0);
+
+    grid->SetColLabelValue(0, "ID");
+
+    for (int meas = 0; meas < TypeMeasure::Count; meas++)
+    {
+        int col = TypeMeasure::NumColumn((TypeMeasure::E)meas);
+
+        if (col >= 0)
+        {
+            grid->SetColLabelValue(TypeMeasure::NumColumn((TypeMeasure::E)meas), wxString(TypeMeasure::GetTitle((TypeMeasure::E)meas)) +
+                wxString("\n") + wxString(TypeMeasure::GetUnits((TypeMeasure::E)meas)));
+        }
+    }
+
+    StretchColumns();
 
     SetClientSize(1024, 600);
     wxWindowBase::SetMinClientSize({ 800, 300 });
 
     ConsoleSCPI::Create();
 
-    WindowSensors::Create(FromDIP(wxSize((TypeMeasure::NumMeasures() + 1) * 60, 400)));
-
     wxRect rect = SET::GUI::window_main.Get();
 
     SetPosition({ rect.x, rect.y });
     SetSize({ rect.width, rect.height });
 }
+
+
+void Frame::StretchColumns()
+{
+    int width = grid->GetSize().x;
+
+    int size = width / grid->GetNumberCols();
+
+    for (int i = 0; i < grid->GetNumberCols() - 1; i++)
+    {
+        grid->SetColSize(i, size);
+
+        width -= size;
+    }
+
+    grid->SetColSize(grid->GetNumberCols() - 1, width);
+}
+
+
+void Frame::SetMeasure(uint id, const wxColour &color, uint8 type, float value)
+{
+    if (id == 0)
+    {
+        return;
+    }
+
+    auto row = rows.find(id);
+
+    if (row == rows.end())
+    {
+        grid->AppendRows(1);
+
+        rows.emplace(std::pair<uint, int>(id, grid->GetNumberRows() - 1));
+
+        SetCellValue(grid->GetNumberRows() - 1, 0, (int)id, color);
+    }
+
+    row = rows.find(id);
+
+    TypeMeasure::E type_meas = (TypeMeasure::E)type;
+
+    SetCellValue(row->second, TypeMeasure::NumColumn(type_meas), (float)value, color);
+
+    ServerMeasures::Send(id, type_meas, (float)value);
+
+    HTTP::SendPOST(type_meas, value);
+}
+
+
+void Frame::SetCellValue(int row, int col, float value, const wxColour &color)
+{
+    if (col >= 0)
+    {
+        grid->SetCellTextColour(row, col, color);
+
+        grid->SetCellValue(row, col, wxString::Format("%10.2f", value));
+    }
+}
+
+
+void Frame::SetCellValue(int row, int col, int value, const wxColour &color)
+{
+    if (col >= 0)
+    {
+        grid->SetCellTextColour(row, col, color);
+
+        grid->SetCellValue(row, col, wxString::Format("%08X", value));
+    }
+}
+
 
 
 void Frame::OnMenuSettings(wxCommandEvent &event)
@@ -125,13 +216,18 @@ void Frame::OnMenuSettings(wxCommandEvent &event)
 }
 
 
-void Frame::OnEventSize(wxSizeEvent &event)
+void Frame::StretchEntireWidth(int width)
 {
-    Diagram::Pool::self->OnEventSize();
+    wxSize size = GetParent()->GetClientSize();
 
-    Layout();
+    size.x = width;
 
-    event.Skip();
+    SetMinSize(size);
+    SetMaxSize(size);
+
+    SetSize(size);
+
+    StretchColumns();
 }
 
 
@@ -187,8 +283,6 @@ void Frame::OnCloseWindow(wxCloseEvent &event)
 
     delete ConsoleSCPI::self;
 
-    delete WindowSensors::self;
-
     delete WindowDiagram::self;
 
     Log::DeInit();
@@ -197,7 +291,7 @@ void Frame::OnCloseWindow(wxCloseEvent &event)
 }
 
 
-void Frame::OnWetRequestState(wxWebRequestEvent &event)
+void Frame::OnWebRequestState(wxWebRequestEvent &event)
 {
     switch (event.GetState())
     {
@@ -222,4 +316,16 @@ void Frame::OnWetRequestState(wxWebRequestEvent &event)
     case wxWebRequest::State_Idle:
         break;
     }
+}
+
+
+void Frame::OnEventSize()
+{
+    wxSize size = { GetSize().GetWidth(), GetParent()->GetClientSize().y };
+
+    SetMinClientSize(size);
+    SetClientSize(size);
+    SetSize(size);
+
+    StretchEntireWidth(create_width);
 }

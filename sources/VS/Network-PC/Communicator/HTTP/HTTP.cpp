@@ -16,7 +16,7 @@ void HTTP::SendPOST(TypeMeasure::E type, float value)
 {
     wxWebRequest request = wxWebSession::GetDefault().CreateRequest(Frame::self, url);
 
-    Frame::self->Bind(wxEVT_WEBREQUEST_STATE, &Frame::OnWetRequestState, Frame::self);
+    Frame::self->Bind(wxEVT_WEBREQUEST_STATE, &Frame::OnWebRequestState, Frame::self);
 
     wxDateTime time = wxDateTime::Now();
 

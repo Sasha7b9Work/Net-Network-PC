@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "Data/Sensors.h"
 #include "Display/Diagram/Diagram.h"
-#include "Windows/WindowSensors.h"
+#include "Frame.h"
 #include <map>
 #include <vector>
 
@@ -155,7 +155,7 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
     {
         sensor->second.AppendMeasure(type, value);
 
-        WindowSensors::self->SetMeasure(id, sensor->second.GetColor(), type, value);
+        Frame::self->SetMeasure(id, sensor->second.GetColor(), type, value);
     }
 }
 
