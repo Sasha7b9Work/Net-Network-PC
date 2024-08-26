@@ -60,6 +60,8 @@ WindowSensors::WindowSensors(const wxSize &size) :
 WindowSensors::~WindowSensors()
 {
     SET::GUI::window_sensors.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
+
+    self = nullptr;
 }
 
 

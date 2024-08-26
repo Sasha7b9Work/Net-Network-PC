@@ -6,6 +6,7 @@
 #include "Windows/ConsoleSCPI.h"
 #include "Communicator/Communicator.h"
 #include "Utils/Config.h"
+#include "Windows/WindowSensors.h"
 
 
 wxIMPLEMENT_APP(Application);
@@ -43,6 +44,11 @@ bool Application::OnInit()
     timer.Start();
 
     frame->Show();
+
+    WindowSensors::self->SetFocus();
+    WindowSensors::self->Raise();
+    WindowSensors::self->Show(false);
+    WindowSensors::self->Show(true);
 
     return true;
 }
