@@ -7,6 +7,7 @@
 #include "Communicator/Communicator.h"
 #include "Utils/Config.h"
 #include "Windows/WindowSensors.h"
+#include "Windows/WindowDiagram.h"
 
 
 wxIMPLEMENT_APP(Application);
@@ -34,6 +35,10 @@ bool Application::OnInit()
 
     // create and show the main application window
     Frame *frame = new Frame(_("ГТЦ-3"));
+
+    WindowDiagram::Create({ 600, 600 });
+
+    WindowDiagram::self->Show();
 
     Communicator::Init();
 

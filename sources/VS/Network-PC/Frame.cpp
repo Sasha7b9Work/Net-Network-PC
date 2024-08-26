@@ -8,6 +8,7 @@
 #include "Windows/ConsoleLog.h"
 #include "Communicator/Server/Server.h"
 #include "Windows/WindowSensors.h"
+#include "Windows/WindowDiagram.h"
 
 
 Frame *Frame::self = nullptr;
@@ -93,7 +94,7 @@ Frame::Frame(const wxString &title)
 
     Bind(wxEVT_SOCKET, &Frame::OnSocketEvent, this, SOCKET_ID);
 
-    sizer = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
 
     sizer->Add(Diagram::Pool::Create(this));
 
@@ -187,6 +188,8 @@ void Frame::OnCloseWindow(wxCloseEvent &event)
     delete ConsoleSCPI::self;
 
     delete WindowSensors::self;
+
+    delete WindowDiagram::self;
 
     Log::DeInit();
 
