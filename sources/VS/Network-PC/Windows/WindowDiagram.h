@@ -12,4 +12,6 @@ public:
 private:
 
     WindowDiagram(const wxSize &);
+
+    void OnEventSize(wxSizeEvent &);
 };

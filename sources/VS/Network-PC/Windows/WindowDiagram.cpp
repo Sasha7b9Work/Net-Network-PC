@@ -16,9 +16,21 @@ void WindowDiagram::Create(const wxSize &size)
 WindowDiagram::WindowDiagram(const wxSize &size) :
     wxFrame(nullptr, wxID_ANY, _("Графики"), wxDefaultPosition, size)
 {
+    Bind(wxEVT_SIZE, &WindowDiagram::OnEventSize, this);
+
     wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
 
     sizer->Add(Diagram::Pool::Create(this));
 
     SetSizer(sizer);
+}
+
+
+void WindowDiagram::OnEventSize(wxSizeEvent &event)
+{
+    Diagram::Pool::self->OnEventSize();
+
+    Layout();
+
+    event.Skip();
 }

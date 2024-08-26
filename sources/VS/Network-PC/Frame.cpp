@@ -90,7 +90,7 @@ Frame::Frame(const wxString &title)
     Bind(wxEVT_MENU, &Frame::OnMenuTool, this, TOOL_DATABASE);
     Bind(wxEVT_CLOSE_WINDOW, &Frame::OnCloseWindow, this);
 
-    Bind(wxEVT_SIZE, &Frame::OnSize, this);
+    Bind(wxEVT_SIZE, &Frame::OnEventSize, this);
 
     Bind(wxEVT_SOCKET, &Frame::OnSocketEvent, this, SOCKET_ID);
 
@@ -125,7 +125,7 @@ void Frame::OnMenuSettings(wxCommandEvent &event)
 }
 
 
-void Frame::OnSize(wxSizeEvent &event)
+void Frame::OnEventSize(wxSizeEvent &event)
 {
     Diagram::Pool::self->OnEventSize();
 

@@ -21,7 +21,7 @@ private:
 
     wxToolBar *toolBar = nullptr;
 
-    void OnSize(wxSizeEvent &);
+    void OnEventSize(wxSizeEvent &);
 
     void OnCloseWindow(wxCloseEvent &);
 
