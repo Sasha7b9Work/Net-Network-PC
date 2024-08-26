@@ -54,4 +54,6 @@ private:
     void OnMenuSettings(wxCommandEvent &);
 
     void OnSocketEvent(wxSocketEvent &);
+
+    void SetTitleMenu(int id);
 };

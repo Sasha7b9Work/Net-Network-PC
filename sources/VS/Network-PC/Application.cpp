@@ -35,7 +35,7 @@ bool Application::OnInit()
 
     WindowDiagram::Create();
 
-    WindowDiagram::self->Show();
+    WindowTerminal::Create();
 
     // create and show the main application window
     MainWindow *frame = new MainWindow(_("Датчики"));

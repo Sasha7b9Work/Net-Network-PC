@@ -1,6 +1,7 @@
 // 2024/08/08 21:06:38 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Utils/Config.h"
+#include "Settings/Settings.h"
 
 
 namespace Config
@@ -62,4 +63,20 @@ void Config::SetFile(const wxString &file_path)
         wxConfigBase::Set(conf);
         config = wxConfigBase::Get(false);
     }
+}
+
+
+void Config::Write(pchar key, const WindowParameters &params)
+{
+    Write(wxString(key) + "_rect", params.rect);
+    Write(wxString(key) + "_shown", params.shown);
+}
+
+
+WindowParameters Config::Read(pchar key, const WindowParameters &def)
+{
+    wxRect rect = Read(wxString(key) + "_rect", def.rect);
+    bool shown = Read(wxString(key) + "_shown", def.shown);
+
+    return { rect, shown };
 }

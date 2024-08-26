@@ -22,5 +22,5 @@ private:
 
     void OnEventSize(wxSizeEvent &);
 
-    void OnEventClose(wxCloseEvent &);
+//    void OnEventClose(wxCloseEvent &);
 };

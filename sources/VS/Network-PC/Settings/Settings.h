@@ -3,7 +3,11 @@
 #include "Settings/Values.h"
 
 
-
+struct WindowParameters
+{
+    wxRect rect;
+    bool   shown;
+};
 
 
 namespace SET
@@ -25,9 +29,9 @@ namespace SET
 
     namespace GUI
     {
-        extern Value<wxRect> window_main;
-        extern Value<wxRect> window_diagram;
-        extern Value<wxRect> window_log;
-        extern Value<wxRect> window_scpi;
+        extern Value<WindowParameters> window_main;
+        extern Value<WindowParameters> window_diagram;
+        extern Value<WindowParameters> window_log;
+        extern Value<WindowParameters> window_scpi;
     }
 }

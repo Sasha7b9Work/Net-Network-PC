@@ -30,10 +30,10 @@ namespace SET
 
     namespace GUI
     {
-        Value<wxRect> window_main{ "gui_window_main", { 0, 0, 320, 240} };
-        Value<wxRect> window_diagram{ "gui_window_diagram", {0, 240, 320, 240} };
-        Value<wxRect> window_log{ "gui_window_log", {320, 0, 320, 240} };
-        Value<wxRect> window_scpi{ "gui_window_scpi", {320, 240, 320, 240} };
+        Value<WindowParameters> window_main{ "gui_window_main", { { 0, 0, 320, 240 }, true} };
+        Value<WindowParameters> window_diagram{ "gui_window_diagram", { { 0, 240, 320, 240 }, true} };
+        Value<WindowParameters> window_log{ "gui_window_log", { { 320, 0, 320, 240 }, true } };
+        Value<WindowParameters> window_scpi{ "gui_window_scpi", { { 320, 240, 320, 240 }, true } };
 
         static void LoadSave(bool load)
         {
@@ -42,10 +42,10 @@ namespace SET
                 wxSize d_size = wxGetDisplaySize();
                 wxSize size{ d_size.GetWidth() / 2, d_size.GetHeight() / 2 };
 
-                window_main.SetDefault({ 0, 0, size.GetWidth(), size.GetHeight() });
-                window_diagram.SetDefault({ 0, d_size.GetHeight() / 2, size.GetWidth(), size.GetHeight() });
-                window_log.SetDefault({ d_size.GetWidth() / 2, 0, size.GetWidth(), size.GetHeight() });
-                window_scpi.SetDefault({ d_size.GetWidth() / 2, d_size.GetHeight() / 2, size.GetWidth(), size.GetHeight() });
+                window_main.SetDefault({ { 0, 0, size.GetWidth(), size.GetHeight() }, true });
+                window_diagram.SetDefault({ { 0, d_size.GetHeight() / 2, size.GetWidth(), size.GetHeight() }, true });
+                window_log.SetDefault({ {d_size.GetWidth() / 2, 0, size.GetWidth(), size.GetHeight() }, true });
+                window_scpi.SetDefault({ {d_size.GetWidth() / 2, d_size.GetHeight() / 2, size.GetWidth(), size.GetHeight() }, true });
             }
 
             window_main.LoadSave(load);

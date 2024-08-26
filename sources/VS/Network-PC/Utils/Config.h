@@ -3,6 +3,9 @@
 #include "Utils/StringUtils.h"
 
 
+struct WindowParameters;
+
+
 inline wxString wxToString(const wxRect &rect)
 {
     return wxString::Format("%d %d %d %d", rect.x, rect.y, rect.width, rect.height);
@@ -50,6 +53,10 @@ namespace Config
     {
         config->Write(key, value);
     }
+
+    void Write(pchar key, const WindowParameters &);
+
+    WindowParameters Read(pchar key, const WindowParameters &def);
 
     extern wxConfigBase *config;
 }

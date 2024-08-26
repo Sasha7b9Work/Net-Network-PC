@@ -79,9 +79,9 @@ MainWindow::MainWindow(const wxString &title)
     menuSettings->AppendSubMenu(menuSpeed, _("Скорость обновления"));
 
     wxMenu *menuView = new wxMenu();
-    menuView->Append(VIEW_TERMINAL, _("Открыть терминал\tCtrl-K"), _("Открыть терминал"));
-    menuView->Append(VIEW_LOG, _("Открыть лог\tCtrl-L"), _("Открыть лог"));
-    menuView->Append(VIEW_DIAGRAM, _("Открыть графики\tCtrl-G"), _("Открыть графики"));
+    menuView->Append(VIEW_TERMINAL, _(" "), _(" "));
+    menuView->Append(VIEW_LOG, _(" "), _(" "));
+    menuView->Append(VIEW_DIAGRAM, _(" "), _(" "));
 
     Bind(wxEVT_MENU, &MainWindow::OnMenuSettings, this);
 
@@ -129,12 +129,14 @@ MainWindow::MainWindow(const wxString &title)
     SetClientSize(1024, 600);
     wxWindowBase::SetMinClientSize({ 800, 300 });
 
-    WindowTerminal::Create();
-
-    wxRect rect = SET::GUI::window_main.Get();
+    wxRect rect = SET::GUI::window_main.Get().rect;
 
     SetPosition({ rect.x, rect.y });
     SetSize({ rect.width, rect.height });
+
+    SetTitleMenu(VIEW_TERMINAL);
+    SetTitleMenu(VIEW_LOG);
+    SetTitleMenu(VIEW_DIAGRAM);
 }
 
 
@@ -264,20 +266,35 @@ void MainWindow::OnMenuView(wxCommandEvent &event)
     if (id == VIEW_TERMINAL)
     {
         WindowTerminal::self->SwitchVisibility();
-
-        FindItemInMenuBar(VIEW_TERMINAL)->SetItemLabel(WindowTerminal::self ->IsShown() ? _("Закрыть консоль") : _("Открыть консоль"));
     }
     else if (id == VIEW_LOG)
     {
         WindowLog::self->SwitchVisibility();
-
-        FindItemInMenuBar(VIEW_LOG)->SetItemLabel(WindowLog::self->IsShown() ? _("Закрыть лог") : _("Открыть лог"));
     }
     else if (id == VIEW_DIAGRAM)
     {
         WindowDiagram::self->SwitchVisibility();
+    }
 
-        FindItemInMenuBar(VIEW_DIAGRAM)->SetItemLabel(WindowDiagram::self->IsShown() ? _("Спрятать графики") : _("Показать графики"));
+    SetTitleMenu(id);
+}
+
+
+void MainWindow::SetTitleMenu(int id)
+{
+    if (id == VIEW_TERMINAL)
+    {
+        wxMenuItem *item = FindItemInMenuBar(VIEW_TERMINAL);
+
+        item->SetItemLabel(WindowTerminal::self->IsShown() ? _("Скрыть терминал\tCtrl-K") : _("Показать терминла\tCtrl-K"));
+    }
+    else if (id == VIEW_LOG)
+    {
+        FindItemInMenuBar(VIEW_LOG)->SetItemLabel(WindowLog::self->IsShown() ? _("Скрыть лог\tCtrl-L") : _("Показать лог\tCtrl-L"));
+    }
+    else if (id == VIEW_DIAGRAM)
+    {
+        FindItemInMenuBar(VIEW_DIAGRAM)->SetItemLabel(WindowDiagram::self->IsShown() ? _("Скрыть графики\tCtrl-G") : _("Показать графики\tCtrl-G"));
     }
 }
 
@@ -290,7 +307,7 @@ void MainWindow::OnSocketEvent(wxSocketEvent &event)
 
 void MainWindow::OnCloseWindow(wxCloseEvent &event)
 {
-    SET::GUI::window_main.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
+    SET::GUI::window_main.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, true });
 
     delete WindowTerminal::self;
 

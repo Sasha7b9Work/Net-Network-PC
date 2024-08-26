@@ -32,16 +32,18 @@ WindowLog::WindowLog() : wxFrame(nullptr, wxID_ANY, _("ÀÓ„"))
 
     wxTopLevelWindowMSW::Show();
 
-    wxRect rect = SET::GUI::window_log.Get();
+    wxRect rect = SET::GUI::window_log.Get().rect;
 
     SetPosition({ rect.x, rect.y });
     SetSize({ rect.width, rect.height });
+
+    Show(SET::GUI::window_log.Get().shown);
 }
 
 
 WindowLog::~WindowLog()
 {
-    SET::GUI::window_log.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
+    SET::GUI::window_log.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, IsShown()});
 }
 
 

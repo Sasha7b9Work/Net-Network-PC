@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Windows/WindowDiagram.h"
 #include "Display/Diagram/Diagram.h"
+#include "Settings/Settings.h"
 
 
 WindowDiagram *WindowDiagram::self = nullptr;
@@ -24,21 +25,20 @@ WindowDiagram::WindowDiagram() :
 
     SetSizer(sizer);
 
-    wxRect rect = SET::GUI::window_diagram.Get();
+    wxRect rect = SET::GUI::window_diagram.Get().rect;
 
     SetPosition({ rect.x, rect.y });
     SetSize({ rect.width, rect.height });
 
-    Bind(wxEVT_CLOSE_WINDOW, &WindowDiagram::OnEventClose, this);
+    Show(SET::GUI::window_diagram.Get().shown);
+
+//    Bind(wxEVT_CLOSE_WINDOW, &WindowDiagram::OnEventClose, this);
 }
 
 
 WindowDiagram::~WindowDiagram()
 {
-    if (IsShown())
-    {
-        SET::GUI::window_diagram.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
-    }
+    SET::GUI::window_diagram.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, IsShown() });
 
     delete Diagram::Pool::self;
 
@@ -58,12 +58,12 @@ void WindowDiagram::OnEventSize(wxSizeEvent &event)
 }
 
 
-void WindowDiagram::OnEventClose(wxCloseEvent &event)
-{
-    SET::GUI::window_diagram.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
-
-    event.Skip();
-}
+//void WindowDiagram::OnEventClose(wxCloseEvent &event)
+//{
+//    SET::GUI::window_diagram.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
+//
+//    event.Skip();
+//}
 
 
 void WindowDiagram::UpdateArea()
