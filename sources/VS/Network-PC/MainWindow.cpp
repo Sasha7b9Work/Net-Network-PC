@@ -29,7 +29,8 @@ enum
     TOOL_VIEW_FULL,         // Полный вид отображения
 
     VIEW_TERMINAL,          // Открыть/закрыть терминал
-    TOOL_DATABASE,
+    VIEW_LOG,               // Открыть/закрыть лог
+    VIEW_DIAGRAM,           // Открыть/зыкрыть графики
 
     MEAS_PRESSURE,          // Давление
     MEAS_ILLUMINATION,      // Освещённость
@@ -79,7 +80,8 @@ MainWindow::MainWindow(const wxString &title)
 
     wxMenu *menuView = new wxMenu();
     menuView->Append(VIEW_TERMINAL, _("Открыть терминал\tCtrl-K"), _("Открыть терминал"));
-//    menuTools->Append(TOOL_DATABASE, _("База данных\tCtrl-D"), _("База данных"));
+    menuView->Append(VIEW_LOG, _("Открыть лог\tCtrl-L"), _("Открыть лог"));
+    menuView->Append(VIEW_DIAGRAM, _("Открыть графики\tCtrl-G"), _("Открыть графики"));
 
     Bind(wxEVT_MENU, &MainWindow::OnMenuSettings, this);
 
@@ -87,13 +89,12 @@ MainWindow::MainWindow(const wxString &title)
 
     menuBar->Append(menuView, _("Вид"));
 
-//    menuBar->Append(menuTools, _("Инструменты"));
-
     wxFrameBase::SetMenuBar(menuBar);
 
     Bind(wxEVT_MENU, &MainWindow::OnAbout, this, wxID_ABOUT);
     Bind(wxEVT_MENU, &MainWindow::OnMenuView, this, VIEW_TERMINAL);
-    Bind(wxEVT_MENU, &MainWindow::OnMenuView, this, TOOL_DATABASE);
+    Bind(wxEVT_MENU, &MainWindow::OnMenuView, this, VIEW_LOG);
+    Bind(wxEVT_MENU, &MainWindow::OnMenuView, this, VIEW_DIAGRAM);
     Bind(wxEVT_CLOSE_WINDOW, &MainWindow::OnCloseWindow, this);
 
     Bind(wxEVT_SOCKET, &MainWindow::OnSocketEvent, this, SOCKET_ID);
@@ -266,9 +267,17 @@ void MainWindow::OnMenuView(wxCommandEvent &event)
 
         FindItemInMenuBar(VIEW_TERMINAL)->SetItemLabel(ConsoleSCPI::self ->IsShown() ? _("Закрыть консоль") : _("Открыть консоль"));
     }
-    else if (id == TOOL_DATABASE)
+    else if (id == VIEW_LOG)
     {
+        ConsoleLog::self->SwitchVisibility();
 
+        FindItemInMenuBar(VIEW_LOG)->SetItemLabel(ConsoleLog::self->IsShown() ? _("Закрыть лог") : _("Открыть лог"));
+    }
+    else if (id == VIEW_DIAGRAM)
+    {
+        WindowDiagram::self->SwitchVisibility();
+
+        FindItemInMenuBar(VIEW_DIAGRAM)->SetItemLabel(WindowDiagram::self->IsShown() ? _("Спрятать графики") : _("Показать графики"));
     }
 }
 

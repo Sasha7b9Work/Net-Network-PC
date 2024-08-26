@@ -73,3 +73,9 @@ void WindowDiagram::UpdateArea()
         Diagram::Pool::self->UpdateArea();
     }
 }
+
+
+void WindowDiagram::SwitchVisibility()
+{
+    Show(!IsShown());
+}

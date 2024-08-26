@@ -14,6 +14,8 @@ public:
 
     void AddLine(const wxString &);
 
+    void SwitchVisibility();
+
 private:
 
     ConsoleLog();

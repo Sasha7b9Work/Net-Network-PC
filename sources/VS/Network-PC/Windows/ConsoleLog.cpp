@@ -79,3 +79,9 @@ void ConsoleLog::OnClose(wxCloseEvent &)
 {
     Show(false);
 }
+
+
+void ConsoleLog::SwitchVisibility()
+{
+    Show(!IsShown());
+}

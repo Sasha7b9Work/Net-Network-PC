@@ -14,6 +14,8 @@ public:
 
     static void UpdateArea();
 
+    void SwitchVisibility();
+
 private:
 
     WindowDiagram(const wxSize &);
