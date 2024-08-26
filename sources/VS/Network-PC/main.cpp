@@ -4,7 +4,6 @@
 #include "Communicator/Communicator.h"
 #include "Communicator/LAN/ServerTCP.h"
 #include "Communicator/ComPort/ComPort.h"
-#include "Frame.h"
 #include "Data/ReceivedData.h"
 #include "Display/Diagram/Diagram.h"
 #include "Utils/Clock.h"

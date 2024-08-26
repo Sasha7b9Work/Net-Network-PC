@@ -1,6 +1,5 @@
 ﻿// 2022/04/29 13:56:48 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Frame.h"
 #include "Display/Diagram/Diagram.h"
 #include "Display/Diagram/Canvas.h"
 #include "Settings/Settings.h"
@@ -9,9 +8,10 @@
 #include "Communicator/Server/Server.h"
 #include "Windows/WindowDiagram.h"
 #include "Communicator/HTTP/HTTP.h"
+#include "MainWindow.h"
 
 
-Frame *Frame::self = nullptr;
+MainWindow *MainWindow::self = nullptr;
 
 
 enum
@@ -49,7 +49,7 @@ enum
 };
 
 
-Frame::Frame(const wxString &title)
+MainWindow::MainWindow(const wxString &title)
     : wxFrame((wxFrame *)NULL, wxID_ANY, title)
 {
     wxSize size = FromDIP(wxSize((TypeMeasure::NumMeasures() + 1) * 60, 400));
@@ -81,7 +81,7 @@ Frame::Frame(const wxString &title)
 //    menuTools->Append(TOOL_CONSOLE, _("Открыть консоль\tCtrl-K"), _("Открыть консоль"));
 //    menuTools->Append(TOOL_DATABASE, _("База данных\tCtrl-D"), _("База данных"));
 
-    Bind(wxEVT_MENU, &Frame::OnMenuSettings, this);
+    Bind(wxEVT_MENU, &MainWindow::OnMenuSettings, this);
 
     menuBar->Append(menuSettings, _("Настройки"));
 
@@ -89,12 +89,12 @@ Frame::Frame(const wxString &title)
 
     wxFrameBase::SetMenuBar(menuBar);
 
-    Bind(wxEVT_MENU, &Frame::OnAbout, this, wxID_ABOUT);
-    Bind(wxEVT_MENU, &Frame::OnMenuTool, this, TOOL_CONSOLE);
-    Bind(wxEVT_MENU, &Frame::OnMenuTool, this, TOOL_DATABASE);
-    Bind(wxEVT_CLOSE_WINDOW, &Frame::OnCloseWindow, this);
+    Bind(wxEVT_MENU, &MainWindow::OnAbout, this, wxID_ABOUT);
+    Bind(wxEVT_MENU, &MainWindow::OnMenuTool, this, TOOL_CONSOLE);
+    Bind(wxEVT_MENU, &MainWindow::OnMenuTool, this, TOOL_DATABASE);
+    Bind(wxEVT_CLOSE_WINDOW, &MainWindow::OnCloseWindow, this);
 
-    Bind(wxEVT_SOCKET, &Frame::OnSocketEvent, this, SOCKET_ID);
+    Bind(wxEVT_SOCKET, &MainWindow::OnSocketEvent, this, SOCKET_ID);
 
     grid = new wxGrid(this, wxID_ANY, { 0, 0 }, size);
 
@@ -135,7 +135,7 @@ Frame::Frame(const wxString &title)
 }
 
 
-void Frame::StretchColumns()
+void MainWindow::StretchColumns()
 {
     int width = grid->GetSize().x;
 
@@ -152,7 +152,7 @@ void Frame::StretchColumns()
 }
 
 
-void Frame::SetMeasure(uint id, const wxColour &color, uint8 type, float value)
+void MainWindow::SetMeasure(uint id, const wxColour &color, uint8 type, float value)
 {
     if (id == 0)
     {
@@ -182,7 +182,7 @@ void Frame::SetMeasure(uint id, const wxColour &color, uint8 type, float value)
 }
 
 
-void Frame::SetCellValue(int row, int col, float value, const wxColour &color)
+void MainWindow::SetCellValue(int row, int col, float value, const wxColour &color)
 {
     if (col >= 0)
     {
@@ -193,7 +193,7 @@ void Frame::SetCellValue(int row, int col, float value, const wxColour &color)
 }
 
 
-void Frame::SetCellValue(int row, int col, int value, const wxColour &color)
+void MainWindow::SetCellValue(int row, int col, int value, const wxColour &color)
 {
     if (col >= 0)
     {
@@ -205,7 +205,7 @@ void Frame::SetCellValue(int row, int col, int value, const wxColour &color)
 
 
 
-void Frame::OnMenuSettings(wxCommandEvent &event)
+void MainWindow::OnMenuSettings(wxCommandEvent &event)
 {
     int id = event.GetId();
 
@@ -216,7 +216,7 @@ void Frame::OnMenuSettings(wxCommandEvent &event)
 }
 
 
-void Frame::StretchEntireWidth(int width)
+void MainWindow::StretchEntireWidth(int width)
 {
     wxSize size = GetParent()->GetClientSize();
 
@@ -231,7 +231,7 @@ void Frame::StretchEntireWidth(int width)
 }
 
 
-void Frame::OnAbout(wxCommandEvent &WXUNUSED(event))
+void MainWindow::OnAbout(wxCommandEvent &WXUNUSED(event))
 {
     wxBoxSizer *topsizer;
     wxDialog dlg(this, wxID_ANY, wxString(_("About")));
@@ -254,7 +254,7 @@ void Frame::OnAbout(wxCommandEvent &WXUNUSED(event))
 }
 
 
-void Frame::OnMenuTool(wxCommandEvent &event)
+void MainWindow::OnMenuTool(wxCommandEvent &event)
 {
     int id = event.GetId();
 
@@ -271,13 +271,13 @@ void Frame::OnMenuTool(wxCommandEvent &event)
 }
 
 
-void Frame::OnSocketEvent(wxSocketEvent &event)
+void MainWindow::OnSocketEvent(wxSocketEvent &event)
 {
     ServerMeasures::CallbackOnSocketEvent(event);
 }
 
 
-void Frame::OnCloseWindow(wxCloseEvent &event)
+void MainWindow::OnCloseWindow(wxCloseEvent &event)
 {
     SET::GUI::window_main.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
 
@@ -291,7 +291,7 @@ void Frame::OnCloseWindow(wxCloseEvent &event)
 }
 
 
-void Frame::OnWebRequestState(wxWebRequestEvent &event)
+void MainWindow::OnWebRequestState(wxWebRequestEvent &event)
 {
     switch (event.GetState())
     {
@@ -319,7 +319,7 @@ void Frame::OnWebRequestState(wxWebRequestEvent &event)
 }
 
 
-void Frame::OnEventSize()
+void MainWindow::OnEventSize()
 {
     wxSize size = { GetSize().GetWidth(), GetParent()->GetClientSize().y };
 

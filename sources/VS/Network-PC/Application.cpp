@@ -1,12 +1,13 @@
 ﻿// 2022/04/29 13:56:38 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Application.h"
-#include "Frame.h"
 #include "Communicator/Server/Server.h"
 #include "Windows/ConsoleSCPI.h"
 #include "Communicator/Communicator.h"
 #include "Utils/Config.h"
 #include "Windows/WindowDiagram.h"
+#include "Settings/Settings.h"
+#include "MainWindow.h"
 
 
 wxIMPLEMENT_APP(Application);
@@ -33,7 +34,7 @@ bool Application::OnInit()
     wxImage::AddHandler(new wxPNGHandler);
 
     // create and show the main application window
-    Frame *frame = new Frame(_("ГТЦ-3"));
+    MainWindow *frame = new MainWindow(_("Датчики"));
 
     WindowDiagram::Create({ 600, 600 });
 

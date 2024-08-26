@@ -6,14 +6,14 @@
 class DiagramPool;
 
 
-class Frame : public wxFrame
+class MainWindow : public wxFrame
 {
 public:
-    Frame(const wxString &title);
+    MainWindow(const wxString &title);
 
     void OnAbout(wxCommandEvent &event);
 
-    static Frame *self;
+    static MainWindow *self;
 
     void OnWebRequestState(wxWebRequestEvent &);
 

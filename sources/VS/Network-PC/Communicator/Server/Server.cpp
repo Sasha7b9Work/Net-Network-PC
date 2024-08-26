@@ -1,9 +1,9 @@
 ﻿// 2024/04/29 08:37:15 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Communicator/Server/Server.h"
-#include "Frame.h"
 #include "Utils/Timer.h"
 #include "Settings/Settings.h"
+#include "MainWindow.h"
 
 
 namespace ServerMeasures
@@ -27,7 +27,7 @@ void ServerMeasures::Init()
     {
         socket = new wxSocketClient();
 
-        socket->SetEventHandler(*Frame::self, SOCKET_ID);
+        socket->SetEventHandler(*MainWindow::self, SOCKET_ID);
 
         socket->SetNotify(wxSOCKET_CONNECTION_FLAG | wxSOCKET_LOST_FLAG);
 

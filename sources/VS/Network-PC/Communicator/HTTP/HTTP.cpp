@@ -1,7 +1,7 @@
 // 2024/6/21 11:40:13 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Communicator/HTTP/HTTP.h"
-#include "Frame.h"
+#include "MainWindow.h"
 
 
 namespace HTTP
@@ -14,9 +14,9 @@ namespace HTTP
 
 void HTTP::SendPOST(TypeMeasure::E type, float value)
 {
-    wxWebRequest request = wxWebSession::GetDefault().CreateRequest(Frame::self, url);
+    wxWebRequest request = wxWebSession::GetDefault().CreateRequest(MainWindow::self, url);
 
-    Frame::self->Bind(wxEVT_WEBREQUEST_STATE, &Frame::OnWebRequestState, Frame::self);
+    MainWindow::self->Bind(wxEVT_WEBREQUEST_STATE, &MainWindow::OnWebRequestState, MainWindow::self);
 
     wxDateTime time = wxDateTime::Now();
 

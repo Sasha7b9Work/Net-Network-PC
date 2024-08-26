@@ -18,7 +18,7 @@ wxTextCtrl *ConsoleSCPI::line = nullptr;
 ConsoleSCPI *ConsoleSCPI::self = nullptr;
 
 
-ConsoleSCPI::ConsoleSCPI() : wxFrame(nullptr, wxID_ANY, wxT("ГТЦ-3 SCPI"))
+ConsoleSCPI::ConsoleSCPI() : wxFrame(nullptr, wxID_ANY, wxT("Терминал"))
 {
     text = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, { 600, 300 }, wxTE_MULTILINE | wxTE_READONLY);
 
