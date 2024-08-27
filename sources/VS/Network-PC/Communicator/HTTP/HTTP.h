@@ -10,5 +10,6 @@
 
 namespace HTTP
 {
-    void SendPOST(TypeMeasure::E, float value);
+    // Послать значения измерений так как они идут по порядку в TypeMeasure
+    void SendPOST(float *values, int count);
 }

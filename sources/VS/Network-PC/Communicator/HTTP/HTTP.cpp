@@ -12,7 +12,7 @@ namespace HTTP
 }
 
 
-void HTTP::SendPOST(TypeMeasure::E type, float value)
+void HTTP::SendPOST(float *values, int count)
 {
     wxWebRequest request = wxWebSession::GetDefault().CreateRequest(MainWindow::self, url);
 
@@ -20,8 +20,15 @@ void HTTP::SendPOST(TypeMeasure::E type, float value)
 
     wxDateTime time = wxDateTime::Now();
 
-    wxString body = wxString::Format("api_key=PtmAT51b3j4F8&value%d=%10.2f&meas_time = %d-%02d-%02d %02d:%02d:%02d", (int)type, value,
-        time.GetYear(), time.GetMonth(), time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());
+    wxString body{ "api_key=PtmAT51b3j4F8" };
+
+    for (int i = 0; i < count; i++)
+    {
+        body += wxString::Format("&value%d=%10.2f", i + 1, values[i]);
+    }
+
+    body += wxString::Format("&meas_time=%d-%02d-%02d %02d:%02d:%02d",
+        time.GetYear(), time.GetMonth() + 1, time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());
 
     request.SetData(body, content_type);
 

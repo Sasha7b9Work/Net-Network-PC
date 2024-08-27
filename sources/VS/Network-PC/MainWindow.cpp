@@ -182,8 +182,6 @@ void MainWindow::SetMeasure(uint id, const wxColour &color, uint8 type, float va
     SetCellValue(row->second, TypeMeasure::NumColumn(type_meas), (float)value, color);
 
     ServerMeasures::Send(id, type_meas, (float)value);
-
-    HTTP::SendPOST(type_meas, value);
 }
 
 
