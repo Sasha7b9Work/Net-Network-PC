@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Windows/WindowLog.h"
 #include "Settings/Settings.h"
+#include "MainWindow.h"
 
 
 wxTextCtrl *WindowLog::text = nullptr;
@@ -28,7 +29,7 @@ WindowLog::WindowLog() : wxFrame(nullptr, wxID_ANY, _("Ëîã"))
     text->SetFont(font);
 
     Bind(wxEVT_SIZE, &WindowLog::OnSize, this);
-    Bind(wxEVT_CLOSE_WINDOW, &WindowLog::OnClose, this);
+//    Bind(wxEVT_CLOSE_WINDOW, &WindowLog::OnEventClose, this);
 
     wxTopLevelWindowMSW::Show();
 
@@ -82,10 +83,12 @@ void WindowLog::OnSize(wxSizeEvent &)
 }
 
 
-void WindowLog::OnClose(wxCloseEvent &)
-{
-    Show(false);
-}
+//void WindowLog::OnEventClose(wxCloseEvent &event)
+//{
+//    event.Skip();
+//
+//    MainWindow::self->SetTitleMenu(VIEW_LOG);
+//}
 
 
 void WindowLog::SwitchVisibility()

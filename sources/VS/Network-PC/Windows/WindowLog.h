@@ -24,5 +24,5 @@ private:
     static wxTextCtrl *line;
 
     void OnSize(wxSizeEvent &);
-    void OnClose(wxCloseEvent &);
+    void OnEventClose(wxCloseEvent &);
 };
