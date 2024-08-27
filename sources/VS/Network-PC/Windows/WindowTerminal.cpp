@@ -4,6 +4,7 @@
 #include "Communicator/ComPort/ComPort.h"
 #include "Utils/String.h"
 #include "Settings/Settings.h"
+#include "MainWindow.h"
 
 #undef CRC
 
@@ -20,6 +21,8 @@ WindowTerminal *WindowTerminal::self = nullptr;
 
 WindowTerminal::WindowTerminal() : wxFrame(nullptr, wxID_ANY, wxT("Терминал"))
 {
+    Show(false);
+
     text = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, { 600, 300 }, wxTE_MULTILINE | wxTE_READONLY);
 
     line = new wxTextCtrl(this, ID_LINE, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
@@ -32,7 +35,7 @@ WindowTerminal::WindowTerminal() : wxFrame(nullptr, wxID_ANY, wxT("Термин�
     Bind(wxEVT_SIZE, &WindowTerminal::OnSize, this);
     line->Bind(wxEVT_TEXT_ENTER, &WindowTerminal::OnTextEnter, this, ID_LINE);
     line->Bind(wxEVT_KEY_DOWN, &WindowTerminal::OnTextControlKeyDown, this, ID_LINE);
-    Bind(wxEVT_CLOSE_WINDOW, &WindowTerminal::OnClose, this);
+    Bind(wxEVT_CLOSE_WINDOW, &WindowTerminal::OnEventClose, this);
 
     wxTopLevelWindowMSW::Show();
 
@@ -176,9 +179,11 @@ void WindowTerminal::SwitchVisibility()
 }
 
 
-void WindowTerminal::OnClose(wxCloseEvent &)
+void WindowTerminal::OnEventClose(wxCloseEvent &)
 {
     Show(false);
+
+    MainWindow::self->SetTitleMenu(VIEW_TERMINAL);
 }
 
 

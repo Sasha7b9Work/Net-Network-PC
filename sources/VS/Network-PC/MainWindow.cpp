@@ -59,7 +59,7 @@ MainWindow::MainWindow(const wxString &title)
     Bind(wxEVT_MENU, &MainWindow::OnMenuView, this, VIEW_TERMINAL);
     Bind(wxEVT_MENU, &MainWindow::OnMenuView, this, VIEW_LOG);
     Bind(wxEVT_MENU, &MainWindow::OnMenuView, this, VIEW_DIAGRAM);
-    Bind(wxEVT_CLOSE_WINDOW, &MainWindow::OnCloseWindow, this);
+    Bind(wxEVT_CLOSE_WINDOW, &MainWindow::OnEventClose, this);
 
     Bind(wxEVT_SOCKET, &MainWindow::OnSocketEvent, this, SOCKET_ID);
 
@@ -272,7 +272,7 @@ void MainWindow::OnSocketEvent(wxSocketEvent &event)
 }
 
 
-void MainWindow::OnCloseWindow(wxCloseEvent &event)
+void MainWindow::OnEventClose(wxCloseEvent &event)
 {
     SET::GUI::window_main.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, true, IsMaximized()});
 

@@ -32,7 +32,7 @@ private:
     void OnSize(wxSizeEvent &);
     void OnTextEnter(wxCommandEvent &);
     void OnTextControlKeyDown(wxKeyEvent &);
-    void OnClose(wxCloseEvent &);
+    void OnEventClose(wxCloseEvent &);
 
     wxTimer timerComPort;
     void OnTimerComPort(wxTimerEvent &);

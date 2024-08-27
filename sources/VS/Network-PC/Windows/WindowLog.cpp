@@ -19,6 +19,8 @@ enum
 
 WindowLog::WindowLog() : wxFrame(nullptr, wxID_ANY, _("Ëîã"))
 {
+    Show(false);
+
     text = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxDefaultPosition, { 600, 300 }, wxTE_MULTILINE | wxTE_READONLY);
 
     line = new wxTextCtrl(this, ID_LINE, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER);
@@ -29,7 +31,7 @@ WindowLog::WindowLog() : wxFrame(nullptr, wxID_ANY, _("Ëîã"))
     text->SetFont(font);
 
     Bind(wxEVT_SIZE, &WindowLog::OnSize, this);
-//    Bind(wxEVT_CLOSE_WINDOW, &WindowLog::OnEventClose, this);
+    Bind(wxEVT_CLOSE_WINDOW, &WindowLog::OnEventClose, this);
 
     wxTopLevelWindowMSW::Show();
 
@@ -83,12 +85,12 @@ void WindowLog::OnSize(wxSizeEvent &)
 }
 
 
-//void WindowLog::OnEventClose(wxCloseEvent &event)
-//{
-//    event.Skip();
-//
-//    MainWindow::self->SetTitleMenu(VIEW_LOG);
-//}
+void WindowLog::OnEventClose(wxCloseEvent &)
+{
+    Show(false);
+
+    MainWindow::self->SetTitleMenu(VIEW_LOG);
+}
 
 
 void WindowLog::SwitchVisibility()

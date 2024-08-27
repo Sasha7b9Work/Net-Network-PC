@@ -3,6 +3,7 @@
 #include "Windows/WindowDiagram.h"
 #include "Display/Diagram/Diagram.h"
 #include "Settings/Settings.h"
+#include "MainWindow.h"
 
 
 WindowDiagram *WindowDiagram::self = nullptr;
@@ -17,7 +18,10 @@ void WindowDiagram::Create()
 WindowDiagram::WindowDiagram() :
     wxFrame(nullptr, wxID_ANY, _("Графики"))
 {
+    Show(false);
+
     Bind(wxEVT_SIZE, &WindowDiagram::OnEventSize, this);
+    Bind(wxEVT_CLOSE_WINDOW, &WindowDiagram::OnEventClose, this);
 
     wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
 
@@ -73,4 +77,12 @@ void WindowDiagram::UpdateArea()
 void WindowDiagram::SwitchVisibility()
 {
     Show(!IsShown());
+}
+
+
+void WindowDiagram::OnEventClose(wxCloseEvent &)
+{
+    Show(false);
+
+    MainWindow::self->SetTitleMenu(VIEW_DIAGRAM);
 }

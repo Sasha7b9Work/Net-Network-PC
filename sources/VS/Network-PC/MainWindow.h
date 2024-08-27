@@ -84,7 +84,7 @@ private:
 
     wxGrid *grid = nullptr;             // Список датчиков
 
-    void OnCloseWindow(wxCloseEvent &);
+    void OnEventClose(wxCloseEvent &);
 
     void OnMenuView(wxCommandEvent &);
 
