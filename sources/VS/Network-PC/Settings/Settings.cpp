@@ -30,10 +30,10 @@ namespace SET
 
     namespace GUI
     {
-        Value<WindowParameters> window_main{ "gui_window_main", { { 0, 0, 320, 240 }, true} };
-        Value<WindowParameters> window_diagram{ "gui_window_diagram", { { 0, 240, 320, 240 }, true} };
-        Value<WindowParameters> window_log{ "gui_window_log", { { 320, 0, 320, 240 }, true } };
-        Value<WindowParameters> window_scpi{ "gui_window_scpi", { { 320, 240, 320, 240 }, true } };
+        Value<WindowParameters> window_main{ "gui_window_main", { { 0, 0, 320, 240 }, true, false } };
+        Value<WindowParameters> window_diagram{ "gui_window_diagram", { { 0, 240, 320, 240 }, true, false } };
+        Value<WindowParameters> window_log{ "gui_window_log", { { 320, 0, 320, 240 }, true, false } };
+        Value<WindowParameters> window_scpi{ "gui_window_scpi", { { 320, 240, 320, 240 }, true, false } };
 
         static void LoadSave(bool load)
         {

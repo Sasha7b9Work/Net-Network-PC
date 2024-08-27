@@ -38,12 +38,17 @@ WindowLog::WindowLog() : wxFrame(nullptr, wxID_ANY, _("ÀÓ„"))
     SetSize({ rect.width, rect.height });
 
     Show(SET::GUI::window_log.Get().shown);
+
+    if (SET::GUI::window_log.Get().maximized)
+    {
+        Maximize(true);
+    }
 }
 
 
 WindowLog::~WindowLog()
 {
-    SET::GUI::window_log.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, IsShown()});
+    SET::GUI::window_log.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, IsShown(), IsMaximized() });
 }
 
 

@@ -70,6 +70,7 @@ void Config::Write(pchar key, const WindowParameters &params)
 {
     Write(wxString(key) + "_rect", params.rect);
     Write(wxString(key) + "_shown", params.shown);
+    Write(wxString(key) + "_max", params.maximized);
 }
 
 
@@ -77,6 +78,7 @@ WindowParameters Config::Read(pchar key, const WindowParameters &def)
 {
     wxRect rect = Read(wxString(key) + "_rect", def.rect);
     bool shown = Read(wxString(key) + "_shown", def.shown);
+    bool max = Read(wxString(key) + "_max", def.maximized);
 
-    return { rect, shown };
+    return { rect, shown, max };
 }

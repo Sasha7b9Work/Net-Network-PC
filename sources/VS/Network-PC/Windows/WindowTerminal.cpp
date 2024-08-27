@@ -53,11 +53,16 @@ WindowTerminal::WindowTerminal() : wxFrame(nullptr, wxID_ANY, wxT("Термин�
     SetSize({ rect.width, rect.height });
 
     Show(SET::GUI::window_scpi.Get().shown);
+
+    if (SET::GUI::window_scpi.Get().maximized)
+    {
+        Maximize(true);
+    }
 }
 
 WindowTerminal::~WindowTerminal()
 {
-    SET::GUI::window_scpi.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, IsShown() });
+    SET::GUI::window_scpi.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, IsShown(), IsMaximized()});
 
     ComPort::Close();
 }

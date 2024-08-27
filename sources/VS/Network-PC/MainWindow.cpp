@@ -131,6 +131,11 @@ MainWindow::MainWindow(const wxString &title)
 
     wxRect rect = SET::GUI::window_main.Get().rect;
 
+    if (SET::GUI::window_main.Get().maximized)
+    {
+        Maximize(true);
+    }
+
     SetPosition({ rect.x, rect.y });
     SetSize({ rect.width, rect.height });
 
@@ -305,7 +310,7 @@ void MainWindow::OnSocketEvent(wxSocketEvent &event)
 
 void MainWindow::OnCloseWindow(wxCloseEvent &event)
 {
-    SET::GUI::window_main.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, true });
+    SET::GUI::window_main.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, true, IsMaximized()});
 
     delete WindowTerminal::self;
 

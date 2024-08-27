@@ -7,6 +7,7 @@ struct WindowParameters
 {
     wxRect rect;
     bool   shown;
+    bool   maximized = false;
 };
 
 

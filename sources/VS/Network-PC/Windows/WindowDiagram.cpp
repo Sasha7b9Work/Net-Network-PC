@@ -32,13 +32,16 @@ WindowDiagram::WindowDiagram() :
 
     Show(SET::GUI::window_diagram.Get().shown);
 
-//    Bind(wxEVT_CLOSE_WINDOW, &WindowDiagram::OnEventClose, this);
+    if (SET::GUI::window_diagram.Get().maximized)
+    {
+        Maximize(true);
+    }
 }
 
 
 WindowDiagram::~WindowDiagram()
 {
-    SET::GUI::window_diagram.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, IsShown() });
+    SET::GUI::window_diagram.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, IsShown(), IsMaximized()});
 
     delete Diagram::Pool::self;
 
@@ -56,14 +59,6 @@ void WindowDiagram::OnEventSize(wxSizeEvent &event)
 
     event.Skip();
 }
-
-
-//void WindowDiagram::OnEventClose(wxCloseEvent &event)
-//{
-//    SET::GUI::window_diagram.Set({ GetPosition().x, GetPosition().y, GetSize().x, GetSize().y });
-//
-//    event.Skip();
-//}
 
 
 void WindowDiagram::UpdateArea()
