@@ -1,15 +1,15 @@
-// 2024/6/21 11:40:08 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+п»ї// 2024/6/21 11:40:08 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Data/Sensors.h"
 
 
 /*
-*   Связь с сервером Кузнечикова
+*   РЎРІСЏР·СЊ СЃ СЃРµСЂРІРµСЂРѕРј РљСѓР·РЅРµС‡РёРєРѕРІР°
 */
 
 
 namespace HTTP
 {
-    // Послать значения измерений так как они идут по порядку в TypeMeasure
+    // РџРѕСЃР»Р°С‚СЊ Р·РЅР°С‡РµРЅРёСЏ РёР·РјРµСЂРµРЅРёР№ С‚Р°Рє РєР°Рє РѕРЅРё РёРґСѓС‚ РїРѕ РїРѕСЂСЏРґРєСѓ РІ TypeMeasure
     void SendPOST(float *values, int count);
 }
