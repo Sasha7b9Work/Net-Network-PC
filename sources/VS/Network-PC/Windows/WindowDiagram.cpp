@@ -9,6 +9,12 @@
 WindowDiagram *WindowDiagram::self = nullptr;
 
 
+enum
+{
+    CONTEXT_TEMPERATURE = wxID_ABOUT
+};
+
+
 void WindowDiagram::Create()
 {
     self = new WindowDiagram();
@@ -91,5 +97,19 @@ void WindowDiagram::OnEventClose(wxCloseEvent &)
 
 void WindowDiagram::OnEventContextMenu(wxContextMenuEvent &event)
 {
+    wxPoint point = event.GetPosition();
+
+    ShowContextMenu(point);
+
     event.Skip();
+}
+
+
+void WindowDiagram::ShowContextMenu(const wxPoint &pos)
+{
+    wxMenu menu;
+
+    menu.Append(CONTEXT_TEMPERATURE, _("Температура"));
+
+    PopupMenu(&menu, pos);
 }

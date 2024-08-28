@@ -25,4 +25,6 @@ private:
     void OnEventClose(wxCloseEvent &);
 
     void OnEventContextMenu(wxContextMenuEvent &event);
+
+    void ShowContextMenu(const wxPoint &);
 };
