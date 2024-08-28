@@ -22,7 +22,7 @@ bool TypeMeasure::is_shown[Count] =
     true,
     true,
     true,
-    true,
+    false,
     true,
     true,
     true,
@@ -31,7 +31,7 @@ bool TypeMeasure::is_shown[Count] =
 };
 
 
-pchar TypeMeasure::GetTitle(Lang::E lang) const
+pchar TypeMeasure::GetTitle() const
 {
     static const pchar titles[Count][Lang::Count] =
     {
@@ -47,7 +47,7 @@ pchar TypeMeasure::GetTitle(Lang::E lang) const
         { "Освещённость", "Illuminate" }
     };
 
-    return titles[type][lang];
+    return titles[type][SET::GUI::lang.Get()];
 }
 
 
@@ -101,23 +101,23 @@ int TypeMeasure::NumColumn() const
 }
 
 
-pchar TypeMeasure::GetUnits(TypeMeasure::E type)
+pchar TypeMeasure::GetUnits() const
 {
-    static const pchar units[Count] =
+    static const pchar units[Count][Lang::Count] =
     {
-        "С",
-        "гПа",
-        "%",
-        "С",
-        "м/с",
-        "град",
-        "град",
-        "м",
-        "град",
-        "лк"
+        { "С",    "С"    },
+        { "гПа",  "гПа"  },
+        { "%",    "%"    },
+        { "С",    "С"    },
+        { "м/с",  "м/с"  },
+        { "град", "град" },
+        { "град", "град" },
+        { "м",    "м"    },
+        { "град", "град" },
+        { "лк",   "лк"   }
     };
 
-    return units[type];
+    return units[type][SET::GUI::lang.Get()];
 }
 
 

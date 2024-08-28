@@ -106,7 +106,7 @@ void ServerMeasures::Send(uint id, TypeMeasure::E type, float value)
     wxDateTime time = wxDateTime::Now();
 
     wxString message = wxString::Format("{\"id\":\"%08X\",\"%s\":\"%f\",\"time\":\"%d-%02d-%02d %02d:%02d:%02d\"}\r\n",
-        id, TypeMeasure(type).GetTitle(SET::GUI::lang.Get()), value,
+        id, TypeMeasure(type).GetTitle(), value,
         time.GetYear(), time.GetMonth(), time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());
 
     wxScopedCharBuffer message_utf8 = message.ToUTF8();

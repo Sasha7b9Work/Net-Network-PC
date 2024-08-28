@@ -1,4 +1,4 @@
-// 2022/08/24 14:56:11 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+п»ї// 2022/08/24 14:56:11 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Utils/Clock.h"
 #include "Settings/Settings.h"
@@ -9,16 +9,16 @@ struct TypeMeasure
 {
     enum E
     {
-        Temperature,    // Температура
-        Pressure,       // Давление
-        Humidity,       // Влажность
-        DewPoint,       // Точка росы
-        Velocity,       // Скорость воздуха
-        Latitude,       // Широта
-        Longitude,      // Долгота
-        Altitude,       // Высота
-        Azimuth,        // Азимут - угол от направления на север
-        Illuminate,     // Освещённость
+        Temperature,    // РўРµРјРїРµСЂР°С‚СѓСЂР°
+        Pressure,       // Р”Р°РІР»РµРЅРёРµ
+        Humidity,       // Р’Р»Р°Р¶РЅРѕСЃС‚СЊ
+        DewPoint,       // РўРѕС‡РєР° СЂРѕСЃС‹
+        Velocity,       // РЎРєРѕСЂРѕСЃС‚СЊ РІРѕР·РґСѓС…Р°
+        Latitude,       // РЁРёСЂРѕС‚Р°
+        Longitude,      // Р”РѕР»РіРѕС‚Р°
+        Altitude,       // Р’С‹СЃРѕС‚Р°
+        Azimuth,        // РђР·РёРјСѓС‚ - СѓРіРѕР» РѕС‚ РЅР°РїСЂР°РІР»РµРЅРёСЏ РЅР° СЃРµРІРµСЂ
+        Illuminate,     // РћСЃРІРµС‰С‘РЅРЅРѕСЃС‚СЊ
         Count
     };
 
@@ -26,14 +26,14 @@ struct TypeMeasure
 
     bool IsShown() const;
 
-    // Номер колонки для вывода
+    // РќРѕРјРµСЂ РєРѕР»РѕРЅРєРё РґР»СЏ РІС‹РІРѕРґР°
     int NumColumn() const;
 
-    pchar GetTitle(Lang::E) const;
+    pchar GetTitle() const;
 
-    static pchar GetUnits(TypeMeasure::E);
+    pchar GetUnits() const;
 
-    // Возвращает количество присутствующих измерений
+    // Р’РѕР·РІСЂР°С‰Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРёСЃСѓС‚СЃС‚РІСѓСЋС‰РёС… РёР·РјРµСЂРµРЅРёР№
     static int NumMeasures();
 
 private:
@@ -62,7 +62,7 @@ struct DataArray
 
     DataPoint &Last() { return Size() ? *(array.end() - 1) : DataPoint::null; }
 
-    // Рассчитывает мин/макс на from_end элементах с конца
+    // Р Р°СЃСЃС‡РёС‚С‹РІР°РµС‚ РјРёРЅ/РјР°РєСЃ РЅР° from_end СЌР»РµРјРµРЅС‚Р°С… СЃ РєРѕРЅС†Р°
     float Min(int from_end) const;
     float Max(int from_end) const;
 

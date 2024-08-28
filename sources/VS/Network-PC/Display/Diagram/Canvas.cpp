@@ -37,7 +37,7 @@ void Canvas::OnPaint(wxPaintEvent &)
 
     memDC.SetPen(wxPen(wxColor(0, 0, 0)));
 
-    memDC.DrawText(TypeMeasure(type).GetTitle(SET::GUI::lang.Get()), 1, 0);
+    memDC.DrawText(TypeMeasure(type).GetTitle(), 1, 0);
 
     memDC.SelectObject(wxNullBitmap);
 
