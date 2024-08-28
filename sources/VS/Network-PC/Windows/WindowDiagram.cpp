@@ -111,7 +111,10 @@ void WindowDiagram::ShowContextMenu(const wxPoint &pos)
 
     for (int i = 0; i < TypeMeasure::Count; i++)
     {
-        menu.Append(CONTEXT_FIRST_MEASURE + i, TypeMeasure::GetTitle((TypeMeasure::E)i));
+        wxMenuItem *item = menu.Append(CONTEXT_FIRST_MEASURE + i, TypeMeasure::GetTitle((TypeMeasure::E)i));
+
+        item->SetCheckable(true);
+        item->Check(TypeMeasure(i).IsShown());
     }
 
     PopupMenu(&menu, pos);
