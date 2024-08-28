@@ -17,6 +17,8 @@ MainWindow *MainWindow::self = nullptr;
 MainWindow::MainWindow(const wxString &title)
     : wxFrame((wxFrame *)NULL, wxID_ANY, title, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE | wxSTAY_ON_TOP)
 {
+    Show(false);
+
     wxSize size = FromDIP(wxSize((TypeMeasure::NumMeasures() + 1) * 60, 400));
 
     create_width = size.x;
@@ -91,7 +93,7 @@ MainWindow::MainWindow(const wxString &title)
     StretchColumns();
 
     SetClientSize(1024, 600);
-    wxWindowBase::SetMinClientSize({ 800, 300 });
+    wxWindowBase::SetMinClientSize({ 400, 200 });
 
     wxRect rect = SET::GUI::window_main.Get().rect;
 
@@ -106,6 +108,8 @@ MainWindow::MainWindow(const wxString &title)
     SetTitleMenu(VIEW_TERMINAL);
     SetTitleMenu(VIEW_LOG);
     SetTitleMenu(VIEW_DIAGRAM);
+
+    Show(true);
 }
 
 

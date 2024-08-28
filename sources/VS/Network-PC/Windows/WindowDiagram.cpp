@@ -22,6 +22,7 @@ WindowDiagram::WindowDiagram() :
 
     Bind(wxEVT_SIZE, &WindowDiagram::OnEventSize, this);
     Bind(wxEVT_CLOSE_WINDOW, &WindowDiagram::OnEventClose, this);
+    Bind(wxEVT_CONTEXT_MENU, &WindowDiagram::OnEventContextMenu, this);
 
     wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
 
@@ -85,4 +86,10 @@ void WindowDiagram::OnEventClose(wxCloseEvent &)
     Show(false);
 
     MainWindow::self->SetTitleMenu(VIEW_DIAGRAM);
+}
+
+
+void WindowDiagram::OnEventContextMenu(wxContextMenuEvent &event)
+{
+    event.Skip();
 }

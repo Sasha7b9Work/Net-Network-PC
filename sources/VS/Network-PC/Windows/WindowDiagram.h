@@ -23,4 +23,6 @@ private:
     void OnEventSize(wxSizeEvent &);
 
     void OnEventClose(wxCloseEvent &);
+
+    void OnEventContextMenu(wxContextMenuEvent &event);
 };
