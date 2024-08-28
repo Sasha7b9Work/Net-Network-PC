@@ -31,43 +31,23 @@ bool TypeMeasure::is_shown[Count] =
 };
 
 
-pchar TypeMeasure::GetTitle(TypeMeasure::E type)
+pchar TypeMeasure::GetTitle(Lang::E lang) const
 {
-    static const pchar titles[Count] =
+    static const pchar titles[Count][Lang::Count] =
     {
-        "Температура",
-        "Давление",
-        "Влажность",
-        "Точка росы",
-        "Скорость",
-        "Широта",
-        "Долгота",
-        "Высота",
-        "Азимут",
-        "Освещённость"
+        { "Температура",  "Temperature" },
+        { "Давление",     "Pressure" },
+        { "Влажность",    "Humidity" },
+        { "Точка росы",   "Dew point" },
+        { "Скорость",     "Speed" },
+        { "Широта",       "Latitude" },
+        { "Долгота",      "Longitude" },
+        { "Высота",       "Height" },
+        { "Азимут",       "Azimuth" },
+        { "Освещённость", "Illuminate" }
     };
 
-    return titles[type];
-}
-
-
-pchar TypeMeasure::GetTitleEn(TypeMeasure::E type)
-{
-    static const pchar titles[Count] =
-    {
-        "Temperature",
-        "Pressure",
-        "Humidity",
-        "Dew point",
-        "Speed",
-        "Latitude",
-        "Longitude",
-        "Height",
-        "Azimuth",
-        "Illuminate"
-    };
-
-    return titles[type];
+    return titles[type][lang];
 }
 
 

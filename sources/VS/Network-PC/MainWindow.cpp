@@ -85,7 +85,7 @@ MainWindow::MainWindow(const wxString &title)
 
         if (col >= 0)
         {
-            grid->SetColLabelValue(TypeMeasure(meas).NumColumn(), wxString(TypeMeasure::GetTitle((TypeMeasure::E)meas)) +
+            grid->SetColLabelValue(TypeMeasure(meas).NumColumn(), wxString(TypeMeasure(meas).GetTitle(SET::GUI::lang.Get())) +
                 wxString("\n") + wxString(TypeMeasure::GetUnits((TypeMeasure::E)meas)));
         }
     }

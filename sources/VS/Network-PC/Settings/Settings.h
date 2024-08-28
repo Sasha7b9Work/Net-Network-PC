@@ -11,6 +11,17 @@ struct WindowParameters
 };
 
 
+struct Lang
+{
+    enum E
+    {
+        RU,
+        EN,
+        Count
+    };
+};
+
+
 namespace SET
 {
     void Init();
@@ -34,5 +45,7 @@ namespace SET
         extern Value<WindowParameters> window_diagram;
         extern Value<WindowParameters> window_log;
         extern Value<WindowParameters> window_scpi;
+
+        extern Value<Lang::E> lang;
     }
 }

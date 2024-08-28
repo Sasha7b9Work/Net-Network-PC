@@ -35,6 +35,8 @@ namespace SET
         Value<WindowParameters> window_log{ "gui_window_log", { { 320, 0, 320, 240 }, true, false } };
         Value<WindowParameters> window_scpi{ "gui_window_scpi", { { 320, 240, 320, 240 }, true, false } };
 
+        Value<Lang::E> lang{ "lang", Lang::RU };
+
         static void LoadSave(bool load)
         {
             if (load)
@@ -46,12 +48,16 @@ namespace SET
                 window_diagram.SetDefault({ { 0, d_size.GetHeight() / 2, size.GetWidth(), size.GetHeight() }, true });
                 window_log.SetDefault({ {d_size.GetWidth() / 2, 0, size.GetWidth(), size.GetHeight() }, true });
                 window_scpi.SetDefault({ {d_size.GetWidth() / 2, d_size.GetHeight() / 2, size.GetWidth(), size.GetHeight() }, true });
+
+                lang.SetDefault(Lang::RU);
             }
 
             window_main.LoadSave(load);
             window_diagram.LoadSave(load);
             window_log.LoadSave(load);
             window_scpi.LoadSave(load);
+
+            lang.LoadSave(load);
         }
     }
 

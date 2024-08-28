@@ -37,16 +37,7 @@ void Canvas::OnPaint(wxPaintEvent &)
 
     memDC.SetPen(wxPen(wxColor(0, 0, 0)));
 
-//    static const wxString labels[TypeMeasure::Count] =
-//    {
-//        "Давление",
-//        "Освещённость",
-//        "Температура",
-//        "Влажность",
-//        "Скорость"
-//    };
-
-    memDC.DrawText(TypeMeasure::GetTitle((TypeMeasure::E)type), 1, 0);
+    memDC.DrawText(TypeMeasure(type).GetTitle(SET::GUI::lang.Get()), 1, 0);
 
     memDC.SelectObject(wxNullBitmap);
 
