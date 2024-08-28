@@ -32,7 +32,7 @@ void Log::Init()
 
     WindowLog::Create();
 
-    LOG_WRITE("\n\nStart application in %s", GetTime().c_str().AsChar());
+    LOG_WRITE("\n\n *** Start application in %s ***", GetTime().c_str().AsChar());
 }
 
 
