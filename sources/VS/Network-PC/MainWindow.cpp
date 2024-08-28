@@ -19,7 +19,7 @@ MainWindow::MainWindow(const wxString &title)
 {
     Show(false);
 
-    wxSize size = FromDIP(wxSize((TypeMeasure::NumMeasures() + 1) * 60, 400));
+    wxSize size = FromDIP(wxSize((Measure::NumMeasures() + 1) * 60, 400));
 
     create_width = size.x;
 
@@ -69,7 +69,7 @@ MainWindow::MainWindow(const wxString &title)
 
     grid->CreateGrid(0, 0);
 
-    grid->AppendCols(TypeMeasure::NumMeasures() + 1);
+    grid->AppendCols(Measure::NumMeasures() + 1);
 
     grid->EnableEditing(false);
 
@@ -79,13 +79,13 @@ MainWindow::MainWindow(const wxString &title)
 
     grid->SetColLabelValue(0, "ID");
 
-    for (int meas = 0; meas < TypeMeasure::Count; meas++)
+    for (int meas = 0; meas < Measure::Count; meas++)
     {
-        int col = TypeMeasure(meas).NumColumn();
+        int col = Measure(meas).NumColumn();
 
         if (col >= 0)
         {
-            TypeMeasure measure(meas);
+            Measure measure(meas);
 
             grid->SetColLabelValue(measure.NumColumn(), wxString(measure.GetTitle()) +
                 wxString("\n") + wxString(measure.GetUnits()));
@@ -152,9 +152,9 @@ void MainWindow::SetMeasure(uint id, const wxColour &color, uint8 type, float va
 
     row = rows.find(id);
 
-    TypeMeasure::E type_meas = (TypeMeasure::E)type;
+    Measure::E type_meas = (Measure::E)type;
 
-    SetCellValue(row->second, TypeMeasure(type).NumColumn(), (float)value, color);
+    SetCellValue(row->second, Measure(type).NumColumn(), (float)value, color);
 
     ServerMeasures::Send(id, type_meas, (float)value);
 }

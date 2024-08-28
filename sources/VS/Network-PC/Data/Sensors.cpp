@@ -16,7 +16,7 @@ map<uint, Sensor> Sensor::Pool::pool;
 DataPoint DataPoint::null{ 0.0f, {0, 0, 0} };
 
 
-bool TypeMeasure::is_shown[Count] =
+bool Measure::is_shown[Count] =
 {
     true,
     true,
@@ -31,7 +31,7 @@ bool TypeMeasure::is_shown[Count] =
 };
 
 
-pchar TypeMeasure::GetTitle() const
+pchar Measure::GetTitle() const
 {
     static const pchar titles[Count][Lang::Count] =
     {
@@ -51,25 +51,25 @@ pchar TypeMeasure::GetTitle() const
 }
 
 
-bool TypeMeasure::IsShown() const
+bool Measure::IsShown() const
 {
     return is_shown[type];
 }
 
 
-void TypeMeasure::SetShown(bool shown)
+void Measure::SetShown(bool shown)
 {
     is_shown[type] = shown;
 }
 
 
-int TypeMeasure::NumMeasures()
+int Measure::NumMeasures()
 {
     int result = 0;
 
     for (int i = 0; i < Count; i++)
     {
-        if (TypeMeasure(i).IsShown())
+        if (Measure(i).IsShown())
         {
             result++;
         }
@@ -79,13 +79,13 @@ int TypeMeasure::NumMeasures()
 }
 
 
-int TypeMeasure::NumColumn() const
+int Measure::NumColumn() const
 {
     int result = 0;
 
     for (int i = 0; i < Count; i++)
     {
-        if (type == (TypeMeasure::E)i)
+        if (type == (Measure::E)i)
         {
             if (IsShown())
             {
@@ -97,7 +97,7 @@ int TypeMeasure::NumColumn() const
             }
         }
 
-        if (TypeMeasure(i).IsShown())
+        if (Measure(i).IsShown())
         {
             result++;
         }
@@ -107,7 +107,7 @@ int TypeMeasure::NumColumn() const
 }
 
 
-pchar TypeMeasure::GetUnits() const
+pchar Measure::GetUnits() const
 {
     static const pchar units[Count][Lang::Count] =
     {
@@ -162,7 +162,7 @@ wxColour Sensor::Pool::ColorForSensor()
 
 void Sensor::AppendMeasure(uint8 type, float value)
 {
-    if (type < TypeMeasure::Count)
+    if (type < Measure::Count)
     {
         DataPoint point(value);
 

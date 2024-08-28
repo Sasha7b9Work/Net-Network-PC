@@ -110,12 +110,12 @@ void WindowDiagram::ShowContextMenu(const wxPoint &pos)
 {
     wxMenu menu;
 
-    for (int i = 0; i < TypeMeasure::Count; i++)
+    for (int i = 0; i < Measure::Count; i++)
     {
-        wxMenuItem *item = menu.Append(CONTEXT_FIRST_MEASURE + i, TypeMeasure(i).GetTitle());
+        wxMenuItem *item = menu.Append(CONTEXT_FIRST_MEASURE + i, Measure(i).GetTitle());
 
         item->SetCheckable(true);
-        item->Check(TypeMeasure(i).IsShown());
+        item->Check(Measure(i).IsShown());
     }
 
     PopupMenu(&menu, pos);
@@ -128,7 +128,9 @@ void WindowDiagram::OnEventContextMenu(wxCommandEvent &event)
 
     if (id < CONTEXT_FIRST_MEASURE + 10)
     {
-        TypeMeasure(id - CONTEXT_FIRST_MEASURE).SetShown(event.IsChecked());
+        Measure(id - CONTEXT_FIRST_MEASURE).SetShown(event.IsChecked());
+
+        Diagram::Pool::self->Rebuild();
     }
 
     event.Skip();

@@ -14,7 +14,7 @@ class Diagram : public wxPanel
 {
 public:
 
-    Diagram(wxWindow *parant, TypeMeasure::E);
+    Diagram(wxWindow *parant, Measure::E);
 
     void SetSizeArea(int, int);
 
@@ -33,6 +33,8 @@ public:
 
         static Pool *self;
 
+        void Rebuild();
+
         void SetSizeArea(int width, int height);
 
         void OnEventSize();
@@ -43,6 +45,6 @@ public:
 
         Pool(wxWindow *parent);
 
-        Diagram *pool[TypeMeasure::Count];
+        Diagram *pool[Measure::Count];
     };
 };

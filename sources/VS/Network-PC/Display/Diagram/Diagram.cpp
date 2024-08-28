@@ -9,7 +9,7 @@
 Diagram::Pool *Diagram::Pool::self = nullptr;
 
 
-Diagram::Diagram(wxWindow *parent, TypeMeasure::E type) : wxPanel(parent, wxID_ANY)
+Diagram::Diagram(wxWindow *parent, Measure::E type) : wxPanel(parent, wxID_ANY)
 {
     wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
 
@@ -33,21 +33,29 @@ Diagram::Pool::Pool(wxWindow *parent) : wxPanel(parent, wxID_ANY)
 {
     wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
 
-    for (int i = 0; i < TypeMeasure::Count; i++)
-    {
-        if (TypeMeasure(i).IsShown())
-        {
-            pool[i] = new Diagram(this, (TypeMeasure::E)i);
+    SetSizer(sizer);
 
-            sizer->Add(pool[i]);
+    Rebuild();
+}
+
+
+void Diagram::Pool::Rebuild()
+{
+//    GetSizer()->DeleteWindows();
+
+    for (int i = 0; i < Measure::Count; i++)
+    {
+        if (Measure(i).IsShown())
+        {
+            pool[i] = new Diagram(this, (Measure::E)i);
+
+            GetSizer()->Add(pool[i]);
         }
         else
         {
             pool[i] = nullptr;
         }
     }
-
-    SetSizer(sizer);
 }
 
 
@@ -61,7 +69,7 @@ Diagram::Pool *Diagram::Pool::Create(wxWindow *parent)
 
 void Diagram::Pool::SetSizeArea(int width, int height)
 {
-    int dy = height / TypeMeasure::NumMeasures();
+    int dy = height / Measure::NumMeasures();
 
     for (Diagram *diagram : pool)
     {

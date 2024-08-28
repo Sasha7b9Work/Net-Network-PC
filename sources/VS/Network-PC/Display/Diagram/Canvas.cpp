@@ -9,7 +9,7 @@
 using namespace std;
 
 
-Canvas::Canvas(wxWindow *parent, TypeMeasure::E _type) : wxPanel(parent, wxID_ANY),
+Canvas::Canvas(wxWindow *parent, Measure::E _type) : wxPanel(parent, wxID_ANY),
     type(_type)
 {
     Bind(wxEVT_PAINT, &Canvas::OnPaint, this);
@@ -37,7 +37,7 @@ void Canvas::OnPaint(wxPaintEvent &)
 
     memDC.SetPen(wxPen(wxColor(0, 0, 0)));
 
-    memDC.DrawText(TypeMeasure(type).GetTitle(), 1, 0);
+    memDC.DrawText(Measure(type).GetTitle(), 1, 0);
 
     memDC.SelectObject(wxNullBitmap);
 

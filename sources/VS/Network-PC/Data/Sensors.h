@@ -5,7 +5,7 @@
 #include <map>
 
 
-struct TypeMeasure
+struct Measure
 {
     enum E
     {
@@ -22,7 +22,7 @@ struct TypeMeasure
         Count
     };
 
-    TypeMeasure(int t) : type((E)t) { }
+    Measure(int t) : type((E)t) { }
 
     bool IsShown() const;
 
@@ -80,7 +80,7 @@ public:
 
     void AppendMeasure(uint8 type, float value);
 
-    const DataArray &GetMeasures(TypeMeasure::E type) const { return measures[type]; }
+    const DataArray &GetMeasures(Measure::E type) const { return measures[type]; }
 
     wxColour GetColor() const { return color; }
 
@@ -90,7 +90,7 @@ private:
 
     const wxColour color;
 
-    DataArray measures[TypeMeasure::Count];
+    DataArray measures[Measure::Count];
 
 public:
 

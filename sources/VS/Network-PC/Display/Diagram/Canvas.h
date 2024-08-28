@@ -12,13 +12,13 @@ class Canvas : public wxPanel
 {
 public:
 
-    Canvas(wxWindow *parent, TypeMeasure::E);
+    Canvas(wxWindow *parent, Measure::E);
 
     void SetSizeArea(int, int);
 
 private:
 
-    TypeMeasure::E type;
+    Measure::E type;
 
     void OnPaint(wxPaintEvent &);
 

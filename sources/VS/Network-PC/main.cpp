@@ -36,14 +36,14 @@ void Application::Update()
         {
             meter.Reset();
 
-            float values[TypeMeasure::Count];
+            float values[Measure::Count];
 
-            for (int i = 0; i < TypeMeasure::Count; i++)
+            for (int i = 0; i < Measure::Count; i++)
             {
                 values[i] = (float)(std::rand() % 100);
             }
 
-            HTTP::SendPOST(values, TypeMeasure::Count);
+            HTTP::SendPOST(values, Measure::Count);
         }
     }
 }

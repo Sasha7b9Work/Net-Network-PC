@@ -10,7 +10,7 @@ namespace ServerMeasures
 
     void Update();
 
-    void Send(uint id, TypeMeasure::E, float value);
+    void Send(uint id, Measure::E, float value);
 
     void CallbackOnSocketEvent(wxSocketEvent &);
 }
