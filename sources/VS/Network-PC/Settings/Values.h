@@ -3,7 +3,9 @@
 #include "Utils/Config.h"
 
 
-template<class T>
+// class_cast - дополнительный необязательный тип, к которому будет приводится возвращаемое значение.
+// Обычно кастуется int к перечислению
+template<class T, class class_cast = T>
 struct Value
 {
     Value(pchar _key, const T &_def) : value(_def), key(_key), def(_def)
@@ -25,9 +27,9 @@ struct Value
         LoadSave(false);
     }
 
-    T Get() const
+    class_cast Get() const
     {
-        return value;
+        return (class_cast)value;
     }
 
     void LoadSave(bool load)
