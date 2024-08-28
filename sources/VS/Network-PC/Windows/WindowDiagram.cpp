@@ -11,7 +11,7 @@ WindowDiagram *WindowDiagram::self = nullptr;
 
 enum
 {
-    CONTEXT_TEMPERATURE = wxID_ABOUT
+    CONTEXT_FIRST_MEASURE = wxID_ABOUT      // id меню первого измерения
 };
 
 
@@ -99,7 +99,7 @@ void WindowDiagram::OnEventContextMenu(wxContextMenuEvent &event)
 {
     wxPoint point = event.GetPosition();
 
-    ShowContextMenu(point);
+    ShowContextMenu(ScreenToClient(point));
 
     event.Skip();
 }
@@ -109,7 +109,10 @@ void WindowDiagram::ShowContextMenu(const wxPoint &pos)
 {
     wxMenu menu;
 
-    menu.Append(CONTEXT_TEMPERATURE, _("Температура"));
+    for (int i = 0; i < TypeMeasure::Count; i++)
+    {
+        menu.Append(CONTEXT_FIRST_MEASURE + i, TypeMeasure::GetTitle((TypeMeasure::E)i));
+    }
 
     PopupMenu(&menu, pos);
 }
