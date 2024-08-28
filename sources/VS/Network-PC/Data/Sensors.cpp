@@ -71,23 +71,9 @@ pchar TypeMeasure::GetTitleEn(TypeMeasure::E type)
 }
 
 
-bool TypeMeasure::IsShown(TypeMeasure::E type)
+bool TypeMeasure::IsShown() const
 {
-    static const bool exists[Count] =
-    {
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true
-    };
-
-    return exists[type];
+    return is_shown[type];
 }
 
 
@@ -97,7 +83,7 @@ int TypeMeasure::NumMeasures()
 
     for (int i = 0; i < Count; i++)
     {
-        if (IsShown((TypeMeasure::E)i))
+        if (TypeMeasure(i).IsShown())
         {
             result++;
         }
@@ -107,7 +93,7 @@ int TypeMeasure::NumMeasures()
 }
 
 
-int TypeMeasure::NumColumn(TypeMeasure::E type)
+int TypeMeasure::NumColumn() const
 {
     int result = 0;
 
@@ -115,7 +101,7 @@ int TypeMeasure::NumColumn(TypeMeasure::E type)
     {
         if (type == (TypeMeasure::E)i)
         {
-            if (IsShown(type))
+            if (IsShown())
             {
                 break;
             }
@@ -125,7 +111,7 @@ int TypeMeasure::NumColumn(TypeMeasure::E type)
             }
         }
 
-        if (IsShown((TypeMeasure::E)i))
+        if (TypeMeasure(i).IsShown())
         {
             result++;
         }

@@ -21,21 +21,25 @@ struct TypeMeasure
         Count
     };
 
+    TypeMeasure(int t) : type((E)t) { }
+
+    bool IsShown() const;
+
+    // Номер колонки для вывода
+    int NumColumn() const;
+
     static pchar GetTitle(TypeMeasure::E);
 
     static pchar GetTitleEn(TypeMeasure::E);
 
     static pchar GetUnits(TypeMeasure::E);
 
-    static bool IsShown(TypeMeasure::E);
-
     // Возвращает количество присутствующих измерений
     static int NumMeasures();
 
-    // Номер колонки для вывода
-    static int NumColumn(TypeMeasure::E);
-
 private:
+
+    E type = Count;
 
     static bool is_shown[Count];
 };

@@ -81,11 +81,11 @@ MainWindow::MainWindow(const wxString &title)
 
     for (int meas = 0; meas < TypeMeasure::Count; meas++)
     {
-        int col = TypeMeasure::NumColumn((TypeMeasure::E)meas);
+        int col = TypeMeasure(meas).NumColumn();
 
         if (col >= 0)
         {
-            grid->SetColLabelValue(TypeMeasure::NumColumn((TypeMeasure::E)meas), wxString(TypeMeasure::GetTitle((TypeMeasure::E)meas)) +
+            grid->SetColLabelValue(TypeMeasure(meas).NumColumn(), wxString(TypeMeasure::GetTitle((TypeMeasure::E)meas)) +
                 wxString("\n") + wxString(TypeMeasure::GetUnits((TypeMeasure::E)meas)));
         }
     }
@@ -152,7 +152,7 @@ void MainWindow::SetMeasure(uint id, const wxColour &color, uint8 type, float va
 
     TypeMeasure::E type_meas = (TypeMeasure::E)type;
 
-    SetCellValue(row->second, TypeMeasure::NumColumn(type_meas), (float)value, color);
+    SetCellValue(row->second, TypeMeasure(type).NumColumn(), (float)value, color);
 
     ServerMeasures::Send(id, type_meas, (float)value);
 }
