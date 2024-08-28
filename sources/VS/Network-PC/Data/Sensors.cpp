@@ -31,7 +31,7 @@ bool Measure::is_shown[Count] =
 };
 
 
-pchar Measure::GetTitle() const
+wxString Measure::GetTitle() const
 {
     static const pchar titles[Count][Lang::Count] =
     {
@@ -107,7 +107,7 @@ int Measure::NumColumn() const
 }
 
 
-pchar Measure::GetUnits() const
+wxString Measure::GetUnits() const
 {
     static const pchar units[Count][Lang::Count] =
     {

@@ -87,8 +87,7 @@ MainWindow::MainWindow(const wxString &title)
         {
             Measure measure(meas);
 
-            grid->SetColLabelValue(measure.NumColumn(), wxString(measure.GetTitle()) +
-                wxString("\n") + wxString(measure.GetUnits()));
+            grid->SetColLabelValue(measure.NumColumn(), measure.GetTitle() + "\n" + measure.GetUnits());
         }
     }
 

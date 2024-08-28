@@ -31,9 +31,9 @@ struct Measure
     // Номер колонки для вывода
     int NumColumn() const;
 
-    pchar GetTitle() const;
+    wxString GetTitle() const;
 
-    pchar GetUnits() const;
+    wxString GetUnits() const;
 
     // Возвращает количество присутствующих измерений
     static int NumMeasures();
