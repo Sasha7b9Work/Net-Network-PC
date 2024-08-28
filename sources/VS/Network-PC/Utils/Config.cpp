@@ -74,12 +74,6 @@ void Config::Write(pchar key, const WindowParameters &params)
 }
 
 
-void Config::Write(pchar key, Lang::E lang)
-{
-    Write(wxString(key)
-}
-
-
 WindowParameters Config::Read(pchar key, const WindowParameters &def)
 {
     wxRect rect = Read(wxString(key) + "_rect", def.rect);

@@ -46,6 +46,6 @@ namespace SET
         extern Value<WindowParameters> window_log;
         extern Value<WindowParameters> window_scpi;
 
-        extern Value<Lang::E> lang;
+        extern Value<int> lang;
     }
 }

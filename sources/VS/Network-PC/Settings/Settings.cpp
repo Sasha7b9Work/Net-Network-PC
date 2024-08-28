@@ -35,7 +35,7 @@ namespace SET
         Value<WindowParameters> window_log{ "gui_window_log", { { 320, 0, 320, 240 }, true, false } };
         Value<WindowParameters> window_scpi{ "gui_window_scpi", { { 320, 240, 320, 240 }, true, false } };
 
-        Value<Lang::E> lang{ "lang", Lang::RU };
+        Value<int> lang{ "lang", Lang::RU };
 
         static void LoadSave(bool load)
         {
