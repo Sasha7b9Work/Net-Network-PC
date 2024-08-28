@@ -26,6 +26,8 @@ struct TypeMeasure
 
     bool IsShown() const;
 
+    void SetShown(bool);
+
     // Номер колонки для вывода
     int NumColumn() const;
 

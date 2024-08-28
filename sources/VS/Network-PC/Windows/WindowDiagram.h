@@ -24,7 +24,10 @@ private:
 
     void OnEventClose(wxCloseEvent &);
 
-    void OnEventContextMenu(wxContextMenuEvent &event);
+    void OnEventCreateContextMenu(wxContextMenuEvent &);
+
+    // Вызывается при выборе пункта контекстного меню
+    void OnEventContextMenu(wxCommandEvent &);
 
     void ShowContextMenu(const wxPoint &);
 };

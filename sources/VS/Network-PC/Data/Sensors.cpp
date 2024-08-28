@@ -57,6 +57,12 @@ bool TypeMeasure::IsShown() const
 }
 
 
+void TypeMeasure::SetShown(bool shown)
+{
+    is_shown[type] = shown;
+}
+
+
 int TypeMeasure::NumMeasures()
 {
     int result = 0;

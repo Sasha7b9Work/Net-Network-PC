@@ -28,7 +28,8 @@ WindowDiagram::WindowDiagram() :
 
     Bind(wxEVT_SIZE, &WindowDiagram::OnEventSize, this);
     Bind(wxEVT_CLOSE_WINDOW, &WindowDiagram::OnEventClose, this);
-    Bind(wxEVT_CONTEXT_MENU, &WindowDiagram::OnEventContextMenu, this);
+    Bind(wxEVT_CONTEXT_MENU, &WindowDiagram::OnEventCreateContextMenu, this);
+    Bind(wxEVT_MENU, &WindowDiagram::OnEventContextMenu, this);
 
     wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
 
@@ -95,7 +96,7 @@ void WindowDiagram::OnEventClose(wxCloseEvent &)
 }
 
 
-void WindowDiagram::OnEventContextMenu(wxContextMenuEvent &event)
+void WindowDiagram::OnEventCreateContextMenu(wxContextMenuEvent &event)
 {
     wxPoint point = event.GetPosition();
 
@@ -118,4 +119,17 @@ void WindowDiagram::ShowContextMenu(const wxPoint &pos)
     }
 
     PopupMenu(&menu, pos);
+}
+
+
+void WindowDiagram::OnEventContextMenu(wxCommandEvent &event)
+{
+    int id = event.GetId();
+
+    if (id < CONTEXT_FIRST_MEASURE + 10)
+    {
+        TypeMeasure(id - CONTEXT_FIRST_MEASURE).SetShown(event.IsChecked());
+    }
+
+    event.Skip();
 }
