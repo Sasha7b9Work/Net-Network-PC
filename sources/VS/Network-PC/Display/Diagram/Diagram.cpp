@@ -1,7 +1,6 @@
 // 2022/09/05 08:52:55 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Display/Diagram/Diagram.h"
-#include "Display/Diagram/Canvas.h"
 #include "Utils/Clock.h"
 #include "Windows/WindowDiagram.h"
 
@@ -31,6 +30,11 @@ void Diagram::SetSizeArea(int width, int height)
 
 Diagram::Pool::Pool(wxWindow *parent) : wxPanel(parent, wxID_ANY)
 {
+    for (int i = 0; i < Measure::Count; i++)
+    {
+        pool[i] = nullptr;
+    }
+
     wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
 
     SetSizer(sizer);
@@ -41,7 +45,31 @@ Diagram::Pool::Pool(wxWindow *parent) : wxPanel(parent, wxID_ANY)
 
 void Diagram::Pool::Rebuild()
 {
-//    GetSizer()->DeleteWindows();
+    wxSizer *sizer = GetSizer();
+
+    {
+        int num_items = sizer->GetItemCount();
+
+//        for (int i = 0; i < num_items; i++)
+//        {
+//            sizer->Remove(0);
+//        }
+
+        sizer->Clear();
+
+        for (int i = 0; i < Measure::Count; i++)
+        {
+            if (pool[i])
+            {
+                delete pool[i];
+                pool[i] = nullptr;
+            }
+        }
+
+        num_items = sizer->GetItemCount();
+
+        num_items = num_items;
+    }
 
     for (int i = 0; i < Measure::Count; i++)
     {
@@ -49,7 +77,7 @@ void Diagram::Pool::Rebuild()
         {
             pool[i] = new Diagram(this, (Measure::E)i);
 
-            GetSizer()->Add(pool[i]);
+            sizer->Add(pool[i]);
         }
         else
         {

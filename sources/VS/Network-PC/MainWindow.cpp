@@ -1,7 +1,6 @@
 ﻿// 2022/04/29 13:56:48 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Display/Diagram/Diagram.h"
-#include "Display/Diagram/Canvas.h"
 #include "Settings/Settings.h"
 #include "Windows/WindowTerminal.h"
 #include "Windows/WindowLog.h"
