@@ -35,7 +35,7 @@ Diagram::Pool::Pool(wxWindow *parent) : wxPanel(parent, wxID_ANY)
 
     for (int i = 0; i < TypeMeasure::Count; i++)
     {
-        if (TypeMeasure::Exist((TypeMeasure::E)i))
+        if (TypeMeasure::IsShown((TypeMeasure::E)i))
         {
             pool[i] = new Diagram(this, (TypeMeasure::E)i);
 

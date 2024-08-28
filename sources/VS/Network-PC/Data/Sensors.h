@@ -22,13 +22,22 @@ struct TypeMeasure
     };
 
     static pchar GetTitle(TypeMeasure::E);
+
     static pchar GetTitleEn(TypeMeasure::E);
+
     static pchar GetUnits(TypeMeasure::E);
-    static bool Exist(TypeMeasure::E);
+
+    static bool IsShown(TypeMeasure::E);
+
     // ¬озвращает количество присутствующих измерений
     static int NumMeasures();
+
     // Ќомер колонки дл€ вывода
     static int NumColumn(TypeMeasure::E);
+
+private:
+
+    static bool is_shown[Count];
 };
 
 
