@@ -4,8 +4,13 @@
 #include "Windows/WindowDiagram/Diagram.h"
 
 
-PoolDiagram *PoolDiagram::self = nullptr;
-Diagram *PoolDiagram::diagrams[Measure::Count];
+namespace PoolDiagram
+{
+    static Diagram *diagrams[Measure::Count];
+    static wxPanel *panel = nullptr;
+
+    static void UpdateArea();
+}
 
 
 Diagram::Diagram(wxWindow *parent, Measure::E type) : wxPanel(parent, wxID_ANY)
@@ -28,9 +33,9 @@ void Diagram::SetSizeArea(int width, int height)
 }
 
 
-PoolDiagram::PoolDiagram(wxWindow *parent) : wxPanel(parent, wxID_ANY)
+wxPanel *PoolDiagram::Create(wxWindow *parent)
 {
-    self = this;
+    panel = new wxPanel(parent, wxID_ANY);
 
     for (int i = 0; i < Measure::Count; i++)
     {
@@ -39,7 +44,7 @@ PoolDiagram::PoolDiagram(wxWindow *parent) : wxPanel(parent, wxID_ANY)
 
     wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
 
-    SetSizer(sizer);
+    panel->SetSizer(sizer);
 
     {
         sizer->Clear();
@@ -58,7 +63,7 @@ PoolDiagram::PoolDiagram(wxWindow *parent) : wxPanel(parent, wxID_ANY)
     {
         if (Measure(i).IsShown())
         {
-            diagrams[i] = new Diagram(self, (Measure::E)i);
+            diagrams[i] = new Diagram(panel, (Measure::E)i);
 
             sizer->Add(diagrams[i]);
         }
@@ -67,14 +72,16 @@ PoolDiagram::PoolDiagram(wxWindow *parent) : wxPanel(parent, wxID_ANY)
             diagrams[i] = nullptr;
         }
     }
+
+    return panel;
 }
 
 
-PoolDiagram *PoolDiagram::Create(wxWindow *parent)
+void PoolDiagram::Destroy()
 {
-    self = new PoolDiagram(parent);
+    delete panel;
 
-    return self;
+    panel = nullptr;
 }
 
 
@@ -90,7 +97,7 @@ void PoolDiagram::SetSizeArea(int width, int height)
         }
     }
 
-    self->Refresh();
+    panel->Refresh();
 }
 
 
@@ -104,14 +111,14 @@ void PoolDiagram::UpdateArea()
     {
         prev = time.sec;
 
-        self->Refresh();
+        panel->Refresh();
     }
 }
 
 
 void PoolDiagram::OnEventSize()
 {
-    wxSize size = self->GetParent()->GetClientSize();
+    wxSize size = panel->GetParent()->GetClientSize();
 
     SetSizeArea(size.x, size.y);
 }

@@ -21,24 +21,13 @@ private:
 
 
 // Здесь рисуются все графики
-class PoolDiagram : public wxPanel
+namespace PoolDiagram
 {
-    friend class WindowDiagram;
-public:
+    wxPanel *Create(wxWindow *);
 
-    static PoolDiagram *Create(wxWindow *);
+    void Destroy();
 
-    static PoolDiagram *self;
+    void SetSizeArea(int width, int height);
 
-    static void SetSizeArea(int width, int height);
-
-    static void OnEventSize();
-
-private:
-
-    static void UpdateArea();
-
-    PoolDiagram(wxWindow *parent);
-
-    static Diagram *diagrams[Measure::Count];
+    void OnEventSize();
 };

@@ -53,9 +53,7 @@ WindowDiagram::WindowDiagram() :
 
 void WindowDiagram::Rebuild()
 {
-    delete PoolDiagram::self;
-
-    PoolDiagram::self = nullptr;
+    PoolDiagram::Destroy();
 
     GetSizer()->Remove(0);
 
@@ -67,9 +65,7 @@ WindowDiagram::~WindowDiagram()
 {
     SET::GUI::window_diagram.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, IsShown(), IsMaximized()});
 
-    delete PoolDiagram::self;
-
-    PoolDiagram::self = nullptr;
+    PoolDiagram::Destroy();
 
     self = nullptr;
 }
@@ -77,7 +73,7 @@ WindowDiagram::~WindowDiagram()
 
 void WindowDiagram::OnEventSize(wxSizeEvent &event)
 {
-    PoolDiagram::self->OnEventSize();
+    PoolDiagram::OnEventSize();
 
     Layout();
 
@@ -89,7 +85,7 @@ void WindowDiagram::UpdateArea()
 {
     if (self && self->IsShown())
     {
-        PoolDiagram::self->UpdateArea();
+        PoolDiagram::UpdateArea();
     }
 }
 
