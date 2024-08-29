@@ -1,13 +1,12 @@
 ﻿// 2022/04/29 13:56:48 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Display/Diagram/Diagram.h"
 #include "Settings/Settings.h"
 #include "Windows/WindowTerminal.h"
 #include "Windows/WindowLog.h"
 #include "Communicator/Server/Server.h"
-#include "Windows/WindowDiagram.h"
 #include "Communicator/HTTP/HTTP.h"
 #include "MainWindow.h"
+#include "Windows/WindowDiagram/WindowDiagram.h"
 
 
 MainWindow *MainWindow::self = nullptr;

@@ -1,9 +1,9 @@
 // 2022/09/05 08:47:32 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Display/Diagram/Canvas.h"
 #include "Data/Sensors.h"
 #include "Utils/Clock.h"
 #include "Settings/Settings.h"
+#include "Windows/WindowDiagram/Canvas.h"
 
 
 using namespace std;

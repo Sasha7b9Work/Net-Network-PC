@@ -5,9 +5,9 @@
 #include "Windows/WindowTerminal.h"
 #include "Communicator/Communicator.h"
 #include "Utils/Config.h"
-#include "Windows/WindowDiagram.h"
 #include "Settings/Settings.h"
 #include "MainWindow.h"
+#include "Windows/WindowDiagram/WindowDiagram.h"
 
 
 wxIMPLEMENT_APP(Application);

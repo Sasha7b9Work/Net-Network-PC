@@ -1,8 +1,8 @@
 // 2022/09/05 08:53:11 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Data/Sensors.h"
-#include "Display/Diagram/Canvas.h"
 #include "Settings/Settings.h"
+#include "Windows/WindowDiagram/Canvas.h"
 
 
 /*

@@ -1,9 +1,9 @@
 ﻿// 2024/08/26 13:39:23 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Windows/WindowDiagram.h"
-#include "Display/Diagram/Diagram.h"
 #include "Settings/Settings.h"
 #include "MainWindow.h"
+#include "Windows/WindowDiagram/WindowDiagram.h"
+#include "Windows/WindowDiagram/Diagram.h"
 
 
 WindowDiagram *WindowDiagram::self = nullptr;

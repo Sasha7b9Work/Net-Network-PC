@@ -1,8 +1,7 @@
 // 2022/09/05 08:52:55 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Display/Diagram/Diagram.h"
 #include "Utils/Clock.h"
-#include "Windows/WindowDiagram.h"
+#include "Windows/WindowDiagram/Diagram.h"
 
 
 Diagram::Pool *Diagram::Pool::self = nullptr;

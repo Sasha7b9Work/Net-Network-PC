@@ -5,13 +5,12 @@
 #include "Communicator/LAN/ServerTCP.h"
 #include "Communicator/ComPort/ComPort.h"
 #include "Data/ReceivedData.h"
-#include "Display/Diagram/Diagram.h"
 #include "Utils/Clock.h"
 #include "Windows/WindowTerminal.h"
 #include "Communicator/Server/Server.h"
 #include "Utils/Timer.h"
 #include "Communicator/HTTP/HTTP.h"
-#include "Windows/WindowDiagram.h"
+#include "Windows/WindowDiagram/WindowDiagram.h"
 
 
 using namespace std;
