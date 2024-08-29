@@ -5,6 +5,7 @@
 
 
 Diagram::Pool *Diagram::Pool::self = nullptr;
+Diagram *Diagram::Pool::diagrams[Measure::Count];
 
 
 Diagram::Diagram(wxWindow *parent, Measure::E type) : wxPanel(parent, wxID_ANY)
@@ -29,6 +30,8 @@ void Diagram::SetSizeArea(int width, int height)
 
 Diagram::Pool::Pool(wxWindow *parent) : wxPanel(parent, wxID_ANY)
 {
+    self = this;
+
     for (int i = 0; i < Measure::Count; i++)
     {
         diagrams[i] = nullptr;
@@ -44,7 +47,7 @@ Diagram::Pool::Pool(wxWindow *parent) : wxPanel(parent, wxID_ANY)
 
 void Diagram::Pool::Rebuild()
 {
-    wxSizer *sizer = GetSizer();
+    wxSizer *sizer = self->GetSizer();
 
     {
         sizer->Clear();
@@ -63,7 +66,7 @@ void Diagram::Pool::Rebuild()
     {
         if (Measure(i).IsShown())
         {
-            diagrams[i] = new Diagram(this, (Measure::E)i);
+            diagrams[i] = new Diagram(self, (Measure::E)i);
 
             sizer->Add(diagrams[i]);
         }
@@ -95,7 +98,7 @@ void Diagram::Pool::SetSizeArea(int width, int height)
         }
     }
 
-    Refresh();
+    self->Refresh();
 }
 
 
@@ -109,14 +112,14 @@ void Diagram::Pool::UpdateArea()
     {
         prev = time.sec;
 
-        Refresh();
+        self->Refresh();
     }
 }
 
 
 void Diagram::Pool::OnEventSize()
 {
-    wxSize size = GetParent()->GetClientSize();
+    wxSize size = self->GetParent()->GetClientSize();
 
     SetSizeArea(size.x, size.y);
 }

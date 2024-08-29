@@ -33,18 +33,18 @@ public:
 
         static Pool *self;
 
-        void Rebuild();
+        static void Rebuild();
 
-        void SetSizeArea(int width, int height);
+        static void SetSizeArea(int width, int height);
 
-        void OnEventSize();
+        static void OnEventSize();
 
     private:
 
-        void UpdateArea();
+        static void UpdateArea();
 
         Pool(wxWindow *parent);
 
-        Diagram *diagrams[Measure::Count];
+        static Diagram *diagrams[Measure::Count];
     };
 };
