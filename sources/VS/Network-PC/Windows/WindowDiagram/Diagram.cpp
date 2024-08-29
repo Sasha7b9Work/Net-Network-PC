@@ -47,13 +47,6 @@ void Diagram::Pool::Rebuild()
     wxSizer *sizer = GetSizer();
 
     {
-        int num_items = sizer->GetItemCount();
-
-//        for (int i = 0; i < num_items; i++)
-//        {
-//            sizer->Remove(0);
-//        }
-
         sizer->Clear();
 
         for (int i = 0; i < Measure::Count; i++)
@@ -64,10 +57,6 @@ void Diagram::Pool::Rebuild()
                 pool[i] = nullptr;
             }
         }
-
-        num_items = sizer->GetItemCount();
-
-        num_items = num_items;
     }
 
     for (int i = 0; i < Measure::Count; i++)
