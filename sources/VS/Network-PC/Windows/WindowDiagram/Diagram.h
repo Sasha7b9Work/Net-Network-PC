@@ -20,6 +20,7 @@ private:
 };
 
 
+// Здесь рисуются все графики
 class PoolDiagram : public wxPanel
 {
     friend class WindowDiagram;

@@ -57,7 +57,7 @@ void WindowDiagram::Rebuild()
 
     PoolDiagram::self = nullptr;
 
-    GetSizer()->Clear();
+    GetSizer()->Remove(0);
 
     GetSizer()->Add(PoolDiagram::Create(this));
 }
