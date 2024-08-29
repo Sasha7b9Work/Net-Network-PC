@@ -14,6 +14,8 @@ public:
 
     Canvas(wxWindow *parent, Measure::E);
 
+    ~Canvas();
+
     void SetSizeArea(int, int);
 
 private:

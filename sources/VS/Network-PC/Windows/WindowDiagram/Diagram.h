@@ -12,6 +12,8 @@ public:
 
     Diagram(wxWindow *parant, Measure::E);
 
+    ~Diagram();
+
     void SetSizeArea(int, int);
 
 private:
@@ -23,6 +25,7 @@ private:
 // Здесь рисуются все графики
 namespace PoolDiagram
 {
+    // Возвращает панель, на которой отрисовываются все диаграммы
     wxPanel *Create(wxWindow *);
 
     void Destroy();

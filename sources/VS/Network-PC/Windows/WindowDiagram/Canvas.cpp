@@ -19,6 +19,12 @@ Canvas::Canvas(wxWindow *parent, Measure::E _type) : wxPanel(parent, wxID_ANY),
 }
 
 
+Canvas::~Canvas()
+{
+    Unbind(wxEVT_PAINT, &Canvas::OnPaint, this);
+}
+
+
 void Canvas::OnPaint(wxPaintEvent &)
 {
     wxBitmap bitmap(GetClientSize());

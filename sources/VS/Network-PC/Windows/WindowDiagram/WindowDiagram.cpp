@@ -55,7 +55,10 @@ void WindowDiagram::Rebuild()
 {
     PoolDiagram::Destroy();
 
-    GetSizer()->Remove(0);
+    if (GetSizer()->GetItemCount() > 0)
+    {
+        GetSizer()->Remove(0);
+    }
 
     GetSizer()->Add(PoolDiagram::Create(this));
 }

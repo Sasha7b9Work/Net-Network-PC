@@ -27,6 +27,14 @@ Diagram::Diagram(wxWindow *parent, Measure::E type) : wxPanel(parent, wxID_ANY)
 }
 
 
+Diagram::~Diagram()
+{
+    Unbind(wxEVT_PAINT, &Diagram::OnPaint, this);
+
+    delete canvas;
+}
+
+
 void Diagram::SetSizeArea(int width, int height)
 {
     canvas->SetSizeArea(width, height);
@@ -45,19 +53,6 @@ wxPanel *PoolDiagram::Create(wxWindow *parent)
     wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
 
     panel->SetSizer(sizer);
-
-    {
-        sizer->Clear();
-
-        for (int i = 0; i < Measure::Count; i++)
-        {
-            if (diagrams[i])
-            {
-                delete diagrams[i];
-                diagrams[i] = nullptr;
-            }
-        }
-    }
 
     for (int i = 0; i < Measure::Count; i++)
     {
@@ -79,6 +74,15 @@ wxPanel *PoolDiagram::Create(wxWindow *parent)
 
 void PoolDiagram::Destroy()
 {
+    for (int i = 0; i < Measure::Count; i++)
+    {
+        if (diagrams[i])
+        {
+            delete diagrams[i];
+            diagrams[i] = nullptr;
+        }
+    }
+
     delete panel;
 
     panel = nullptr;
@@ -111,7 +115,10 @@ void PoolDiagram::UpdateArea()
     {
         prev = time.sec;
 
-        panel->Refresh();
+        if (panel)
+        {
+            panel->Refresh();
+        }
     }
 }
 
