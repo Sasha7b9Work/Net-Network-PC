@@ -51,6 +51,18 @@ WindowDiagram::WindowDiagram() :
 }
 
 
+void WindowDiagram::Rebuild()
+{
+    delete PoolDiagram::self;
+
+    PoolDiagram::self = nullptr;
+
+    GetSizer()->Clear();
+
+    GetSizer()->Add(PoolDiagram::Create(this));
+}
+
+
 WindowDiagram::~WindowDiagram()
 {
     SET::GUI::window_diagram.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, IsShown(), IsMaximized()});
@@ -130,7 +142,7 @@ void WindowDiagram::OnEventContextMenu(wxCommandEvent &event)
     {
         Measure(id - CONTEXT_FIRST_MEASURE).SetShown(event.IsChecked());
 
-        PoolDiagram::self->Rebuild();
+        Rebuild();
     }
 
     event.Skip();

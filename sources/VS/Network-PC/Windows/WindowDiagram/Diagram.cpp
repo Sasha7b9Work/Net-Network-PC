@@ -41,14 +41,6 @@ PoolDiagram::PoolDiagram(wxWindow *parent) : wxPanel(parent, wxID_ANY)
 
     SetSizer(sizer);
 
-    Rebuild();
-}
-
-
-void PoolDiagram::Rebuild()
-{
-    wxSizer *sizer = self->GetSizer();
-
     {
         sizer->Clear();
 

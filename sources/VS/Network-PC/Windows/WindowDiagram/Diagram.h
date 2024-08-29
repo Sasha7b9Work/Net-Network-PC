@@ -29,8 +29,6 @@ public:
 
     static PoolDiagram *self;
 
-    static void Rebuild();
-
     static void SetSizeArea(int width, int height);
 
     static void OnEventSize();
