@@ -33,7 +33,7 @@ WindowDiagram::WindowDiagram() :
 
     wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
 
-    sizer->Add(Diagram::Pool::Create(this));
+    sizer->Add(PoolDiagram::Create(this));
 
     SetSizer(sizer);
 
@@ -55,9 +55,9 @@ WindowDiagram::~WindowDiagram()
 {
     SET::GUI::window_diagram.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, IsShown(), IsMaximized()});
 
-    delete Diagram::Pool::self;
+    delete PoolDiagram::self;
 
-    Diagram::Pool::self = nullptr;
+    PoolDiagram::self = nullptr;
 
     self = nullptr;
 }
@@ -65,7 +65,7 @@ WindowDiagram::~WindowDiagram()
 
 void WindowDiagram::OnEventSize(wxSizeEvent &event)
 {
-    Diagram::Pool::self->OnEventSize();
+    PoolDiagram::self->OnEventSize();
 
     Layout();
 
@@ -77,7 +77,7 @@ void WindowDiagram::UpdateArea()
 {
     if (self && self->IsShown())
     {
-        Diagram::Pool::self->UpdateArea();
+        PoolDiagram::self->UpdateArea();
     }
 }
 
@@ -130,7 +130,7 @@ void WindowDiagram::OnEventContextMenu(wxCommandEvent &event)
     {
         Measure(id - CONTEXT_FIRST_MEASURE).SetShown(event.IsChecked());
 
-        Diagram::Pool::self->Rebuild();
+        PoolDiagram::self->Rebuild();
     }
 
     event.Skip();

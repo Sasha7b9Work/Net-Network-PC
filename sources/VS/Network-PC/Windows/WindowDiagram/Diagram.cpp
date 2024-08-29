@@ -1,11 +1,11 @@
-// 2022/09/05 08:52:55 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+﻿// 2022/09/05 08:52:55 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Utils/Clock.h"
 #include "Windows/WindowDiagram/Diagram.h"
 
 
-Diagram::Pool *Diagram::Pool::self = nullptr;
-Diagram *Diagram::Pool::diagrams[Measure::Count];
+PoolDiagram *PoolDiagram::self = nullptr;
+Diagram *PoolDiagram::diagrams[Measure::Count];
 
 
 Diagram::Diagram(wxWindow *parent, Measure::E type) : wxPanel(parent, wxID_ANY)
@@ -28,7 +28,7 @@ void Diagram::SetSizeArea(int width, int height)
 }
 
 
-Diagram::Pool::Pool(wxWindow *parent) : wxPanel(parent, wxID_ANY)
+PoolDiagram::PoolDiagram(wxWindow *parent) : wxPanel(parent, wxID_ANY)
 {
     self = this;
 
@@ -45,7 +45,7 @@ Diagram::Pool::Pool(wxWindow *parent) : wxPanel(parent, wxID_ANY)
 }
 
 
-void Diagram::Pool::Rebuild()
+void PoolDiagram::Rebuild()
 {
     wxSizer *sizer = self->GetSizer();
 
@@ -78,15 +78,15 @@ void Diagram::Pool::Rebuild()
 }
 
 
-Diagram::Pool *Diagram::Pool::Create(wxWindow *parent)
+PoolDiagram *PoolDiagram::Create(wxWindow *parent)
 {
-    self = new Pool(parent);
+    self = new PoolDiagram(parent);
 
     return self;
 }
 
 
-void Diagram::Pool::SetSizeArea(int width, int height)
+void PoolDiagram::SetSizeArea(int width, int height)
 {
     int dy = height / Measure::NumMeasures();
 
@@ -102,7 +102,7 @@ void Diagram::Pool::SetSizeArea(int width, int height)
 }
 
 
-void Diagram::Pool::UpdateArea()
+void PoolDiagram::UpdateArea()
 {
     Time time = Clock::CurrentTime();
 
@@ -117,7 +117,7 @@ void Diagram::Pool::UpdateArea()
 }
 
 
-void Diagram::Pool::OnEventSize()
+void PoolDiagram::OnEventSize()
 {
     wxSize size = self->GetParent()->GetClientSize();
 

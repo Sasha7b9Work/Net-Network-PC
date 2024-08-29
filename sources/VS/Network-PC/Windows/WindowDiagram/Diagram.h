@@ -1,15 +1,11 @@
-// 2022/09/05 08:53:11 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+Ôªø// 2022/09/05 08:53:11 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Data/Sensors.h"
 #include "Settings/Settings.h"
 #include "Windows/WindowDiagram/Canvas.h"
 
 
-/*
-*   ¬Ë‰ÊÂÚ Ò „‡ÙËÍÓÏ
-*/
-
-
+// –ó–¥–µ—Å—å —Ä–∏—Å—É–µ—Ç—Å—è –æ–¥–∏–Ω –≥—Ä–∞—Ñ–∏–∫
 class Diagram : public wxPanel
 {
 public:
@@ -21,30 +17,29 @@ public:
 private:
 
     Canvas *canvas = nullptr;
+};
 
+
+class PoolDiagram : public wxPanel
+{
+    friend class WindowDiagram;
 public:
 
-    class Pool : public wxPanel
-    {
-        friend class WindowDiagram;
-    public:
+    static PoolDiagram *Create(wxWindow *);
 
-        static Pool *Create(wxWindow *);
+    static PoolDiagram *self;
 
-        static Pool *self;
+    static void Rebuild();
 
-        static void Rebuild();
+    static void SetSizeArea(int width, int height);
 
-        static void SetSizeArea(int width, int height);
+    static void OnEventSize();
 
-        static void OnEventSize();
+private:
 
-    private:
+    static void UpdateArea();
 
-        static void UpdateArea();
+    PoolDiagram(wxWindow *parent);
 
-        Pool(wxWindow *parent);
-
-        static Diagram *diagrams[Measure::Count];
-    };
+    static Diagram *diagrams[Measure::Count];
 };
