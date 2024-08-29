@@ -45,6 +45,6 @@ public:
 
         Pool(wxWindow *parent);
 
-        Diagram *pool[Measure::Count];
+        Diagram *diagrams[Measure::Count];
     };
 };
