@@ -55,6 +55,8 @@ void Canvas::OnPaint(wxPaintEvent &)
 
         dc.DrawBitmap(bitmap, 0, 0);
 
+        size = dc.GetSize();
+
         Update();
     }
 }

@@ -26,17 +26,17 @@ WindowDiagram::WindowDiagram() :
 {
     Show(false);
 
+    wxRect rect = SET::GUI::window_diagram.Get().rect;
+
+    SetPosition({ rect.x, rect.y });
+    SetSize({ rect.width, rect.height });
+
     Bind(wxEVT_SIZE, &WindowDiagram::OnEventSize, this);
     Bind(wxEVT_CLOSE_WINDOW, &WindowDiagram::OnEventClose, this);
     Bind(wxEVT_CONTEXT_MENU, &WindowDiagram::OnEventCreateContextMenu, this);
     Bind(wxEVT_MENU, &WindowDiagram::OnEventContextMenu, this);
 
     PoolDiagram::Create(this);
-
-    wxRect rect = SET::GUI::window_diagram.Get().rect;
-
-    SetPosition({ rect.x, rect.y });
-    SetSize({ rect.width, rect.height });
 
     Show(SET::GUI::window_diagram.Get().shown);
 
