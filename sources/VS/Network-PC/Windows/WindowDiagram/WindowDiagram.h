@@ -16,8 +16,6 @@ public:
 
     void SwitchVisibility();
 
-    void Rebuild();
-
 private:
 
     WindowDiagram();

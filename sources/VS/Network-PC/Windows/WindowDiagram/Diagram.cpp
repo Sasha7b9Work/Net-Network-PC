@@ -7,7 +7,7 @@
 namespace PoolDiagram
 {
     static Diagram *diagrams[Measure::Count];
-    static wxPanel *panel = nullptr;
+    static wxFrame *frame = nullptr;
 
     static void UpdateArea();
 }
@@ -41,34 +41,14 @@ void Diagram::SetSizeArea(int width, int height)
 }
 
 
-wxPanel *PoolDiagram::Create(wxWindow *parent)
+void PoolDiagram::Create(wxFrame *parent)
 {
-    panel = new wxPanel(parent, wxID_ANY);
+    frame = parent;
 
     for (int i = 0; i < Measure::Count; i++)
     {
-        diagrams[i] = nullptr;
+        diagrams[i] = new Diagram(frame, (Measure::E)i);
     }
-
-    wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
-
-    panel->SetSizer(sizer);
-
-    for (int i = 0; i < Measure::Count; i++)
-    {
-        if (Measure(i).IsShown())
-        {
-            diagrams[i] = new Diagram(panel, (Measure::E)i);
-
-            sizer->Add(diagrams[i]);
-        }
-        else
-        {
-            diagrams[i] = nullptr;
-        }
-    }
-
-    return panel;
 }
 
 
@@ -76,32 +56,35 @@ void PoolDiagram::Destroy()
 {
     for (int i = 0; i < Measure::Count; i++)
     {
-        if (diagrams[i])
-        {
-            delete diagrams[i];
-            diagrams[i] = nullptr;
-        }
+        delete diagrams[i];
+        diagrams[i] = nullptr;
     }
-
-    delete panel;
-
-    panel = nullptr;
 }
 
 
 void PoolDiagram::SetSizeArea(int width, int height)
 {
     int dy = height / Measure::NumMeasures();
+    int y = 0;
 
-    for (Diagram *diagram : diagrams)
+    for (int i = 0; i < Measure::Count; i++)
     {
-        if (diagram)
+        Diagram *diagram = diagrams[i];
+
+        if (Measure(i).IsShown())
         {
             diagram->SetSizeArea(width, dy);
+            diagram->SetPosition({ 0, y });
+            y += dy;
+            diagram->Refresh();
+        }
+        else
+        {
+            diagram->SetSize(0, 0);
         }
     }
 
-    panel->Refresh();
+    frame->Refresh();
 }
 
 
@@ -115,17 +98,14 @@ void PoolDiagram::UpdateArea()
     {
         prev = time.sec;
 
-        if (panel)
-        {
-            panel->Refresh();
-        }
+        frame->Refresh();
     }
 }
 
 
 void PoolDiagram::OnEventSize()
 {
-    wxSize size = panel->GetParent()->GetClientSize();
+    wxSize size = frame->GetClientSize();
 
     SetSizeArea(size.x, size.y);
 }

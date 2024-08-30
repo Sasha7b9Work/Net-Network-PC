@@ -25,8 +25,7 @@ private:
 // Здесь рисуются все графики
 namespace PoolDiagram
 {
-    // Возвращает панель, на которой отрисовываются все диаграммы
-    wxPanel *Create(wxWindow *);
+    void Create(wxFrame *);
 
     void Destroy();
 

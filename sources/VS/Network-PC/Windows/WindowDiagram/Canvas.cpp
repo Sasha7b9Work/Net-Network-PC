@@ -27,31 +27,36 @@ Canvas::~Canvas()
 
 void Canvas::OnPaint(wxPaintEvent &)
 {
-    wxBitmap bitmap(GetClientSize());
-    wxMemoryDC memDC;
+    wxSize size = GetClientSize();
 
-    memDC.SelectObject(bitmap);
+    if (size.x && size.y)
+    {
+        wxBitmap bitmap(size);
+        wxMemoryDC memDC;
 
-    memDC.SetBrush(*wxWHITE_BRUSH);
-    memDC.SetPen(wxPen(wxColor(0, 0, 0)));
+        memDC.SelectObject(bitmap);
 
-    memDC.DrawRectangle(GetClientRect());
+        memDC.SetBrush(*wxWHITE_BRUSH);
+        memDC.SetPen(wxPen(wxColor(0, 0, 0)));
 
-    DrawTimeScale(memDC);
+        memDC.DrawRectangle(GetClientRect());
 
-    DrawAllSensors(memDC);
+        DrawTimeScale(memDC);
 
-    memDC.SetPen(wxPen(wxColor(0, 0, 0)));
+        DrawAllSensors(memDC);
 
-    memDC.DrawText(Measure(type).GetTitle(), 1, 0);
+        memDC.SetPen(wxPen(wxColor(0, 0, 0)));
 
-    memDC.SelectObject(wxNullBitmap);
+        memDC.DrawText(Measure(type).GetTitle(), 1, 0);
 
-    wxPaintDC dc(this);
+        memDC.SelectObject(wxNullBitmap);
 
-    dc.DrawBitmap(bitmap, 0, 0);
+        wxPaintDC dc(this);
 
-    Update();
+        dc.DrawBitmap(bitmap, 0, 0);
+
+        Update();
+    }
 }
 
 

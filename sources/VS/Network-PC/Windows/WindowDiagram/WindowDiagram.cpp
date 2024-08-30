@@ -31,11 +31,7 @@ WindowDiagram::WindowDiagram() :
     Bind(wxEVT_CONTEXT_MENU, &WindowDiagram::OnEventCreateContextMenu, this);
     Bind(wxEVT_MENU, &WindowDiagram::OnEventContextMenu, this);
 
-    wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
-
-    sizer->Add(PoolDiagram::Create(this));
-
-    SetSizer(sizer);
+    PoolDiagram::Create(this);
 
     wxRect rect = SET::GUI::window_diagram.Get().rect;
 
@@ -48,19 +44,6 @@ WindowDiagram::WindowDiagram() :
     {
         Maximize(true);
     }
-}
-
-
-void WindowDiagram::Rebuild()
-{
-    PoolDiagram::Destroy();
-
-    if (GetSizer()->GetItemCount() > 0)
-    {
-        GetSizer()->Remove(0);
-    }
-
-    GetSizer()->Add(PoolDiagram::Create(this));
 }
 
 
@@ -141,7 +124,7 @@ void WindowDiagram::OnEventContextMenu(wxCommandEvent &event)
     {
         Measure(id - CONTEXT_FIRST_MEASURE).SetShown(event.IsChecked());
 
-        Rebuild();
+        PoolDiagram::OnEventSize();
     }
 
     event.Skip();
