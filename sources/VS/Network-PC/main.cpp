@@ -24,7 +24,7 @@ void Application::Update()
 
     ReceivedData::Update();
 
-    WindowDiagram::UpdateArea();
+    WindowDiagram::self->UpdateArea();
 
     ServerMeasures::Update();
 

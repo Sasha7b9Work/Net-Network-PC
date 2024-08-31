@@ -57,6 +57,12 @@ WindowDiagram::~WindowDiagram()
 }
 
 
+void WindowDiagram::UpdateArea()
+{
+    PoolDiagram::UpdateArea();
+}
+
+
 void WindowDiagram::OnEventSize(wxSizeEvent &event)
 {
     PoolDiagram::OnEventSize();
@@ -64,15 +70,6 @@ void WindowDiagram::OnEventSize(wxSizeEvent &event)
     Layout();
 
     event.Skip();
-}
-
-
-void WindowDiagram::UpdateArea()
-{
-    if (self && self->IsShown())
-    {
-        PoolDiagram::UpdateArea();
-    }
 }
 
 

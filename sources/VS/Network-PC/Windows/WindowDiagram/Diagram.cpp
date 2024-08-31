@@ -8,8 +8,6 @@ namespace PoolDiagram
 {
     static Canvas *diagrams[Measure::Count];
     static wxFrame *frame = nullptr;                // На этом фрейме рисуются диаграммы
-
-    static void UpdateArea();
 }
 
 

@@ -15,4 +15,6 @@ namespace PoolDiagram
     void SetSizeArea(int width, int height);
 
     void OnEventSize();
+
+    void UpdateArea();
 };

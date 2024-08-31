@@ -12,9 +12,9 @@ public:
 
     static void Create();
 
-    static void UpdateArea();
-
     void SwitchVisibility();
+
+    void UpdateArea();
 
 private:
 
