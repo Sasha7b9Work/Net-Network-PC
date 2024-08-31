@@ -33,13 +33,15 @@ void Canvas::OnPaint(wxPaintEvent &)
     {
         if (size.x < 50)
         {
-            size.x = s
+            size.x = size.x;
         }
 
         wxBitmap bitmap(size);
         wxMemoryDC memDC;
 
         memDC.SelectObject(bitmap);
+
+        size = memDC.GetSize();
 
         memDC.SetBrush(*wxWHITE_BRUSH);
         memDC.SetPen(wxPen(wxColor(0, 0, 0)));
@@ -61,6 +63,8 @@ void Canvas::OnPaint(wxPaintEvent &)
         dc.DrawBitmap(bitmap, 0, 0);
 
         size = dc.GetSize();
+
+        size = bitmap.GetSize();
 
         Update();
     }

@@ -15,13 +15,7 @@ namespace PoolDiagram
 
 Diagram::Diagram(wxWindow *parent, Measure::E type) : wxPanel(parent, wxID_ANY)
 {
-    wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
-
-    canvas = new Canvas(this, type);
-
-    sizer->Add(canvas);
-
-    SetSizer(sizer);
+    canvas = new Canvas(parent, type);
 
     Bind(wxEVT_PAINT, &Diagram::OnPaint, this);
 }
