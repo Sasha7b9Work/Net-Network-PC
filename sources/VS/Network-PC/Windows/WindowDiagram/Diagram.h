@@ -5,23 +5,6 @@
 #include "Windows/WindowDiagram/Canvas.h"
 
 
-// Здесь рисуется один график
-class Diagram : public wxPanel
-{
-public:
-
-    Diagram(wxWindow *parant, Measure::E);
-
-    ~Diagram();
-
-    void SetSizeArea(int, int);
-
-private:
-
-    Canvas *canvas = nullptr;
-};
-
-
 // Здесь рисуются все графики
 namespace PoolDiagram
 {

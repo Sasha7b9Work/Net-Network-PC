@@ -6,32 +6,10 @@
 
 namespace PoolDiagram
 {
-    static Diagram *diagrams[Measure::Count];
+    static Canvas *diagrams[Measure::Count];
     static wxFrame *frame = nullptr;                // На этом фрейме рисуются диаграммы
 
     static void UpdateArea();
-}
-
-
-Diagram::Diagram(wxWindow *parent, Measure::E type) : wxPanel(parent, wxID_ANY)
-{
-    canvas = new Canvas(parent, type);
-
-    Bind(wxEVT_PAINT, &Diagram::OnPaint, this);
-}
-
-
-Diagram::~Diagram()
-{
-    Unbind(wxEVT_PAINT, &Diagram::OnPaint, this);
-
-    delete canvas;
-}
-
-
-void Diagram::SetSizeArea(int width, int height)
-{
-    canvas->SetSizeArea(width, height);
 }
 
 
@@ -41,7 +19,7 @@ void PoolDiagram::Create(wxFrame *parent)
 
     for (int i = 0; i < Measure::Count; i++)
     {
-        diagrams[i] = new Diagram(frame, (Measure::E)i);
+        diagrams[i] = new Canvas(frame, (Measure::E)i);
     }
 }
 
@@ -58,23 +36,34 @@ void PoolDiagram::Destroy()
 
 void PoolDiagram::SetSizeArea(int width, int height)
 {
-    int dy = height / Measure::NumMeasures();
-    int y = 0;
-
-    for (int i = 0; i < Measure::Count; i++)
+    if (Measure::NumMeasures() == 0)
     {
-        Diagram *diagram = diagrams[i];
-
-        if (Measure(i).IsShown())
+        for (int i = 0; i < Measure::Count; i++)
         {
-            diagram->SetSizeArea(width, dy);
-            diagram->SetPosition({ 0, y });
-            y += dy;
-            diagram->Refresh();
+            diagrams[i]->Show(false);
         }
-        else
+    }
+    else
+    {
+        int dy = height / Measure::NumMeasures();
+        int y = 0;
+
+        for (int i = 0; i < Measure::Count; i++)
         {
-            diagram->SetSize(0, 0);
+            Canvas *diagram = diagrams[i];
+
+            if (Measure(i).IsShown())
+            {
+                diagram->Show(true);
+                diagram->SetSizeArea(width, dy);
+                diagram->SetPosition({ 0, y });
+                y += dy;
+                diagram->Refresh();
+            }
+            else
+            {
+                diagram->Show(false);
+            }
         }
     }
 
