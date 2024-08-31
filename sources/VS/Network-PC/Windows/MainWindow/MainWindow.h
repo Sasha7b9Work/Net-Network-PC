@@ -58,6 +58,8 @@ public:
 
     void SetTitleMenu(int id);
 
+    void OnEventChangedShowingMeasures();
+
 private:
 
     wxToolBar *toolBar = nullptr;

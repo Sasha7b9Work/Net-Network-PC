@@ -255,3 +255,9 @@ void MainWindow::OnWebRequestState(wxWebRequestEvent &event)
         break;
     }
 }
+
+
+void MainWindow::OnEventChangedShowingMeasures()
+{
+    grid->StretchColumns();
+}

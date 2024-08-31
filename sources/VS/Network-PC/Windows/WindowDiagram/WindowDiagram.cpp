@@ -122,6 +122,8 @@ void WindowDiagram::OnEventContextMenu(wxCommandEvent &event)
         Measure(id - CONTEXT_FIRST_MEASURE).SetShown(event.IsChecked());
 
         PoolDiagram::OnEventSize();
+
+        MainWindow::self->OnEventChangedShowingMeasures();
     }
 
     event.Skip();
