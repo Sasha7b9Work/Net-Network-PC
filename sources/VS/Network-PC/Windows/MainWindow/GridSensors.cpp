@@ -1,4 +1,4 @@
-// 2024/08/31 19:53:52 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+﻿// 2024/08/31 19:53:52 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Windows/MainWindow/GridSensors.h"
 #include "Data/Sensors.h"
@@ -30,6 +30,8 @@ GridSensors::GridSensors(wxWindow *parent, int id, const wxPoint &position, cons
             SetColLabelValue(measure.NumColumn(), measure.GetTitle() + "\n" + measure.GetUnits());
         }
     }
+
+    Bind(wxEVT_SIZE, &GridSensors::OnEventSize, this);
 }
 
 
@@ -47,4 +49,10 @@ void GridSensors::StretchColumns()
     }
 
     SetColSize(GetNumberCols() - 1, width);
+}
+
+
+void GridSensors::OnEventSize(wxSizeEvent &)
+{
+    StretchColumns();
 }
