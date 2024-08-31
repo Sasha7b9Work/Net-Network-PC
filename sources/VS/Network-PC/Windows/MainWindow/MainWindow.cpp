@@ -17,7 +17,7 @@ MainWindow::MainWindow(const wxString &title)
 {
     Show(false);
 
-    wxSize size = FromDIP(wxSize((Measure::NumMeasures() + 1) * 60, 400));
+    wxSize size = FromDIP(wxSize((Measure::Count + 1) * 60, 400));
 
     create_width = size.x;
 

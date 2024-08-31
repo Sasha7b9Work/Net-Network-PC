@@ -62,7 +62,7 @@ void Measure::SetShown(bool shown)
 }
 
 
-int Measure::NumMeasures()
+int Measure::CountShowingMeasures()
 {
     int result = 0;
 

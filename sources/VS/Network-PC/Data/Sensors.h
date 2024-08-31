@@ -35,8 +35,8 @@ struct Measure
 
     wxString GetUnits() const;
 
-    // Возвращает количество присутствующих измерений
-    static int NumMeasures();
+    // Возвращает количество отображаемых измерений
+    static int CountShowingMeasures();
 
 private:
 

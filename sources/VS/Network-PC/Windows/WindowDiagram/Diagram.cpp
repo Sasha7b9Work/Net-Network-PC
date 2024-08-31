@@ -34,7 +34,7 @@ void PoolDiagram::Destroy()
 
 void PoolDiagram::SetSizeArea(int width, int height)
 {
-    if (Measure::NumMeasures() == 0)
+    if (Measure::CountShowingMeasures() == 0)
     {
         for (int i = 0; i < Measure::Count; i++)
         {
@@ -43,7 +43,7 @@ void PoolDiagram::SetSizeArea(int width, int height)
     }
     else
     {
-        int dy = height / Measure::NumMeasures();
+        int dy = height / Measure::CountShowingMeasures();
         int y = 0;
 
         for (int i = 0; i < Measure::Count; i++)
