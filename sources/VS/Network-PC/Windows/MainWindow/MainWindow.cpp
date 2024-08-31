@@ -19,8 +19,6 @@ MainWindow::MainWindow(const wxString &title)
 
     wxSize size = FromDIP(wxSize((Measure::Count + 1) * 60, 400));
 
-    create_width = size.x;
-
     self = this;
 
     SetIcon(wxICON(MAIN_ICON));
@@ -148,21 +146,6 @@ void MainWindow::OnMenuSettings(wxCommandEvent &event)
 }
 
 
-void MainWindow::StretchEntireWidth(int width)
-{
-    wxSize size = GetParent()->GetClientSize();
-
-    size.x = width;
-
-    SetMinSize(size);
-    SetMaxSize(size);
-
-    SetSize(size);
-
-    grid->StretchColumns();
-}
-
-
 void MainWindow::OnAbout(wxCommandEvent &WXUNUSED(event))
 {
     wxBoxSizer *topsizer;
@@ -282,5 +265,5 @@ void MainWindow::OnEventSize()
     SetClientSize(size);
     SetSize(size);
 
-    StretchEntireWidth(create_width);
+    grid->StretchColumns();
 }

@@ -56,14 +56,6 @@ public:
 
     void SetMeasure(uint id, const wxColour &color, uint8 type, float value);
 
-    int GetCreatedWidth() const
-    {
-        return create_width;
-    }
-
-    // Растянуть на ширину width
-    void StretchEntireWidth(int width);
-
     void OnEventSize();
 
     void SetTitleMenu(int id);
@@ -71,8 +63,6 @@ public:
 private:
 
     wxToolBar *toolBar = nullptr;
-
-    int create_width = 0;                   // Такую ширину имеет таблица во время создания
 
     //     <id, num_row>
     std::map<uint, int> rows;
