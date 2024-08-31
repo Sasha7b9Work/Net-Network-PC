@@ -1,6 +1,7 @@
 ﻿// 2022/04/29 13:56:55 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Settings/Settings.h"
+#include "Windows/MainWindow/GridSensors.h"
 
 
 class DiagramPool;
@@ -79,10 +80,7 @@ private:
     void SetCellValue(int row, int col, float, const wxColour &color);
     void SetCellValue(int row, int col, int, const wxColour &color);
 
-    // Растянуть колонки на всю ширину
-    void StretchColumns();
-
-    wxGrid *grid = nullptr;             // Список датчиков
+    GridSensors *grid = nullptr;             // Список датчиков
 
     void OnEventClose(wxCloseEvent &);
 

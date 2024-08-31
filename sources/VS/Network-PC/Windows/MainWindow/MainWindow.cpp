@@ -63,33 +63,7 @@ MainWindow::MainWindow(const wxString &title)
 
     Bind(wxEVT_SOCKET, &MainWindow::OnSocketEvent, this, SOCKET_ID);
 
-    grid = new wxGrid(this, wxID_ANY, { 0, 0 }, size);
-
-    grid->CreateGrid(0, 0);
-
-    grid->AppendCols(Measure::NumMeasures() + 1);
-
-    grid->EnableEditing(false);
-
-    grid->DisableCellEditControl();
-
-    grid->SetRowLabelSize(0);
-
-    grid->SetColLabelValue(0, "ID");
-
-    for (int meas = 0; meas < Measure::Count; meas++)
-    {
-        int col = Measure(meas).NumColumn();
-
-        if (col >= 0)
-        {
-            Measure measure(meas);
-
-            grid->SetColLabelValue(measure.NumColumn(), measure.GetTitle() + "\n" + measure.GetUnits());
-        }
-    }
-
-    StretchColumns();
+    grid = new GridSensors(this, wxID_ANY, { 0, 0 }, size);
 
     SetClientSize(1024, 600);
     wxWindowBase::SetMinClientSize({ 400, 200 });
@@ -109,23 +83,6 @@ MainWindow::MainWindow(const wxString &title)
     SetTitleMenu(VIEW_DIAGRAM);
 
     Show(true);
-}
-
-
-void MainWindow::StretchColumns()
-{
-    int width = grid->GetSize().x;
-
-    int size = width / grid->GetNumberCols();
-
-    for (int i = 0; i < grid->GetNumberCols() - 1; i++)
-    {
-        grid->SetColSize(i, size);
-
-        width -= size;
-    }
-
-    grid->SetColSize(grid->GetNumberCols() - 1, width);
 }
 
 
@@ -202,7 +159,7 @@ void MainWindow::StretchEntireWidth(int width)
 
     SetSize(size);
 
-    StretchColumns();
+    grid->StretchColumns();
 }
 
 
