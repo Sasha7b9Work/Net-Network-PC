@@ -11,7 +11,10 @@ WindowDiagram *WindowDiagram::self = nullptr;
 
 enum
 {
-    CONTEXT_FIRST_MEASURE = wxID_ABOUT      // id меню первого измерения
+    CONTEXT_FIRST_MEASURE = wxID_ABOUT,     // id меню первого измерения
+    CONTEXT_LAST_MEASURE = CONTEXT_FIRST_MEASURE + Measure::Count,
+    CONTEXT_SHOW_ALL,
+    CONTEXT_HIDE_ALL
 };
 
 
@@ -109,6 +112,9 @@ void WindowDiagram::ShowContextMenu(const wxPoint &pos)
         item->Check(Measure(i).IsShown());
     }
 
+    menu.Append(CONTEXT_SHOW_ALL, _("Показать все"));
+    menu.Append(CONTEXT_HIDE_ALL, _("Скрыть все"));
+
     PopupMenu(&menu, pos);
 }
 
@@ -117,14 +123,28 @@ void WindowDiagram::OnEventContextMenu(wxCommandEvent &event)
 {
     int id = event.GetId();
 
-    if (id < CONTEXT_FIRST_MEASURE + 10)
+    if (id < CONTEXT_LAST_MEASURE)
     {
         Measure(id - CONTEXT_FIRST_MEASURE).SetShown(event.IsChecked());
-
-        PoolDiagram::OnEventSize();
-
-        MainWindow::self->OnEventChangedShowingMeasures();
     }
+    else if (id == CONTEXT_SHOW_ALL)
+    {
+        for (int i = 0; i < Measure::Count; i++)
+        {
+            Measure(i).SetShown(true);
+        }
+    }
+    else if (id == CONTEXT_HIDE_ALL)
+    {
+        for (int i = 0; i < Measure::Count; i++)
+        {
+            Measure(i).SetShown(false);
+        }
+    }
+
+    PoolDiagram::OnEventSize();
+
+    MainWindow::self->OnEventChangedShowingMeasures();
 
     event.Skip();
 }
