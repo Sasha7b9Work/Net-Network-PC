@@ -80,29 +80,7 @@ int Measure::NumMeasures()
 
 int Measure::NumColumn() const
 {
-    int result = 0;
-
-    for (int i = 0; i < Count; i++)
-    {
-        if (type == (Measure::E)i)
-        {
-            if (IsShown())
-            {
-                break;
-            }
-            else
-            {
-                return -1;
-            }
-        }
-
-        if (Measure(i).IsShown())
-        {
-            result++;
-        }
-    }
-
-    return result + 1;
+    return type + 1;
 }
 
 

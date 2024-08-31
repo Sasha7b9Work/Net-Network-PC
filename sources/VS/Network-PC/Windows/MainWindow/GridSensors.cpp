@@ -9,7 +9,7 @@ GridSensors::GridSensors(wxWindow *parent, int id, const wxPoint &position, cons
 {
     CreateGrid(0, 0);
 
-    AppendCols(Measure::NumMeasures() + 1);
+    AppendCols(Measure::Count + 1);
 
     EnableEditing(false);
 
@@ -21,17 +21,19 @@ GridSensors::GridSensors(wxWindow *parent, int id, const wxPoint &position, cons
 
     for (int meas = 0; meas < Measure::Count; meas++)
     {
-        int col = Measure(meas).NumColumn();
+        Measure measure(meas);
+
+        int col = measure.NumColumn();
 
         if (col >= 0)
         {
-            Measure measure(meas);
-
-            SetColLabelValue(measure.NumColumn(), measure.GetTitle() + "\n" + measure.GetUnits());
+            SetColLabelValue(col, measure.GetTitle() + "\n" + measure.GetUnits());
         }
     }
 
     Bind(wxEVT_SIZE, &GridSensors::OnEventSize, this);
+
+    StretchColumns();
 }
 
 
@@ -39,9 +41,9 @@ void GridSensors::StretchColumns()
 {
     int width = GetSize().x;
 
-    int size = width / GetNumberCols();
+    int size = width / (Measure::Count + 1);
 
-    for (int i = 0; i < GetNumberCols() - 1; i++)
+    for (int i = 0; i < GetNumberCols(); i++)
     {
         SetColSize(i, size);
 
