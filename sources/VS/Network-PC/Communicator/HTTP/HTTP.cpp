@@ -1,7 +1,7 @@
 ﻿// 2024/6/21 11:40:13 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Communicator/HTTP/HTTP.h"
-#include "MainWindow.h"
+#include "Windows/MainWindow/MainWindow.h"
 
 
 namespace HTTP

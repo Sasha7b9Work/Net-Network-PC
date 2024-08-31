@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "Windows/WindowLog.h"
 #include "Settings/Settings.h"
-#include "MainWindow.h"
+#include "Windows/MainWindow/MainWindow.h"
 
 
 wxTextCtrl *WindowLog::text = nullptr;

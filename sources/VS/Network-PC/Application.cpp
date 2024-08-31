@@ -6,7 +6,7 @@
 #include "Communicator/Communicator.h"
 #include "Utils/Config.h"
 #include "Settings/Settings.h"
-#include "MainWindow.h"
+#include "Windows/MainWindow/MainWindow.h"
 #include "Windows/WindowDiagram/WindowDiagram.h"
 
 

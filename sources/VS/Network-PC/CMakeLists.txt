@@ -49,6 +49,7 @@ file(GLOB COMMUNICATOR_LAN_LIBNET Communicator/LAN/libnet/*.*)
 file(GLOB COMMUNICATOR_RS232      Communicator/RS232/*.*)
 file(GLOB COMMUNICATOR_SERVER     Communicator/Server/*.*)
 file(GLOB WINDOWS                 Windows/*.*)
+file(GLOB WINDOWS_MAINWINDOW      Windows/MainWindow/*.*)
 file(GLOB WINDOWS_WINDOWDIAGRAM   Windows/WindowDiagram/*.*)
 file(GLOB DATA                    Data/*.*)
 file(GLOB DISPLAY                 Display/*.*)
@@ -67,6 +68,7 @@ source_group(Communicator/LAN/libnet FILES ${COMMUNICATOR_LAN_LIBNET})
 source_group(Communicator/RS232      FILES ${COMMUNICATOR_RS232})
 source_group(Communicator/Server     FILES ${COMMUNICATOR_SERVER})
 source_group(Windows                 FILES ${WINDOWS})
+source_group(Windows/MainWindow      FILES ${WINDOWS_MAINWINDOW})
 source_group(Windows/WindowDiagram   FILES ${WINDOWS_WINDOWDIAGRAM})
 source_group(Data                    FILES ${DATA})
 source_group(Display                 FILES ${DISPLAY})
@@ -94,6 +96,7 @@ add_executable( ${PROJECT_NAME}
     ${COMMUNICATOR_RS232}
     ${COMMUNICATOR_SERVER}
     ${WINDOWS}
+    ${WINDOWS_MAINWINDOW}
     ${WINDOWS_WINDOWDIAGRAM}
     ${DATA}
     ${DISPLAY}

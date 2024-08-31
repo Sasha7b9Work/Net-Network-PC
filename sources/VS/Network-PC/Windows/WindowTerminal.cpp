@@ -4,7 +4,7 @@
 #include "Communicator/ComPort/ComPort.h"
 #include "Utils/String.h"
 #include "Settings/Settings.h"
-#include "MainWindow.h"
+#include "Windows/MainWindow/MainWindow.h"
 
 #undef CRC
 
