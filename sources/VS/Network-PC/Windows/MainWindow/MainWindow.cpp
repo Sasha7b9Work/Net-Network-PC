@@ -255,15 +255,3 @@ void MainWindow::OnWebRequestState(wxWebRequestEvent &event)
         break;
     }
 }
-
-
-void MainWindow::OnEventSize()
-{
-    wxSize size = { GetSize().GetWidth(), GetParent()->GetClientSize().y };
-
-    SetMinClientSize(size);
-    SetClientSize(size);
-    SetSize(size);
-
-    grid->StretchColumns();
-}

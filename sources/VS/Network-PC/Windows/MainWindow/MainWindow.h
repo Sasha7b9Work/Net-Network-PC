@@ -56,8 +56,6 @@ public:
 
     void SetMeasure(uint id, const wxColour &color, uint8 type, float value);
 
-    void OnEventSize();
-
     void SetTitleMenu(int id);
 
 private:
