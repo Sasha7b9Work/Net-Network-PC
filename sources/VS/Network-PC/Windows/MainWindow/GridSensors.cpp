@@ -45,7 +45,13 @@ void GridSensors::StretchColumns()
 
     for (int i = 0; i < GetNumberCols(); i++)
     {
-        if (i > 0 && Measure(i - 1).IsShown())
+        if (i == 0)
+        {
+            SetColSize(i, size);
+
+            width -= size;
+        }
+        else if (i > 0 && Measure(i - 1).IsShown())
         {
             SetColSize(i, size);
 
