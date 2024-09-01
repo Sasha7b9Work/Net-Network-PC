@@ -227,6 +227,8 @@ void MainWindow::OnEventClose(wxCloseEvent &event)
 
     WindowDiagram::Delete();
 
+    ServerMeasures::DeInit();
+
     event.Skip();
 }
 

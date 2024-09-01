@@ -29,6 +29,8 @@ void PoolDiagram::Destroy()
         delete diagrams[i];
         diagrams[i] = nullptr;
     }
+
+    frame = nullptr;
 }
 
 
@@ -71,6 +73,11 @@ void PoolDiagram::SetSizeArea(int width, int height)
 
 void PoolDiagram::UpdateArea()
 {
+    if (!frame)
+    {
+        return;
+    }
+
     Time time = Clock::CurrentTime();
 
     static int prev = time.sec;
