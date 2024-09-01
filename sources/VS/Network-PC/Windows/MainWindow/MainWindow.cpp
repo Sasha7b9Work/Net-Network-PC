@@ -179,7 +179,7 @@ void MainWindow::OnMenuView(wxCommandEvent &event)
     }
     else if (id == VIEW_LOG)
     {
-        FrameLog::self->SwitchVisibility();
+        WindowLog::SwitchVisibility();
     }
     else if (id == VIEW_DIAGRAM)
     {
@@ -200,7 +200,7 @@ void MainWindow::SetTitleMenu(int id)
     }
     else if (id == VIEW_LOG)
     {
-        FindItemInMenuBar(VIEW_LOG)->SetItemLabel(FrameLog::self->IsShown() ? _("Скрыть лог\tCtrl-L") : _("Показать лог\tCtrl-L"));
+        FindItemInMenuBar(VIEW_LOG)->SetItemLabel(WindowLog::IsShown() ? _("Скрыть лог\tCtrl-L") : _("Показать лог\tCtrl-L"));
     }
     else if (id == VIEW_DIAGRAM)
     {

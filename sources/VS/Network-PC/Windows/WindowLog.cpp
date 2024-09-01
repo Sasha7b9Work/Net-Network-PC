@@ -5,16 +5,38 @@
 #include "Windows/MainWindow/MainWindow.h"
 
 
-wxTextCtrl *FrameLog::text = nullptr;
-wxTextCtrl *FrameLog::line = nullptr;
-FrameLog *FrameLog::self = nullptr;
-
-
 enum
 {
     ID_LINE
 };
 
+
+
+class FrameLog : public wxFrame
+{
+public:
+
+    FrameLog();
+
+    virtual ~FrameLog();
+
+    static FrameLog *self;
+
+    void AddLine(const wxString &);
+
+private:
+
+    static wxTextCtrl *text;
+    static wxTextCtrl *line;
+
+    void OnSize(wxSizeEvent &);
+    void OnEventClose(wxCloseEvent &);
+};
+
+
+wxTextCtrl *FrameLog::text = nullptr;
+wxTextCtrl *FrameLog::line = nullptr;
+FrameLog *FrameLog::self = nullptr;
 
 
 FrameLog::FrameLog() : wxFrame(nullptr, wxID_ANY, _("Ëîã"))
@@ -55,9 +77,20 @@ FrameLog::~FrameLog()
 }
 
 
-void FrameLog::Create()
+void WindowLog::Destroy()
 {
-    self = new FrameLog();
+    if (FrameLog::self)
+    {
+        delete FrameLog::self;
+
+        FrameLog::self = nullptr;
+    }
+}
+
+
+void WindowLog::Create()
+{
+    FrameLog::self = new FrameLog();
 }
 
 
@@ -93,7 +126,25 @@ void FrameLog::OnEventClose(wxCloseEvent &)
 }
 
 
-void FrameLog::SwitchVisibility()
+void WindowLog::SwitchVisibility()
 {
-    Show(!IsShown());
+    if (FrameLog::self)
+    {
+        FrameLog::self->Show(!FrameLog::self->IsShown());
+    }
+}
+
+
+bool WindowLog::IsShown()
+{
+    return FrameLog::self ? FrameLog::self->IsShown() : false;
+}
+
+
+void WindowLog::AddLine(const wxString &line)
+{
+    if (FrameLog::self)
+    {
+        FrameLog::self->AddLine(line);
+    }
 }

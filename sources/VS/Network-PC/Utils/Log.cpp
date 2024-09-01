@@ -30,7 +30,7 @@ void Log::Init()
 
     CutSize();
 
-    FrameLog::Create();
+    WindowLog::Create();
 
     LOG_WRITE("\n\n *** Start application in %s ***", GetTime().c_str().AsChar());
 }
@@ -38,7 +38,7 @@ void Log::Init()
 
 void Log::DeInit()
 {
-    delete FrameLog::self;
+    WindowLog::Destroy();
 }
 
 
@@ -46,7 +46,7 @@ void Log::WriteLine(pchar line)
 {
     log_file.AddLine(line);
 
-    FrameLog::self->AddLine(line);
+    WindowLog::AddLine(line);
 
     CutSize();
 

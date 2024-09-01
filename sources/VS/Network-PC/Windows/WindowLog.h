@@ -2,27 +2,15 @@
 #pragma once
 
 
-class FrameLog : public wxFrame
+namespace WindowLog
 {
-public:
+    void Create();
 
-    virtual ~FrameLog();
-
-    static FrameLog *self;
-
-    static void Create();
+    void Destroy();
 
     void AddLine(const wxString &);
 
     void SwitchVisibility();
 
-private:
-
-    FrameLog();
-
-    static wxTextCtrl *text;
-    static wxTextCtrl *line;
-
-    void OnSize(wxSizeEvent &);
-    void OnEventClose(wxCloseEvent &);
-};
+    bool IsShown();
+}
