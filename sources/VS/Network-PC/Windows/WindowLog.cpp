@@ -5,9 +5,9 @@
 #include "Windows/MainWindow/MainWindow.h"
 
 
-wxTextCtrl *WindowLog::text = nullptr;
-wxTextCtrl *WindowLog::line = nullptr;
-WindowLog *WindowLog::self = nullptr;
+wxTextCtrl *FrameLog::text = nullptr;
+wxTextCtrl *FrameLog::line = nullptr;
+FrameLog *FrameLog::self = nullptr;
 
 
 enum
@@ -17,7 +17,7 @@ enum
 
 
 
-WindowLog::WindowLog() : wxFrame(nullptr, wxID_ANY, _("Ëîã"))
+FrameLog::FrameLog() : wxFrame(nullptr, wxID_ANY, _("Ëîã"))
 {
     Show(false);
 
@@ -30,8 +30,8 @@ WindowLog::WindowLog() : wxFrame(nullptr, wxID_ANY, _("Ëîã"))
     line->SetFont(font);
     text->SetFont(font);
 
-    Bind(wxEVT_SIZE, &WindowLog::OnSize, this);
-    Bind(wxEVT_CLOSE_WINDOW, &WindowLog::OnEventClose, this);
+    Bind(wxEVT_SIZE, &FrameLog::OnSize, this);
+    Bind(wxEVT_CLOSE_WINDOW, &FrameLog::OnEventClose, this);
 
     wxTopLevelWindowMSW::Show();
 
@@ -49,25 +49,25 @@ WindowLog::WindowLog() : wxFrame(nullptr, wxID_ANY, _("Ëîã"))
 }
 
 
-WindowLog::~WindowLog()
+FrameLog::~FrameLog()
 {
     SET::GUI::window_log.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, IsShown(), IsMaximized() });
 }
 
 
-void WindowLog::Create()
+void FrameLog::Create()
 {
-    self = new WindowLog();
+    self = new FrameLog();
 }
 
 
-void WindowLog::AddLine(const wxString &str)
+void FrameLog::AddLine(const wxString &str)
 {
     text->WriteText(str + "\n");
 }
 
 
-void WindowLog::OnSize(wxSizeEvent &)
+void FrameLog::OnSize(wxSizeEvent &)
 {
     wxPoint clientOrigin = GetClientAreaOrigin();
 
@@ -85,7 +85,7 @@ void WindowLog::OnSize(wxSizeEvent &)
 }
 
 
-void WindowLog::OnEventClose(wxCloseEvent &)
+void FrameLog::OnEventClose(wxCloseEvent &)
 {
     Show(false);
 
@@ -93,7 +93,7 @@ void WindowLog::OnEventClose(wxCloseEvent &)
 }
 
 
-void WindowLog::SwitchVisibility()
+void FrameLog::SwitchVisibility()
 {
     Show(!IsShown());
 }
