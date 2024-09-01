@@ -6,11 +6,11 @@ class WindowDiagram : public wxFrame
 {
 public:
 
-    ~WindowDiagram();
-
     static WindowDiagram *self;
 
     static void Create();
+
+    static void Delete();
 
     void SwitchVisibility();
 
@@ -19,6 +19,8 @@ public:
 private:
 
     WindowDiagram();
+
+    ~WindowDiagram();
 
     void OnEventSize(wxSizeEvent &);
 

@@ -17,6 +17,10 @@ MainWindow::MainWindow(const wxString &title)
 {
     Show(false);
 
+    WindowTerminal::Create();
+
+    WindowDiagram::Create();
+
     wxSize size = FromDIP(wxSize((Measure::Count + 1) * 60, 400));
 
     self = this;
@@ -221,9 +225,7 @@ void MainWindow::OnEventClose(wxCloseEvent &event)
 
     delete WindowTerminal::self;
 
-    delete WindowDiagram::self;
-
-    Log::DeInit();
+    WindowDiagram::Delete();
 
     event.Skip();
 }
