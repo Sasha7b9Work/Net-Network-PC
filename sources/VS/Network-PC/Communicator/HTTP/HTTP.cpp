@@ -27,7 +27,13 @@ void HTTP::SendPOST(float *values, int count)
         body += wxString::Format("&value%d=%10.2f", i + 1, values[i]);
     }
 
-    body += wxString::Format("&meas_time=%d-%02d-%02d %02d:%02d:%02d",
+//    body += wxString::Format("&meas_time=%d-%02d-%02d %02d:%02d:%02d",
+//        time.GetYear(), time.GetMonth() + 1, time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());
+
+//    request.SetData(body, content_type);
+
+    body = wxString::Format("api_key=PtmAT51b3j4F8&value1=24.75&value2=54.27&value3=994.01&DevPoint=%.2f&Illuminate=%.2f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
+        values[Measure::DewPoint], values[Measure::Illuminate],
         time.GetYear(), time.GetMonth() + 1, time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());
 
     request.SetData(body, content_type);
