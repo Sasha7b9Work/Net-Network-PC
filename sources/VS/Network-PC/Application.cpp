@@ -33,6 +33,10 @@ bool Application::OnInit()
     // we use a PNG image in our HTML page
     wxImage::AddHandler(new wxPNGHandler);
 
+    WindowDiagram::Create();
+
+    WindowTerminal::Create();
+
     // create and show the main application window
     MainWindow *frame = new MainWindow(_("Датчики"));
 
@@ -58,8 +62,6 @@ void Application::OnTimer(wxTimerEvent &)
 
 int Application::OnExit()
 {
-    Log::DeInit();
-
     SET::DeInit();
 
     Config::DeInit();

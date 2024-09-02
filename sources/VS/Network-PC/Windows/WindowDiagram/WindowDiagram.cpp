@@ -60,12 +60,6 @@ WindowDiagram::~WindowDiagram()
 }
 
 
-void WindowDiagram::Delete()
-{
-    delete self;
-}
-
-
 void WindowDiagram::UpdateArea()
 {
     PoolDiagram::UpdateArea();
