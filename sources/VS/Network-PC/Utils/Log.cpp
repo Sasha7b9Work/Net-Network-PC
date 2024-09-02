@@ -38,7 +38,7 @@ void Log::Init()
 
 void Log::DeInit()
 {
-    WindowLog::Destroy();
+    WindowLog::Delete();
 }
 
 

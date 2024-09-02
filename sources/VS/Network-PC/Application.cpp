@@ -8,6 +8,7 @@
 #include "Settings/Settings.h"
 #include "Windows/MainWindow/MainWindow.h"
 #include "Windows/WindowDiagram/WindowDiagram.h"
+#include "Windows/WindowEmulator.h"
 
 
 wxIMPLEMENT_APP(Application);
@@ -50,6 +51,8 @@ bool Application::OnInit()
 
     frame->Show();
 
+    WindowEmulator::Create();
+
     return true;
 }
 
@@ -62,6 +65,8 @@ void Application::OnTimer(wxTimerEvent &)
 
 int Application::OnExit()
 {
+    WindowEmulator::Delete();
+
     SET::DeInit();
 
     Config::DeInit();

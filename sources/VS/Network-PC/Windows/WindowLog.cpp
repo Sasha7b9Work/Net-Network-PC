@@ -77,7 +77,7 @@ FrameLog::~FrameLog()
 }
 
 
-void WindowLog::Destroy()
+void WindowLog::Delete()
 {
     if (FrameLog::self)
     {

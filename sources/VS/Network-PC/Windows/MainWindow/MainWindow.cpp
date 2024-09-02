@@ -79,8 +79,6 @@ MainWindow::MainWindow(const wxString &title)
     SetTitleMenu(VIEW_TERMINAL);
     SetTitleMenu(VIEW_LOG);
     SetTitleMenu(VIEW_DIAGRAM);
-
-    Show(true);
 }
 
 

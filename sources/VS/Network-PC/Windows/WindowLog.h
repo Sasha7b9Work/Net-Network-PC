@@ -6,7 +6,7 @@ namespace WindowLog
 {
     void Create();
 
-    void Destroy();
+    void Delete();
 
     void AddLine(const wxString &);
 
