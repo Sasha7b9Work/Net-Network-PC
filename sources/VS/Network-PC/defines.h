@@ -6,9 +6,9 @@
 
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 1
-#define VERSION_BUILD 181
+#define VERSION_BUILD 182
 
-#define DATE_BUILD "2024-09-02 14:11:01"
+#define DATE_BUILD "2024-09-02 14:16:09"
 
 
 typedef const char *pchar;
@@ -32,6 +32,9 @@ typedef const char *pchar;
 #include <map>
 #include <vector>
 #pragma warning(pop)
+
+
+#define SAVE_DELETE(_pointer_)  { delete _pointer_; _pointer_ = nullptr; }
 
 
 enum

@@ -4,13 +4,31 @@
 
 
 
+class FrameEmulator : public wxFrame
+{
+public:
+    FrameEmulator() : wxFrame(nullptr, wxID_ANY, _("Ёмул€тор"))
+    {
+        Show(true);
+    }
+private:
+};
+
+
+namespace WindowEmulator
+{
+    static FrameEmulator *frame = nullptr;
+}
+
+
+
 void WindowEmulator::Create()
 {
-
+    frame = new FrameEmulator();
 }
 
 
 void WindowEmulator::Delete()
 {
-
+    SAVE_DELETE(frame);
 }
