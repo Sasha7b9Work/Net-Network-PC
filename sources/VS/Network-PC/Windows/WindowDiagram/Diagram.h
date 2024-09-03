@@ -2,7 +2,6 @@
 #pragma once
 #include "Data/Sensors.h"
 #include "Settings/Settings.h"
-#include "Windows/WindowDiagram/Canvas.h"
 
 
 // Здесь рисуются все графики

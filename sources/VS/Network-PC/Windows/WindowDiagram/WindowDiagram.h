@@ -2,13 +2,13 @@
 #pragma once
 
 
-class WindowDiagram : public wxFrame
+class FrameDiagram : public wxFrame
 {
 public:
 
-    ~WindowDiagram();
+    ~FrameDiagram();
 
-    static WindowDiagram *self;
+    static FrameDiagram *self;
 
     static void Create();
 
@@ -18,7 +18,7 @@ public:
 
 private:
 
-    WindowDiagram();
+    FrameDiagram();
 
     void OnEventSize(wxSizeEvent &);
 

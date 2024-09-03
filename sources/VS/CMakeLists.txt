@@ -3,9 +3,10 @@
 cmake_minimum_required(VERSION 3.5)
 
 # Set project name
-project (RES-Network-GUI)
+#project (RES-Network-GUI)
+project (Network-PC)
 
-set (TARGET_NAME RES-Network-GUI)
+set (TARGET_NAME Network-PC)
 
 set(CMAKE_UNITY_BUILD ON)
 

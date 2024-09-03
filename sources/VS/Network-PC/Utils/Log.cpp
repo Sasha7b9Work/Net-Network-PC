@@ -9,7 +9,7 @@
 
 namespace Log
 {
-    static const int SIZE_BUFFER = 1024;
+    static const int SIZE_BUFFER = 1024 * 10;
 
     static wxString file_name{ wxGetCwd() + ".log" };
 

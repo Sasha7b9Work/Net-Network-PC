@@ -181,7 +181,7 @@ void MainWindow::OnMenuView(wxCommandEvent &event)
     }
     else if (id == VIEW_DIAGRAM)
     {
-        WindowDiagram::self->SwitchVisibility();
+        FrameDiagram::self->SwitchVisibility();
     }
 
     SetTitleMenu(id);
@@ -202,7 +202,7 @@ void MainWindow::SetTitleMenu(int id)
     }
     else if (id == VIEW_DIAGRAM)
     {
-        FindItemInMenuBar(VIEW_DIAGRAM)->SetItemLabel(WindowDiagram::self->IsShown() ? _("Скрыть графики\tCtrl-G") : _("Показать графики\tCtrl-G"));
+        FindItemInMenuBar(VIEW_DIAGRAM)->SetItemLabel(FrameDiagram::self->IsShown() ? _("Скрыть графики\tCtrl-G") : _("Показать графики\tCtrl-G"));
     }
 }
 
@@ -219,7 +219,7 @@ void MainWindow::OnEventClose(wxCloseEvent &event)
 
     delete WindowTerminal::self;
 
-    delete WindowDiagram::self;
+    delete FrameDiagram::self;
 
     Log::DeInit();
 

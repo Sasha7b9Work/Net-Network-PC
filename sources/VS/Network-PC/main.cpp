@@ -24,9 +24,9 @@ void Application::Update()
 
     ReceivedData::Update();
 
-    WindowDiagram::self->UpdateArea();
+    FrameDiagram::self->UpdateArea();
 
-    ServerMeasures::Update();
+//    ServerMeasures::Update();
 
     {
         static TimeMeterMS meter;

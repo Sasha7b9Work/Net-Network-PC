@@ -34,7 +34,7 @@ bool Application::OnInit()
     // we use a PNG image in our HTML page
     wxImage::AddHandler(new wxPNGHandler);
 
-    WindowDiagram::Create();
+    FrameDiagram::Create();
 
     WindowTerminal::Create();
 

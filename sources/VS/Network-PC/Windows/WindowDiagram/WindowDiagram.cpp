@@ -3,10 +3,11 @@
 #include "Settings/Settings.h"
 #include "Windows/MainWindow/MainWindow.h"
 #include "Windows/WindowDiagram/WindowDiagram.h"
+#include "Data/Sensors.h"
 #include "Windows/WindowDiagram/Diagram.h"
 
 
-WindowDiagram *WindowDiagram::self = nullptr;
+FrameDiagram *FrameDiagram::self = nullptr;
 
 
 enum
@@ -18,13 +19,13 @@ enum
 };
 
 
-void WindowDiagram::Create()
+void FrameDiagram::Create()
 {
-    self = new WindowDiagram();
+    self = new FrameDiagram();
 }
 
 
-WindowDiagram::WindowDiagram() :
+FrameDiagram::FrameDiagram() :
     wxFrame(nullptr, wxID_ANY, _("Графики"))
 {
     Show(false);
@@ -34,10 +35,10 @@ WindowDiagram::WindowDiagram() :
     SetPosition({ rect.x, rect.y });
     SetSize({ rect.width, rect.height });
 
-    Bind(wxEVT_SIZE, &WindowDiagram::OnEventSize, this);
-    Bind(wxEVT_CLOSE_WINDOW, &WindowDiagram::OnEventClose, this);
-    Bind(wxEVT_CONTEXT_MENU, &WindowDiagram::OnEventCreateContextMenu, this);
-    Bind(wxEVT_MENU, &WindowDiagram::OnEventContextMenu, this);
+    Bind(wxEVT_SIZE, &FrameDiagram::OnEventSize, this);
+    Bind(wxEVT_CLOSE_WINDOW, &FrameDiagram::OnEventClose, this);
+    Bind(wxEVT_CONTEXT_MENU, &FrameDiagram::OnEventCreateContextMenu, this);
+    Bind(wxEVT_MENU, &FrameDiagram::OnEventContextMenu, this);
 
     PoolDiagram::Create(this);
 
@@ -50,7 +51,7 @@ WindowDiagram::WindowDiagram() :
 }
 
 
-WindowDiagram::~WindowDiagram()
+FrameDiagram::~FrameDiagram()
 {
     SET::GUI::window_diagram.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, IsShown(), IsMaximized()});
 
@@ -60,13 +61,13 @@ WindowDiagram::~WindowDiagram()
 }
 
 
-void WindowDiagram::UpdateArea()
+void FrameDiagram::UpdateArea()
 {
     PoolDiagram::UpdateArea();
 }
 
 
-void WindowDiagram::OnEventSize(wxSizeEvent &event)
+void FrameDiagram::OnEventSize(wxSizeEvent &event)
 {
     PoolDiagram::OnEventSize();
 
@@ -76,13 +77,13 @@ void WindowDiagram::OnEventSize(wxSizeEvent &event)
 }
 
 
-void WindowDiagram::SwitchVisibility()
+void FrameDiagram::SwitchVisibility()
 {
     Show(!IsShown());
 }
 
 
-void WindowDiagram::OnEventClose(wxCloseEvent &)
+void FrameDiagram::OnEventClose(wxCloseEvent &)
 {
     Show(false);
 
@@ -90,7 +91,7 @@ void WindowDiagram::OnEventClose(wxCloseEvent &)
 }
 
 
-void WindowDiagram::OnEventCreateContextMenu(wxContextMenuEvent &event)
+void FrameDiagram::OnEventCreateContextMenu(wxContextMenuEvent &event)
 {
     wxPoint point = event.GetPosition();
 
@@ -100,7 +101,7 @@ void WindowDiagram::OnEventCreateContextMenu(wxContextMenuEvent &event)
 }
 
 
-void WindowDiagram::ShowContextMenu(const wxPoint &pos)
+void FrameDiagram::ShowContextMenu(const wxPoint &pos)
 {
     wxMenu menu;
 
@@ -119,7 +120,7 @@ void WindowDiagram::ShowContextMenu(const wxPoint &pos)
 }
 
 
-void WindowDiagram::OnEventContextMenu(wxCommandEvent &event)
+void FrameDiagram::OnEventContextMenu(wxCommandEvent &event)
 {
     int id = event.GetId();
 
