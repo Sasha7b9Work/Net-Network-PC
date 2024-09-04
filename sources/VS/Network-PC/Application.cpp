@@ -34,6 +34,8 @@ bool Application::OnInit()
     // we use a PNG image in our HTML page
     wxImage::AddHandler(new wxPNGHandler);
 
+    WindowEmulator::Create();
+
     FrameDiagram::Create();
 
     WindowTerminal::Create();
@@ -51,8 +53,6 @@ bool Application::OnInit()
 
     frame->Show();
 
-    WindowEmulator::Create();
-
     return true;
 }
 
@@ -65,8 +65,6 @@ void Application::OnTimer(wxTimerEvent &)
 
 int Application::OnExit()
 {
-    WindowEmulator::Delete();
-
     SET::DeInit();
 
     Config::DeInit();

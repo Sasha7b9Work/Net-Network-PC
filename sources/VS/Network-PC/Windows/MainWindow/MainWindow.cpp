@@ -217,6 +217,8 @@ void MainWindow::OnEventClose(wxCloseEvent &event)
 {
     SET::GUI::window_main.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, true, IsMaximized()});
 
+    WindowEmulator::Delete();
+
     delete WindowTerminal::self;
 
     delete FrameDiagram::self;

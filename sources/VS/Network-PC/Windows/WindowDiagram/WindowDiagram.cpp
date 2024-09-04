@@ -63,7 +63,10 @@ FrameDiagram::~FrameDiagram()
 
 void FrameDiagram::UpdateArea()
 {
-    PoolDiagram::UpdateArea();
+    if (self)
+    {
+        PoolDiagram::UpdateArea();
+    }
 }
 
 
