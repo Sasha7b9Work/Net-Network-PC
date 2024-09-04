@@ -15,13 +15,14 @@ map<uint, Sensor> Sensor::Pool::pool;
 DataPoint DataPoint::null{ 0.0f, {0, 0, 0} };
 
 
-bool Measure::is_shown[Count] =
+bool Measure::is_shown[Measure::Count] =
 {
     true,
     true,
     true,
     true,
-    false,
+    true,
+    true,
     true,
     true,
     true,
@@ -32,7 +33,7 @@ bool Measure::is_shown[Count] =
 
 wxString Measure::GetTitle() const
 {
-    static const pchar titles[Count][Lang::Count] =
+    static const pchar titles[Measure::Count][Lang::Count] =
     {
         { "Температура",  "Temperature" },
         { "Давление",     "Pressure" },
@@ -43,7 +44,8 @@ wxString Measure::GetTitle() const
         { "Долгота",      "Longitude" },
         { "Высота",       "Height" },
         { "Азимут",       "Azimuth" },
-        { "Освещённость", "Illuminate" }
+        { "Освещённость", "Illuminate" },
+        { "Дистанция",    "Distance" }
     };
 
     return titles[type][SET::GUI::lang.Get()];
@@ -86,7 +88,7 @@ int Measure::NumColumn() const
 
 wxString Measure::GetUnits() const
 {
-    static const pchar units[Count][Lang::Count] =
+    static const pchar units[Measure::Count][Lang::Count] =
     {
         { "С",    "С"    },
         { "гПа",  "гПа"  },
@@ -97,7 +99,8 @@ wxString Measure::GetUnits() const
         { "град", "град" },
         { "м",    "м"    },
         { "град", "град" },
-        { "лк",   "лк"   }
+        { "лк",   "лк",  },
+        { "м",    "m"    }
     };
 
     return units[type][SET::GUI::lang.Get()];

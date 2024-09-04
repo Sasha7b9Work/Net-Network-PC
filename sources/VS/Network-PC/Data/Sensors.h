@@ -19,6 +19,7 @@ struct Measure
         Altitude,       // Высота
         Azimuth,        // Азимут - угол от направления на север
         Illuminate,     // Освещённость
+        Distance,       // Дистанция
         Count
     };
 
