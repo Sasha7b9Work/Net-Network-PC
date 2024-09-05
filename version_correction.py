@@ -3,6 +3,10 @@
 import os
 from datetime import datetime
 
+version_build = "Invalid string"
+version_major = -1
+version_minor = -1
+
 def CurrentTime():
     t = datetime.now()
     year = str(t.year)
@@ -39,8 +43,8 @@ def CorrectResource(name_file):
         for line in file:
             lines.append(line)
         file.close()
-        string_version = "\"" + version_major + "." + version_minor + "." + version_build + "." + str(version_firmware) +"\""
-        string_version_2 = str(version_major) + "," + version_minor + "," + version_build + "," + str(version_firmware)
+        string_version = "\"" + str(version_major) + "." + version_minor + "." + version_build + "." + "0" +"\""
+        string_version_2 = str(version_major) + "," + version_minor + "," + version_build + "," + "0"
         with open(name_file, "w", encoding="utf8") as file:
             for line in lines:
                 strings = line.strip().split(' ')
