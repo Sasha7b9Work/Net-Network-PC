@@ -15,22 +15,6 @@ map<uint, Sensor> Sensor::Pool::pool;
 DataPoint DataPoint::null{ 0.0f, {0, 0, 0} };
 
 
-bool Measure::is_shown[Measure::Count] =
-{
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true
-};
-
-
 wxString Measure::GetTitle() const
 {
     static const pchar titles[Measure::Count][Lang::Count] =
@@ -54,13 +38,13 @@ wxString Measure::GetTitle() const
 
 bool Measure::IsShown() const
 {
-    return is_shown[type];
+    return SET::DIAGRAM::measure_vis[type].Get();
 }
 
 
 void Measure::SetShown(bool shown)
 {
-    is_shown[type] = shown;
+    SET::DIAGRAM::measure_vis[type].Set(shown);
 }
 
 

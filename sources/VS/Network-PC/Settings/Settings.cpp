@@ -8,10 +8,34 @@ namespace SET
     namespace DIAGRAM
     {
         TimeScale time_scale{ "time_scale", 1 };
+        Value<bool> measure_vis[Measure::Count] =
+        {
+            { "meas_vis_0", true },
+            { "meas_vis_1", true },
+            { "meas_vis_2", true },
+            { "meas_vis_3", true },
+            { "meas_vis_4", true },
+            { "meas_vis_5", true },
+            { "meas_vis_6", true },
+            { "meas_vis_7", true },
+            { "meas_vis_8", true },
+            { "meas_vis_9", true },
+            { "meas_vis_10", true }
+        };
 
         static void LoadSave(bool load)
         {
             time_scale.LoadSave(load);
+
+            for (int i = 0; i < Measure::Count; i++)
+            {
+                measure_vis[i].LoadSave(load);
+
+                if (load)
+                {
+                    Measure(i).SetShown(measure_vis[i].Get());
+                }
+            }
         }
     }
 

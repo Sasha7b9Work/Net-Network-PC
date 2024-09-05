@@ -1,6 +1,7 @@
 ﻿// 2022/09/28 08:32:16 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Settings/Values.h"
+#include "Data/Sensors.h"
 
 
 struct WindowParameters
@@ -31,6 +32,7 @@ namespace SET
     namespace DIAGRAM
     {
         extern TimeScale time_scale;        // Здесь хранится индекс настройки
+        extern Value<bool> measure_vis[Measure::Count];
     }
 
     namespace NETWORK
