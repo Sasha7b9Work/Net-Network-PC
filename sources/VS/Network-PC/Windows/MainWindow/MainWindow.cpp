@@ -7,6 +7,7 @@
 #include "Communicator/HTTP/HTTP.h"
 #include "Windows/MainWindow/MainWindow.h"
 #include "Windows/WindowDiagram/WindowDiagram.h"
+#include "Windows/WindowEmulator.h"
 
 
 MainFrame *MainFrame::self = nullptr;
