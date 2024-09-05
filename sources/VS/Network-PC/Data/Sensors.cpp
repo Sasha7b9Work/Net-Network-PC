@@ -122,7 +122,7 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
     {
         sensor->second.AppendMeasure(type, value);
 
-        MainWindow::self->SetMeasure(id, sensor->second.GetColor(), type, value);
+        MainFrame::self->SetMeasure(id, sensor->second.GetColor(), type, value);
     }
 }
 

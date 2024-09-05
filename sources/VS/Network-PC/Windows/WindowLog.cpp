@@ -122,7 +122,7 @@ void FrameLog::OnEventClose(wxCloseEvent &)
 {
     Show(false);
 
-    MainWindow::self->SetTitleMenu(VIEW_LOG);
+    MainFrame::self->SetTitleMenu(VIEW_LOG);
 }
 
 

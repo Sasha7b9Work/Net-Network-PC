@@ -14,9 +14,9 @@ namespace HTTP
 
 void HTTP::SendPOST(float *values, int count)
 {
-    wxWebRequest request = wxWebSession::GetDefault().CreateRequest(MainWindow::self, url);
+    wxWebRequest request = wxWebSession::GetDefault().CreateRequest(MainFrame::self, url);
 
-    MainWindow::self->Bind(wxEVT_WEBREQUEST_STATE, &MainWindow::OnWebRequestState, MainWindow::self);
+    MainFrame::self->Bind(wxEVT_WEBREQUEST_STATE, &MainFrame::OnWebRequestState, MainFrame::self);
 
     wxDateTime time = wxDateTime::Now();
 

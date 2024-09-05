@@ -43,14 +43,14 @@ enum
 };
 
 
-class MainWindow : public wxFrame
+class MainFrame : public wxFrame
 {
 public:
-    MainWindow(const wxString &title);
+    MainFrame(const wxString &title);
 
     void OnAbout(wxCommandEvent &event);
 
-    static MainWindow *self;
+    static MainFrame *self;
 
     void OnWebRequestState(wxWebRequestEvent &);
 

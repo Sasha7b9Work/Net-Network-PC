@@ -5,14 +5,14 @@
 #include "Windows/WindowLog.h"
 #include "Communicator/Server/Server.h"
 #include "Communicator/HTTP/HTTP.h"
-#include "MainWindow.h"
+#include "Windows/MainWindow/MainWindow.h"
 #include "Windows/WindowDiagram/WindowDiagram.h"
 
 
-MainWindow *MainWindow::self = nullptr;
+MainFrame *MainFrame::self = nullptr;
 
 
-MainWindow::MainWindow(const wxString &title)
+MainFrame::MainFrame(const wxString &title)
     : wxFrame((wxFrame *)NULL, wxID_ANY, title, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE | wxSTAY_ON_TOP)
 {
     Show(false);
@@ -45,7 +45,7 @@ MainWindow::MainWindow(const wxString &title)
     menuView->Append(VIEW_LOG, _(" "), _(" "));
     menuView->Append(VIEW_DIAGRAM, _(" "), _(" "));
 
-    Bind(wxEVT_MENU, &MainWindow::OnMenuSettings, this);
+    Bind(wxEVT_MENU, &MainFrame::OnMenuSettings, this);
 
     menuBar->Append(menuSettings, _("Настройки"));
 
@@ -53,13 +53,13 @@ MainWindow::MainWindow(const wxString &title)
 
     wxFrameBase::SetMenuBar(menuBar);
 
-    Bind(wxEVT_MENU, &MainWindow::OnAbout, this, wxID_ABOUT);
-    Bind(wxEVT_MENU, &MainWindow::OnMenuView, this, VIEW_TERMINAL);
-    Bind(wxEVT_MENU, &MainWindow::OnMenuView, this, VIEW_LOG);
-    Bind(wxEVT_MENU, &MainWindow::OnMenuView, this, VIEW_DIAGRAM);
-    Bind(wxEVT_CLOSE_WINDOW, &MainWindow::OnEventClose, this);
+    Bind(wxEVT_MENU, &MainFrame::OnAbout, this, wxID_ABOUT);
+    Bind(wxEVT_MENU, &MainFrame::OnMenuView, this, VIEW_TERMINAL);
+    Bind(wxEVT_MENU, &MainFrame::OnMenuView, this, VIEW_LOG);
+    Bind(wxEVT_MENU, &MainFrame::OnMenuView, this, VIEW_DIAGRAM);
+    Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnEventClose, this);
 
-    Bind(wxEVT_SOCKET, &MainWindow::OnSocketEvent, this, SOCKET_ID);
+    Bind(wxEVT_SOCKET, &MainFrame::OnSocketEvent, this, SOCKET_ID);
 
     grid = new GridSensors(this, wxID_ANY, { 0, 0 }, size);
 
@@ -82,7 +82,7 @@ MainWindow::MainWindow(const wxString &title)
 }
 
 
-void MainWindow::SetMeasure(uint id, const wxColour &color, uint8 type, float value)
+void MainFrame::SetMeasure(uint id, const wxColour &color, uint8 type, float value)
 {
     if (id == 0)
     {
@@ -110,7 +110,7 @@ void MainWindow::SetMeasure(uint id, const wxColour &color, uint8 type, float va
 }
 
 
-void MainWindow::SetCellValue(int row, int col, float value, const wxColour &color)
+void MainFrame::SetCellValue(int row, int col, float value, const wxColour &color)
 {
     if (col >= 0)
     {
@@ -121,7 +121,7 @@ void MainWindow::SetCellValue(int row, int col, float value, const wxColour &col
 }
 
 
-void MainWindow::SetCellValue(int row, int col, int value, const wxColour &color)
+void MainFrame::SetCellValue(int row, int col, int value, const wxColour &color)
 {
     if (col >= 0)
     {
@@ -133,7 +133,7 @@ void MainWindow::SetCellValue(int row, int col, int value, const wxColour &color
 
 
 
-void MainWindow::OnMenuSettings(wxCommandEvent &event)
+void MainFrame::OnMenuSettings(wxCommandEvent &event)
 {
     int id = event.GetId();
 
@@ -144,7 +144,7 @@ void MainWindow::OnMenuSettings(wxCommandEvent &event)
 }
 
 
-void MainWindow::OnAbout(wxCommandEvent &WXUNUSED(event))
+void MainFrame::OnAbout(wxCommandEvent &WXUNUSED(event))
 {
     wxBoxSizer *topsizer;
     wxDialog dlg(this, wxID_ANY, wxString(_("About")));
@@ -167,7 +167,7 @@ void MainWindow::OnAbout(wxCommandEvent &WXUNUSED(event))
 }
 
 
-void MainWindow::OnMenuView(wxCommandEvent &event)
+void MainFrame::OnMenuView(wxCommandEvent &event)
 {
     int id = event.GetId();
 
@@ -188,7 +188,7 @@ void MainWindow::OnMenuView(wxCommandEvent &event)
 }
 
 
-void MainWindow::SetTitleMenu(int id)
+void MainFrame::SetTitleMenu(int id)
 {
     if (id == VIEW_TERMINAL)
     {
@@ -207,13 +207,13 @@ void MainWindow::SetTitleMenu(int id)
 }
 
 
-void MainWindow::OnSocketEvent(wxSocketEvent &event)
+void MainFrame::OnSocketEvent(wxSocketEvent &event)
 {
     ServerMeasures::CallbackOnSocketEvent(event);
 }
 
 
-void MainWindow::OnEventClose(wxCloseEvent &event)
+void MainFrame::OnEventClose(wxCloseEvent &event)
 {
     SET::GUI::window_main.Set({ { GetPosition().x, GetPosition().y, GetSize().x, GetSize().y }, true, IsMaximized()});
 
@@ -229,7 +229,7 @@ void MainWindow::OnEventClose(wxCloseEvent &event)
 }
 
 
-void MainWindow::OnWebRequestState(wxWebRequestEvent &event)
+void MainFrame::OnWebRequestState(wxWebRequestEvent &event)
 {
     switch (event.GetState())
     {
@@ -257,7 +257,7 @@ void MainWindow::OnWebRequestState(wxWebRequestEvent &event)
 }
 
 
-void MainWindow::OnEventChangedShowingMeasures()
+void MainFrame::OnEventChangedShowingMeasures()
 {
     grid->StretchColumns();
 }

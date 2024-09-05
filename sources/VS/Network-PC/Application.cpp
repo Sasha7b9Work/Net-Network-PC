@@ -41,7 +41,7 @@ bool Application::OnInit()
     WindowTerminal::Create();
 
     // create and show the main application window
-    MainWindow *frame = new MainWindow(_("Датчики"));
+    MainFrame *frame = new MainFrame(_("Датчики"));
 
     Communicator::Init();
 
