@@ -40,8 +40,7 @@ bool Application::OnInit()
 
     WindowTerminal::Create();
 
-    // create and show the main application window
-    MainFrame *frame = new MainFrame(_("Датчики"));
+    MainWindow::Create();
 
     Communicator::Init();
 
@@ -51,7 +50,7 @@ bool Application::OnInit()
 
     timer.Start();
 
-    frame->Show();
+    MainWindow::Show();
 
     return true;
 }

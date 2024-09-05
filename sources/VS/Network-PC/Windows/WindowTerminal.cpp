@@ -183,7 +183,7 @@ void WindowTerminal::OnEventClose(wxCloseEvent &)
 {
     Show(false);
 
-    MainFrame::self->SetTitleMenu(VIEW_TERMINAL);
+    MainWindow::SetTitleMenu(VIEW_TERMINAL);
 }
 
 

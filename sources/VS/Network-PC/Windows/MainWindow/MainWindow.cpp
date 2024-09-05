@@ -10,7 +10,47 @@
 #include "Windows/WindowEmulator.h"
 
 
-MainFrame *MainFrame::self = nullptr;
+class MainFrame : public wxFrame
+{
+public:
+    MainFrame(const wxString &title);
+
+    void OnAbout(wxCommandEvent &event);
+
+    void OnWebRequestState(wxWebRequestEvent &);
+
+    void SetMeasure(uint id, const wxColour &color, uint8 type, float value);
+
+    void SetTitleMenu(int id);
+
+    void OnEventChangedShowingMeasures();
+
+private:
+
+    wxToolBar *toolBar = nullptr;
+
+    //     <id, num_row>
+    std::map<uint, int> rows;
+
+    void SetCellValue(int row, int col, float, const wxColour &color);
+    void SetCellValue(int row, int col, int, const wxColour &color);
+
+    GridSensors *grid = nullptr;             // Список датчиков
+
+    void OnEventClose(wxCloseEvent &);
+
+    void OnMenuView(wxCommandEvent &);
+
+    void OnMenuSettings(wxCommandEvent &);
+
+    void OnSocketEvent(wxSocketEvent &);
+};
+
+
+namespace MainWindow
+{
+    static MainFrame *self = nullptr;
+}
 
 
 MainFrame::MainFrame(const wxString &title)
@@ -19,8 +59,6 @@ MainFrame::MainFrame(const wxString &title)
     Show(false);
 
     wxSize size = FromDIP(wxSize((Measure::Count + 1) * 60, 400));
-
-    self = this;
 
     SetIcon(wxICON(MAIN_ICON));
 
@@ -80,6 +118,8 @@ MainFrame::MainFrame(const wxString &title)
     SetTitleMenu(VIEW_TERMINAL);
     SetTitleMenu(VIEW_LOG);
     SetTitleMenu(VIEW_DIAGRAM);
+
+    Bind(wxEVT_WEBREQUEST_STATE, &MainFrame::OnWebRequestState, this);
 }
 
 
@@ -261,4 +301,40 @@ void MainFrame::OnWebRequestState(wxWebRequestEvent &event)
 void MainFrame::OnEventChangedShowingMeasures()
 {
     grid->StretchColumns();
+}
+
+
+void MainWindow::Create()
+{
+    self = new MainFrame(_("Датчики"));
+}
+
+
+void MainWindow::Show(bool show)
+{
+    self->Show(show);
+}
+
+
+wxEvtHandler &MainWindow::GetEventHandler()
+{
+    return *self;
+}
+
+
+void MainWindow::SetTitleMenu(int id)
+{
+    self->SetTitleMenu(id);
+}
+
+
+void MainWindow::SetMeasure(uint id, const wxColour &color, uint8 type, float value)
+{
+    self->SetMeasure(id, color, type, value);
+}
+
+
+void MainWindow::OnEventChangedShowingMeasures()
+{
+    self->OnEventChangedShowingMeasures();
 }

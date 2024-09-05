@@ -27,7 +27,7 @@ void ServerMeasures::Init()
     {
         socket = new wxSocketClient();
 
-        socket->SetEventHandler(*MainFrame::self, SOCKET_ID);
+        socket->SetEventHandler(MainWindow::GetEventHandler(), SOCKET_ID);
 
         socket->SetNotify(wxSOCKET_CONNECTION_FLAG | wxSOCKET_LOST_FLAG);
 

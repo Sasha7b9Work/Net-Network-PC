@@ -4,9 +4,6 @@
 #include "Windows/MainWindow/GridSensors.h"
 
 
-class DiagramPool;
-
-
 enum
 {
     FILE_QUIT = wxID_HIGHEST + 1,
@@ -43,40 +40,17 @@ enum
 };
 
 
-class MainFrame : public wxFrame
+namespace MainWindow
 {
-public:
-    MainFrame(const wxString &title);
+    void Create();
 
-    void OnAbout(wxCommandEvent &event);
+    void Show(bool = true);
 
-    static MainFrame *self;
-
-    void OnWebRequestState(wxWebRequestEvent &);
-
-    void SetMeasure(uint id, const wxColour &color, uint8 type, float value);
+    wxEvtHandler &GetEventHandler();
 
     void SetTitleMenu(int id);
 
+    void SetMeasure(uint id, const wxColour &color, uint8 type, float value);
+
     void OnEventChangedShowingMeasures();
-
-private:
-
-    wxToolBar *toolBar = nullptr;
-
-    //     <id, num_row>
-    std::map<uint, int> rows;
-
-    void SetCellValue(int row, int col, float, const wxColour &color);
-    void SetCellValue(int row, int col, int, const wxColour &color);
-
-    GridSensors *grid = nullptr;             // Список датчиков
-
-    void OnEventClose(wxCloseEvent &);
-
-    void OnMenuView(wxCommandEvent &);
-
-    void OnMenuSettings(wxCommandEvent &);
-
-    void OnSocketEvent(wxSocketEvent &);
-};
+}

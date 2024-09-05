@@ -90,7 +90,7 @@ void FrameDiagram::OnEventClose(wxCloseEvent &)
 {
     Show(false);
 
-    MainFrame::self->SetTitleMenu(VIEW_DIAGRAM);
+    MainWindow::SetTitleMenu(VIEW_DIAGRAM);
 }
 
 
@@ -148,7 +148,7 @@ void FrameDiagram::OnEventContextMenu(wxCommandEvent &event)
 
     PoolDiagram::OnEventSize();
 
-    MainFrame::self->OnEventChangedShowingMeasures();
+    MainWindow::OnEventChangedShowingMeasures();
 
     event.Skip();
 }
