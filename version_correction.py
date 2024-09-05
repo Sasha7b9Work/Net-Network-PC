@@ -14,7 +14,7 @@ def CurrentTime():
         '{:-02}'.format(t.minute) + ":" + \
         '{:-02}'.format(t.second)
 
-def ProcessFile(name_file):
+def WriteVersionToDefines(name_file):
     lines = []
     with open(name_file, "r", encoding="utf8") as file:
         for line in file:
@@ -31,4 +31,32 @@ def ProcessFile(name_file):
                 file.write(line)
             file.close()
 
-ProcessFile("sources/VS/Network-PC/defines.h")
+
+# Скорректировать данные в ресурсах
+def CorrectResource(name_file):
+    lines = []
+    with open(name_file, "r", encoding="utf8") as file:
+        for line in file:
+            lines.append(line)
+        file.close()
+        string_version = "\"" + version_major + "." + version_minor + "." + version_build + "." + str(version_firmware) +"\""
+        string_version_2 = str(version_major) + "," + version_minor + "," + version_build + "," + str(version_firmware)
+        with open(name_file, "w", encoding="utf8") as file:
+            for line in lines:
+                strings = line.strip().split(' ')
+                if len(strings) > 2:
+                    if strings[1] == "\"FileVersion\",":
+                        line = "            VALUE \"FileVersion\", " + string_version + "\n"
+                    if strings[1] == "\"ProductVersion\",":
+                        line = "            VALUE \"ProductVersion\", " + string_version + "\n"
+                if len(strings) == 2:
+                    if strings[0] == "FILEVERSION":
+                        line = " FILEVERSION " + string_version_2 + "\n"
+                    if strings[0] == "PRODUCTVERSION":
+                        line = " PRODUCTVERSION " + string_version_2 + "\n"
+                file.write(line)
+            file.close()
+
+WriteVersionToDefines("sources/VS/Network-PC/defines.h")
+
+CorrectResource("sources/VS/Network-PC/resources/resources.rc")
