@@ -6,7 +6,7 @@
 
 namespace HTTP
 {
-    static const wxString url = "https://wltech.ru/wifi/post-data-mst.php";
+    static const wxString url = "http://188.127.227.115/post-data-mst2.php";
     static const wxString content_type = "application/x-www-form-urlencoded";
     static const wxString key = "api_key=PtmAT51b3j4F8";
 }
@@ -30,7 +30,7 @@ void HTTP::SendPOST(float *values, int count)
 
 //    request.SetData(body, content_type);
 
-    body = wxString::Format("api_key=PtmAT51b3j4F8&value1=24.75&value2=54.27&value3=994.01&DevPoint=%.2f&Illuminate=%.2f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
+    body = wxString::Format("api_key=PtmAT51b3j4F8&device=1&location=Street&value1=24.75&value2=54.27&value3=994.01&DevPoint=%.2f&Illuminate=%.2f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
         values[Measure::DewPoint], values[Measure::Illuminate],
         time.GetYear(), time.GetMonth() + 1, time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());
 

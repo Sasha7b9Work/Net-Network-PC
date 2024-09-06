@@ -276,23 +276,27 @@ void MainFrame::OnWebRequestState(wxWebRequestEvent &event)
     {
     case wxWebRequest::State_Completed:
     {
-        LOG_WRITE(">>> RESPONSE : %s", event.GetResponse().AsString().ToStdString().c_str());
+        LOG_WRITE(">>> REQUEST COMPLETE : %s", event.GetResponse().AsString().ToStdString().c_str());
         break;
     }
 
     case wxWebRequest::State_Failed:
+        LOG_WRITE(">>> REQUEST FAILED : %s", event.GetErrorDescription().c_str().AsChar());
         break;
 
     case wxWebRequest::State_Cancelled:
+        LOG_WRITE(">>> REQUEST CANCELLED : %s", event.GetResponse().AsString().ToStdString().c_str());
         break;
 
     case wxWebRequest::State_Unauthorized:
+        LOG_WRITE(">>> REQUEST Unauthorized : %s", event.GetResponse().AsString().ToStdString().c_str());
         break;
 
     case wxWebRequest::State_Active:
         break;
 
     case wxWebRequest::State_Idle:
+        LOG_WRITE(">>> REQUEST IDLE : %s", event.GetResponse().AsString().ToStdString().c_str());
         break;
     }
 }
