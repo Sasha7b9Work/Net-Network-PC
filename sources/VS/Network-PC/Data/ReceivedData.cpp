@@ -14,6 +14,9 @@ namespace ReceivedData
     static bool FindFirstABC();
 
     static bool ParseCommand(char bytes[20]);
+
+    // Для старых устройств
+    static bool ParseCommandOld(char bytes[20]);
 }
 
 
@@ -37,6 +40,11 @@ void ReceivedData::Update()
         {
             static int counter = 0;
             LOG_ERROR("Can not parse command %d", counter++);
+
+            if (!ParseCommandOld(bytes))                                // Это надо будет убрать, чтобы на всех датчиках был один алгоритм
+            {
+                LOG_ERROR("Can not parse old command %d", counter++);
+            }
         }
     }
 }
@@ -100,6 +108,33 @@ bool ReceivedData::ParseCommand(char message[20])
     float value = 0.0f;
 
     std::memcpy(&value, &message[12], 4);       // offset 16
+
+    if (Math::CalculateHash(&value, 4) == hash)
+    {
+        Sensor::Pool::AppendMeasure(id, type, value);
+
+        return true;
+    }
+
+    return false;
+}
+
+
+bool ReceivedData::ParseCommandOld(char message[20])
+{
+    uint8 type = message[3];
+
+    uint id;
+
+    std::memcpy(&id, &message[4], 4);
+
+    float value = 0.0f;
+
+    std::memcpy(&value, &message[16], 4);
+
+    uint hash = 0;
+
+    std::memcpy(&hash, &message[12], 4);
 
     if (Math::CalculateHash(&value, 4) == hash)
     {
