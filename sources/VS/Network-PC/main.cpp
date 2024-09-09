@@ -35,7 +35,7 @@ void Application::Update()
         {
             meter.Reset();
 
-            Sensor::Pool::AppendMeasure(133, Measure::Distance, 1.3f + std::rand() / (1000000.0f * 5.0f));
+//            Sensor::Pool::AppendMeasure(133, Measure::Distance, 1.3f + std::rand() / (1000000.0f * 5.0f));
 
             float values[Measure::Count];
 

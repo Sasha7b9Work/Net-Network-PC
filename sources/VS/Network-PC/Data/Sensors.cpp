@@ -29,7 +29,8 @@ wxString Measure::GetTitle() const
         { "Высота",       "Height" },
         { "Азимут",       "Azimuth" },
         { "Освещённость", "Illuminate" },
-        { "Дистанция",    "Distance" }
+        { "Дистанция",    "Distance" },
+        { "Поворот",      "Rotage" }
     };
 
     return titles[type][SET::GUI::lang.Get()];
@@ -84,7 +85,8 @@ wxString Measure::GetUnits() const
         { "м",    "м"    },
         { "град", "град" },
         { "лк",   "лк",  },
-        { "м",    "m"    }
+        { "м",    "m"    },
+        { "град", "град" }
     };
 
     return units[type][SET::GUI::lang.Get()];

@@ -19,6 +19,7 @@ struct Measure
         Azimuth,        // Азимут - угол от направления на север
         Illuminate,     // Освещённость
         Distance,       // Дистанция
+        RotationAngle,  // Угол поворота
         Count
     };
 
