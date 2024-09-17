@@ -32,6 +32,12 @@ def WriteVersionToDefines(name_file):
                 if line.startswith("#define DATE_BUILD"):
                     strings = line.split(" ")
                     line = strings[0] + " " + strings[1] + " " + "\"" + CurrentTime() + "\"\n"
+                if line.startswith("#define VERSION_MAJOR"):
+                    strings = line.split(" ");
+                    version_major = int(strings[2])
+                if line.startswith("#define VERSION_MINOR"):
+                    strings = line.split(" ");
+                    version_minor = int(strings[2])
                 file.write(line)
             file.close()
 
@@ -43,8 +49,8 @@ def CorrectResource(name_file):
         for line in file:
             lines.append(line)
         file.close()
-        string_version = "\"" + str(version_major) + "." + version_minor + "." + version_build + "." + "0" +"\""
-        string_version_2 = str(version_major) + "," + version_minor + "," + version_build + "," + "0"
+        string_version = str("\"") + str(version_major) + "." + str(version_minor) + "." + str(version_build) + "." + "0" +"\""
+        string_version_2 = str(version_major) + "," + str(version_minor) + "," + str(version_build) + "," + "0"
         with open(name_file, "w", encoding="utf8") as file:
             for line in lines:
                 strings = line.strip().split(' ')
