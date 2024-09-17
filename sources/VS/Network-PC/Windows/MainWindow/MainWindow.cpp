@@ -145,6 +145,11 @@ void MainFrame::SetMeasure(uint id, const wxColour &color, uint8 type, float val
 
     Measure::E type_meas = (Measure::E)type;
 
+    if (type_meas >= Measure::Count)
+    {
+        return;
+    }
+
     SetCellValue(row->second, Measure(type).NumColumn(), (float)value, color);
 
     ServerMeasures::Send(id, type_meas, (float)value);
