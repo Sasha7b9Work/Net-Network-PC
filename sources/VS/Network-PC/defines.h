@@ -6,9 +6,9 @@
 
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 1
-#define VERSION_BUILD 205
+#define VERSION_BUILD 206
 
-#define DATE_BUILD "2024-09-17 12:19:20"
+#define DATE_BUILD "2024-09-17 12:28:27"
 
 
 typedef const char *pchar;

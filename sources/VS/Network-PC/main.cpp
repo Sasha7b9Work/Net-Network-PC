@@ -26,6 +26,18 @@ void Application::Update()
 
     FrameDiagram::self->UpdateArea();
 
+//    static TimeMeterMS meter;
+
+//    if (meter.ElapsedTime() > 500)
+//    {
+//        meter.Reset();
+//
+//        for (int i = 0; i < Measure::Count; i++)
+//        {
+//            Sensor::Pool::AppendMeasure(2, (uint8)i, (float)rand());
+//        }
+//    }
+
 //    {
 //        static TimeMeterMS meter;
 //
