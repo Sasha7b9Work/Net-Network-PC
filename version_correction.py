@@ -1,7 +1,16 @@
 # Вызывается автоматически из commit.bat для инкремента версии сборки перед коммитом в репозиторий
 
+
 import os
 from datetime import datetime
+
+
+#*****************************
+# pip install icecream
+# from icecream import ic
+# ic(version_build)
+#*****************************
+
 
 version_build = -1
 version_major = -1
