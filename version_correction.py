@@ -39,7 +39,6 @@ def WriteVersionToDefines(name_file):
                 if line.startswith("#define VERSION_MAJOR"):
                     strings = line.split(" ");
                     version_major = int(strings[2])
-                    print(version_major)
                 if line.startswith("#define VERSION_MINOR"):
                     strings = line.split(" ");
                     version_minor = int(strings[2])
@@ -56,8 +55,6 @@ def CorrectResource(name_file):
         file.close()
         string_version = str("\"") + str(version_major) + "." + str(version_minor) + "." + str(version_build) + "." + "0" +"\""
         string_version_2 = str(version_major) + "," + str(version_minor) + "," + str(version_build) + "," + "0"
-        print(version_major)
-        print(string_version_2)
         with open(name_file, "w", encoding="utf8") as file:
             for line in lines:
                 strings = line.strip().split(' ')
