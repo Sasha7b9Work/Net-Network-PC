@@ -6,8 +6,8 @@
 
 namespace HTTP
 {
-    static const wxString url = "http://188.127.227.115/post-data-mst2.php";
-    static const wxString content_type = "application/x-www-form-urlencoded";
+    static const wxString url = "https://wltech.ru/wifi/post-data-mst.php";
+    static const wxString content_type = "application/x-www-form-urlencoded"; 
     static const wxString key = "api_key=PtmAT51b3j4F8";
 }
 
