@@ -31,8 +31,8 @@ def WriteVersionToDefines(name_file):
             for line in lines:
                 if line.startswith("#define VERSION_BUILD"):
                     strings = line.split(" ")
-                    line = strings[0] + " " + strings[1] + " " + str(int(strings[2]) + 1) + "\n"
-                    version_build = int(strings[2])
+                    version_build = int(strings[2] + 1)
+                    line = strings[0] + " " + strings[1] + " " + str(version_build) + "\n"
                 if line.startswith("#define DATE_BUILD"):
                     strings = line.split(" ")
                     line = strings[0] + " " + strings[1] + " " + "\"" + CurrentTime() + "\"\n"
