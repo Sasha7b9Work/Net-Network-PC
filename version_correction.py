@@ -42,7 +42,7 @@ def WriteVersionToDefines(name_file):
                 if line.startswith("#define VERSION_MINOR"):
                     strings = line.split(" ");
                     version_minor = int(strings[2])
-                    file.write(line)
+                file.write(line)
             file.close()
 
 
