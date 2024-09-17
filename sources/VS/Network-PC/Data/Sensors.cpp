@@ -2,6 +2,8 @@
 #include "defines.h"
 #include "Data/Sensors.h"
 #include "Windows/MainWindow/MainWindow.h"
+#include "Communicator/HTTP/HTTP.h"
+#include "Utils/Timer.h"
 #include <map>
 #include <vector>
 
@@ -95,6 +97,29 @@ wxString Measure::GetUnits() const
 
 void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
 {
+    static float values[Measure::Count] =
+    {
+        0.0f,
+        0.0f,
+        0.0f,
+        0.0f,
+        0.0f,
+        0.0f,
+        0.0f,
+        0.0f,
+        0.0f,
+        0.0f,
+        0.0f,
+        0.0f
+    };
+
+    if (type >= Measure::Count)
+    {
+        return;
+    }
+
+    values[type] = value;
+
     auto sensor = pool.find(id);
 
     if (sensor == pool.end())
@@ -109,6 +134,15 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
         sensor->second.AppendMeasure(type, value);
 
         MainWindow::SetMeasure(id, sensor->second.GetColor(), type, value);
+    }
+
+    static TimeMeterMS meter;
+
+    if (meter.ElapsedTime() > 5000)
+    {
+        meter.Reset();
+
+        HTTP::SendPOST(id, values[Measure::Temperature], values[Measure::Humidity], values[Measure::Pressure], values[Measure::DewPoint], values[Measure::Illuminate]);
     }
 }
 

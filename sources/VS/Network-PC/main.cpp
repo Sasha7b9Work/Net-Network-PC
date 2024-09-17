@@ -26,25 +26,21 @@ void Application::Update()
 
     FrameDiagram::self->UpdateArea();
 
-//    ServerMeasures::Update();
-
-    {
-        static TimeMeterMS meter;
-
-        if (meter.ElapsedTime() > 5000)
-        {
-            meter.Reset();
-
-//            Sensor::Pool::AppendMeasure(133, Measure::Distance, 1.3f + std::rand() / (1000000.0f * 5.0f));
-
-            float values[Measure::Count];
-
-            for (int i = 0; i < Measure::Count; i++)
-            {
-                values[i] = (float)(std::rand() % 100);
-            }
-
-            HTTP::SendPOST(values, Measure::Count);
-        }
-    }
+//    {
+//        static TimeMeterMS meter;
+//
+//        if (meter.ElapsedTime() > 5000)
+//        {
+//            meter.Reset();
+//
+//            float values[Measure::Count];
+//
+//            for (int i = 0; i < Measure::Count; i++)
+//            {
+//                values[i] = (float)(std::rand() % 100);
+//            }
+//
+//            HTTP::SendPOST(values, Measure::Count);
+//        }
+//    }
 }
