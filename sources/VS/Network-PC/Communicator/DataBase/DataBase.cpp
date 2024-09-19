@@ -7,7 +7,8 @@
 bool DataBase::Connect(char *address)
 {
     mysqlx_error_t *error;
-    mysqlx_session_t *session = mysqlx_get_session_from_url(address, &error);
+    volatile mysqlx_session_t *session = mysqlx_get_session_from_url(address, &error);
+    session = session;
 
     return false;
 }

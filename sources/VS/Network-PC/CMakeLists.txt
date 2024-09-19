@@ -13,6 +13,7 @@ include_directories(
     ../../generated/ThirdParty/lib/vc_lib/mswud
     ../../VS/ThirdParty/mysql-connector-c++-9.0.0-src/include
     ../../VS/ThirdParty/mysql-connector-c++-9.0.0-src/common
+    ../../VS/ThirdParty/mysql-connector-c++-9.0.0-src/cdk/include
 )
 
 link_directories(
