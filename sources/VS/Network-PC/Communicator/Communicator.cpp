@@ -3,12 +3,14 @@
 #include "Communicator/Communicator.h"
 #include "Communicator/HC12/HC12.h"
 #include "Communicator/LAN/ServerTCP.h"
+#include "Communicator/DataBase/DataBase.h"
 
 
 void Communicator::Init()
 {
     HC12::Init();
     ServerTCP::Init(777);
+    DataBase::Connect("188.127.227.115");
 }
 
 
