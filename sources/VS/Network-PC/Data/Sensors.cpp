@@ -151,7 +151,7 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
 
         meter.Reset();
 
-        HTTP::SendPOST(102, values[Measure::Temperature], values[Measure::Humidity], values[Measure::Pressure], values[Measure::DewPoint], values[Measure::Illuminate]);
+        HTTP::SendPOST(101, values[Measure::Temperature], values[Measure::Humidity], values[Measure::Pressure], values[Measure::DewPoint], values[Measure::Illuminate]);
     }
 }
 
