@@ -6,7 +6,7 @@
 
 namespace HTTP
 {
-    static const wxString url = "https://wltech.ru/wifi/post-data-mst2.php";
+    static const wxString url = "https://www.recontr.com/post-data.php";
     static const wxString content_type = "application/x-www-form-urlencoded"; 
     static const wxString key = "api_key=PtmAT51b3j4F8";
 }
@@ -33,26 +33,18 @@ void HTTP::SendPOST(uint id, float temp, float humidity, float pressure, float d
 }
 
 
-/*
-void HTTP::SendPOST(float *values, int count)
+void HTTP::SendPOST(uint id, float illuminate)
 {
     wxWebRequest request = wxWebSession::GetDefault().CreateRequest(&MainWindow::GetEventHandler(), url);
 
     wxDateTime time = wxDateTime::Now();
 
-    wxString body{ "api_key=PtmAT51b3j4F8" };
-
-    for (int i = 0; i < count; i++)
-    {
-        body += wxString::Format("&value%d=%10.2f", i + 1, values[i]);
-    }
-
-    body = wxString::Format("api_key=PtmAT51b3j4F8&device=1&location=Street&value1=24.75&value2=54.27&value3=994.01&DevPoint=%.2f&Illuminate=%.2f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
-        values[Measure::DewPoint], values[Measure::Illuminate],
+    wxString body = wxString::Format("api_key=PtmAT51b3j4F8&device=%u&location=Ya.Kolasa 73&Illuminate=%f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
+        id, illuminate,
         time.GetYear(), time.GetMonth() + 1, time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());
 
     request.SetData(body, content_type);
 
     request.Start();
 }
-*/
+
