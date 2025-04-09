@@ -23,7 +23,7 @@ void HTTP::SendPOST(uint id, float temp, float humidity, float pressure, float d
 
     wxDateTime time = wxDateTime::Now();
 
-    wxString body = wxString::Format("api_key=PtmAT51b3j4F8&device=%u&location=Street&value1=%f&value2=%f&value3=%f&DevPoint=%.2f&Illuminate=%.2f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
+    wxString body = wxString::Format("api_key=PtmAT51b3j4F8&device=%u&location=Street&temperature=%f&humidity=%f&pressure=%f&DevPoint=%.2f&Illuminate=%.2f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
         id, temp, humidity, pressure, dew_point, illuminate,
         time.GetYear(), time.GetMonth() + 1, time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());
 
