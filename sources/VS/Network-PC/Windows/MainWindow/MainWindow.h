@@ -33,6 +33,7 @@ enum
     ID_SPEED_5,
     ID_SPEED_30,
     ID_SPEED_60,
+    ID_SPEED_15min,
 
     ID_MODE_VIEW_FULL,
     ID_MODE_VIEW_TABLE,

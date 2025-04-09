@@ -143,9 +143,12 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
     }
 
     static TimeMeterMS meter;
+    static bool first = true;
 
-    if (meter.ElapsedTime() > 5000)
+    if ((meter.ElapsedTime() > 1000 * 60 * 15) || (first && meter.ElapsedTime() > 5000))
     {
+        first = false;
+
         meter.Reset();
 
         HTTP::SendPOST(102, values[Measure::Temperature], values[Measure::Humidity], values[Measure::Pressure], values[Measure::DewPoint], values[Measure::Illuminate]);
