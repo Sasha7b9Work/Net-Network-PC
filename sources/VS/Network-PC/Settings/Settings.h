@@ -31,8 +31,9 @@ namespace SET
 
     namespace DIAGRAM
     {
-        extern TimeScale time_scale;        // Здесь хранится индекс настройки
+        extern TimeScale time_scale;                        // Здесь хранится индекс настройки
         extern Value<bool> measure_vis[Measure::Count];
+        extern Value<int>  time_http;                       // Через столько минут засылаем в сервер
     }
 
     namespace NETWORK

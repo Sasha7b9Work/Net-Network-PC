@@ -21,18 +21,20 @@ wxString Measure::GetTitle() const
 {
     static const pchar titles[Measure::Count][Lang::Count] =
     {
-        { "Температура",  "Temperature" },
-        { "Давление",     "Pressure" },
-        { "Влажность",    "Humidity" },
-        { "Точка росы",   "Dew point" },
-        { "Скорость",     "Speed" },
-        { "Широта",       "Latitude" },
-        { "Долгота",      "Longitude" },
-        { "Высота",       "Height" },
-        { "Азимут",       "Azimuth" },
-        { "Освещённость", "Illuminate" },
-        { "Дистанция",    "Distance" },
-        { "Поворот",      "Rotage" }
+        { "Температура",       "Temperature" },
+        { "Давление",          "Pressure" },
+        { "Влажность",         "Humidity" },
+        { "Точка росы",        "Dew point" },
+        { "Скорость",          "Speed" },
+        { "Широта",            "Latitude" },
+        { "Долгота",           "Longitude" },
+        { "Высота",            "Height" },
+        { "Азимут",            "Azimuth" },
+        { "Освещённость",      "Illuminate" },
+        { "Дистанция",         "Distance" },
+        { "Поворот",           "Rotate" },
+        { "Поворот абс",       "Rotate abs" },
+        { "Скорость поворота", "Rotate speed" }
     };
 
     return titles[type][SET::GUI::lang.Get()];
@@ -77,18 +79,20 @@ wxString Measure::GetUnits() const
 {
     static const pchar units[Measure::Count][Lang::Count] =
     {
-        { "С",    "С"    },
-        { "гПа",  "гПа"  },
-        { "%",    "%"    },
-        { "С",    "С"    },
-        { "м/с",  "м/с"  },
-        { "град", "град" },
-        { "град", "град" },
-        { "м",    "м"    },
-        { "град", "град" },
-        { "лк",   "лк",  },
-        { "м",    "m"    },
-        { "град", "град" }
+        { "С",      "С"    },
+        { "гПа",    "гПа"  },
+        { "%",      "%"    },
+        { "С",      "С"    },
+        { "м/с",    "м/с"  },
+        { "град",   "град" },
+        { "град",   "град" },
+        { "м",      "м"    },
+        { "град",   "град" },
+        { "лк",     "лк",  },
+        { "м",      "m"    },
+        { "град",   "град" },
+        { "град",   "град" },
+        { "град/с", "град/с"}
     };
 
     return units[type][SET::GUI::lang.Get()];
@@ -99,6 +103,8 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
 {
     static float values[Measure::Count] =
     {
+        0.0f,
+        0.0f,
         0.0f,
         0.0f,
         0.0f,
@@ -137,12 +143,15 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
     }
 
     static TimeMeterMS meter;
+    static bool first = true;
 
-    if (meter.ElapsedTime() > 5000)
+    if ((meter.ElapsedTime() > (uint)(1000 * 60 * SET::DIAGRAM::time_http.Get())) || (first && meter.ElapsedTime() > 5000))
     {
+        first = false;
+
         meter.Reset();
 
-        HTTP::SendPOST(id, values[Measure::Temperature], values[Measure::Humidity], values[Measure::Pressure], values[Measure::DewPoint], values[Measure::Illuminate]);
+        HTTP::SendPOST(101, values[Measure::Temperature], values[Measure::Humidity], values[Measure::Pressure], values[Measure::DewPoint], values[Measure::Illuminate]);
     }
 }
 

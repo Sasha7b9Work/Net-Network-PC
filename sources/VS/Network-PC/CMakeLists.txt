@@ -2,7 +2,7 @@
 
 project (Network-PC)
 
-set(CMAKE_UNITY_BUILD OFF)
+set(CMAKE_UNITY_BUILD ON)
 
 #set(CMAKE_UNITY_BUILD_BATCH_SIZE 8)
 
@@ -11,9 +11,6 @@ include_directories(
     ../../VS/ThirdParty/wxWidgets/include
     ../../generated/ThirdParty/lib/vc_dll/mswud
     ../../generated/ThirdParty/lib/vc_lib/mswud
-    ../../VS/ThirdParty/mysql-connector-c++-9.0.0-src/include
-    ../../VS/ThirdParty/mysql-connector-c++-9.0.0-src/common
-    ../../VS/ThirdParty/mysql-connector-c++-9.0.0-src/cdk/include
 )
 
 link_directories(
@@ -38,13 +35,6 @@ if(WIN32)
         /wd5039    # 'xxx': pointer or reference to potentially throwing function passed to extern C
                                     # function under -EHc.
         /wd5045    # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
-
-        # mysql-connector
-        /wd4061
-        /wd4464
-        /wd5204
-        /wd5219
-        /wd5262
     )
 endif()
 
@@ -52,7 +42,6 @@ file(GLOB RESOURCES               resources/*.*)
 file(GLOB SRC                     *.h *.cpp)
 file(GLOB COMMUNICATOR            Communicator/*.*)
 file(GLOB COMMUNICATOR_COMPORT    Communicator/ComPort/*.*)
-file(GLOB COMMUNICATOR_DATABASE   Communicator/DataBase/*.*)
 file(GLOB COMMUNICATOR_HC12       Communicator/HC12/*.*)
 file(GLOB COMMUNICATOR_HTTP       Communicator/HTTP/*.*)
 file(GLOB COMMUNICATOR_LAN        Communicator/LAN/*.*)
@@ -67,13 +56,11 @@ file(GLOB DISPLAY                 Display/*.*)
 file(GLOB DISPLAY_DIAGRAM         Display/Diagram/*.*)
 file(GLOB SETTINGS                Settings/*.*)
 file(GLOB UTILS                   Utils/*.*)
-file(GLOB THIRDPARTY_MYSQL        ../../VS/ThirdParty/mysql-connector-c++-9.0.0-src/xapi/mysqlx.cc)
 
 source_group(resources               FILES ${RESOURCES})
 source_group(src                     FILES ${SRC})
 source_group(Communicator            FILES ${COMMUNICATOR})
 source_group(Communicator/ComPort    FILES ${COMMUNICATOR_COMPORT})
-source_group(Communicator/DataBase   FILES ${COMMUNICATOR_DATABASE})
 source_group(Communicator/HC12       FILES ${COMMUNICATOR_HC12})
 source_group(Communicator/HTTP       FILES ${COMMUNICATOR_HTTP})
 source_group(Communicator/LAN        FILES ${COMMUNICATOR_LAN})
@@ -88,7 +75,6 @@ source_group(Display                 FILES ${DISPLAY})
 source_group(Display/Diagram         FILES ${DISPLAY_DIAGRAM})
 source_group(Settings                FILES ${SETTINGS})
 source_group(Utils                   FILES ${UTILS})
-source_group(ThirdParty/MySQL        FILES ${THIRDPARTY_MYSQL})
 
 set_source_files_properties(
     Communicator/LAN/libnet/netserver.cpp
@@ -103,7 +89,6 @@ add_executable( ${PROJECT_NAME}
     ${SRC}
     ${COMMUNICATOR}
     ${COMMUNICATOR_COMPORT}
-    ${COMMUNICATOR_DATABASE}
     ${COMMUNICATOR_HC12}
     ${COMMUNICATOR_HTTP}
     ${COMMUNICATOR_LAN}
@@ -118,7 +103,6 @@ add_executable( ${PROJECT_NAME}
     ${DISPLAY_DIAGRAM}
     ${SETTINGS}
     ${UTILS}
-    ${THIRDPARTY_MYSQL}
 )
 
 target_link_libraries(${PROJECT_NAME}

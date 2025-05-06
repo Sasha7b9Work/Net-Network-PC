@@ -5,7 +5,7 @@
 
 int TimeScale::SecsToPixel() const
 {
-    static const int scales[] = { 1, 2, 5, 30, 60 };
+    static const int scales[] = { 1, 2, 5, 30, 60, 60 * 15 };
 
     return scales[value];
 }

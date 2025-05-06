@@ -76,6 +76,7 @@ MainFrame::MainFrame(const wxString &title)
     menuSpeed->Append(new wxMenuItem(menuSpeed, ID_SPEED_5, "5 сек", wxEmptyString, wxITEM_RADIO));
     menuSpeed->Append(new wxMenuItem(menuSpeed, ID_SPEED_30, "30 сек", wxEmptyString, wxITEM_RADIO));
     menuSpeed->Append(new wxMenuItem(menuSpeed, ID_SPEED_60, "60 сек", wxEmptyString, wxITEM_RADIO));
+//    menuSpeed->Append(new wxMenuItem(menuSpeed, ID_SPEED_15min, "15 мин", wxEmptyString, wxITEM_RADIO));
 
     menuSettings->AppendSubMenu(menuSpeed, _("Скорость обновления"));
 
