@@ -7,6 +7,7 @@ namespace SET
 {
     namespace DIAGRAM
     {
+        Value<int> time_http{ "time_http", 1 };
         TimeScale time_scale{ "time_scale", 1 };
         Value<bool> measure_vis[Measure::Count] =
         {
@@ -29,6 +30,7 @@ namespace SET
         static void LoadSave(bool load)
         {
             time_scale.LoadSave(load);
+            time_http.LoadSave(load);
 
             for (int i = 0; i < Measure::Count; i++)
             {

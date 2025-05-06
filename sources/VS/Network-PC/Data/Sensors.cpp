@@ -145,7 +145,7 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
     static TimeMeterMS meter;
     static bool first = true;
 
-    if ((meter.ElapsedTime() > 1000 * 60 * 15) || (first && meter.ElapsedTime() > 5000))
+    if ((meter.ElapsedTime() > (uint)(1000 * 60 * SET::DIAGRAM::time_http.Get())) || (first && meter.ElapsedTime() > 5000))
     {
         first = false;
 
