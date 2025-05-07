@@ -1,6 +1,6 @@
 ﻿// 2024/08/31 19:53:52 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Windows/MainWindow/GridSensors.h"
+#include "Display/Windows/MainWindow/GridSensors.h"
 #include "Data/Sensors.h"
 
 

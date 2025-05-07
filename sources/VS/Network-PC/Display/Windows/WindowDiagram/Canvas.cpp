@@ -3,7 +3,7 @@
 #include "Data/Sensors.h"
 #include "Utils/Clock.h"
 #include "Settings/Settings.h"
-#include "Windows/WindowDiagram/Canvas.h"
+#include "Display/Windows/WindowDiagram/Canvas.h"
 
 
 using namespace std;

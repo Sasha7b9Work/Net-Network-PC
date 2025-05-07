@@ -1,10 +1,10 @@
 ﻿// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Windows/WindowTerminal.h"
+#include "Display/Windows/WindowTerminal.h"
 #include "Communicator/ComPort/ComPort.h"
 #include "Utils/String.h"
 #include "Settings/Settings.h"
-#include "Windows/MainWindow/MainWindow.h"
+#include "Display/Windows/MainWindow/MainWindow.h"
 
 #undef CRC
 

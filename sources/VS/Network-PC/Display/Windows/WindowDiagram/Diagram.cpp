@@ -1,9 +1,9 @@
 ﻿// 2022/09/05 08:52:55 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Utils/Clock.h"
-#include "Windows/WindowDiagram/WindowDiagram.h"
-#include "Windows/WindowDiagram/Canvas.h"
-#include "Windows/WindowDiagram/Diagram.h"
+#include "Display/Windows/WindowDiagram/WindowDiagram.h"
+#include "Display/Windows/WindowDiagram/Canvas.h"
+#include "Display/Windows/WindowDiagram/Diagram.h"
 
 
 namespace PoolDiagram

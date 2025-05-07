@@ -1,13 +1,13 @@
 ﻿// 2022/04/29 13:56:48 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Settings/Settings.h"
-#include "Windows/WindowTerminal.h"
-#include "Windows/WindowLog.h"
+#include "Display/Windows/WindowTerminal.h"
+#include "Display/Windows/WindowLog.h"
 #include "Communicator/Server/Server.h"
 #include "Communicator/HTTP/HTTP.h"
-#include "Windows/MainWindow/MainWindow.h"
-#include "Windows/WindowDiagram/WindowDiagram.h"
-#include "Windows/WindowEmulator.h"
+#include "Display/Windows/MainWindow/MainWindow.h"
+#include "Display/Windows/WindowDiagram/WindowDiagram.h"
+#include "Display/Windows/WindowEmulator.h"
 
 
 class MainFrame : public wxFrame

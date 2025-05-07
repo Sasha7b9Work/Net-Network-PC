@@ -38,43 +38,41 @@ if(WIN32)
     )
 endif()
 
-file(GLOB RESOURCES               resources/*.*)
-file(GLOB SRC                     *.h *.cpp)
-file(GLOB COMMUNICATOR            Communicator/*.*)
-file(GLOB COMMUNICATOR_COMPORT    Communicator/ComPort/*.*)
-file(GLOB COMMUNICATOR_HC12       Communicator/HC12/*.*)
-file(GLOB COMMUNICATOR_HTTP       Communicator/HTTP/*.*)
-file(GLOB COMMUNICATOR_LAN        Communicator/LAN/*.*)
-file(GLOB COMMUNICATOR_LAN_LIBNET Communicator/LAN/libnet/*.*)
-file(GLOB COMMUNICATOR_RS232      Communicator/RS232/*.*)
-file(GLOB COMMUNICATOR_SERVER     Communicator/Server/*.*)
-file(GLOB WINDOWS                 Windows/*.*)
-file(GLOB WINDOWS_MAINWINDOW      Windows/MainWindow/*.*)
-file(GLOB WINDOWS_WINDOWDIAGRAM   Windows/WindowDiagram/*.*)
-file(GLOB DATA                    Data/*.*)
-file(GLOB DISPLAY                 Display/*.*)
-file(GLOB DISPLAY_DIAGRAM         Display/Diagram/*.*)
-file(GLOB SETTINGS                Settings/*.*)
-file(GLOB UTILS                   Utils/*.*)
+file(GLOB RESOURCES                     resources/*.*)
+file(GLOB SRC                           *.h *.cpp)
+file(GLOB COMMUNICATOR                  Communicator/*.*)
+file(GLOB COMMUNICATOR_COMPORT          Communicator/ComPort/*.*)
+file(GLOB COMMUNICATOR_HC12             Communicator/HC12/*.*)
+file(GLOB COMMUNICATOR_HTTP             Communicator/HTTP/*.*)
+file(GLOB COMMUNICATOR_LAN              Communicator/LAN/*.*)
+file(GLOB COMMUNICATOR_LAN_LIBNET       Communicator/LAN/libnet/*.*)
+file(GLOB COMMUNICATOR_RS232            Communicator/RS232/*.*)
+file(GLOB COMMUNICATOR_SERVER           Communicator/Server/*.*)
+file(GLOB DATA                          Data/*.*)
+file(GLOB DISPLAY                       Display/*.*)
+file(GLOB DISPLAY_WINDOWS               Display/Windows/*.*)
+file(GLOB DISPLAY_WINDOWS_MAINWINDOW    Display/Windows/MainWindow/*.*)
+file(GLOB DISPLAY_WINDOWS_WINDOWDIAGRAM Display/Windows/WindowDiagram/*.*)
+file(GLOB SETTINGS                      Settings/*.*)
+file(GLOB UTILS                         Utils/*.*)
 
-source_group(resources               FILES ${RESOURCES})
-source_group(src                     FILES ${SRC})
-source_group(Communicator            FILES ${COMMUNICATOR})
-source_group(Communicator/ComPort    FILES ${COMMUNICATOR_COMPORT})
-source_group(Communicator/HC12       FILES ${COMMUNICATOR_HC12})
-source_group(Communicator/HTTP       FILES ${COMMUNICATOR_HTTP})
-source_group(Communicator/LAN        FILES ${COMMUNICATOR_LAN})
-source_group(Communicator/LAN/libnet FILES ${COMMUNICATOR_LAN_LIBNET})
-source_group(Communicator/RS232      FILES ${COMMUNICATOR_RS232})
-source_group(Communicator/Server     FILES ${COMMUNICATOR_SERVER})
-source_group(Windows                 FILES ${WINDOWS})
-source_group(Windows/MainWindow      FILES ${WINDOWS_MAINWINDOW})
-source_group(Windows/WindowDiagram   FILES ${WINDOWS_WINDOWDIAGRAM})
-source_group(Data                    FILES ${DATA})
-source_group(Display                 FILES ${DISPLAY})
-source_group(Display/Diagram         FILES ${DISPLAY_DIAGRAM})
-source_group(Settings                FILES ${SETTINGS})
-source_group(Utils                   FILES ${UTILS})
+source_group(resources                     FILES ${RESOURCES})
+source_group(src                           FILES ${SRC})
+source_group(Communicator                  FILES ${COMMUNICATOR})
+source_group(Communicator/ComPort          FILES ${COMMUNICATOR_COMPORT})
+source_group(Communicator/HC12             FILES ${COMMUNICATOR_HC12})
+source_group(Communicator/HTTP             FILES ${COMMUNICATOR_HTTP})
+source_group(Communicator/LAN              FILES ${COMMUNICATOR_LAN})
+source_group(Communicator/LAN/libnet       FILES ${COMMUNICATOR_LAN_LIBNET})
+source_group(Communicator/RS232            FILES ${COMMUNICATOR_RS232})
+source_group(Communicator/Server           FILES ${COMMUNICATOR_SERVER})
+source_group(Data                          FILES ${DATA})
+source_group(Display                       FILES ${DISPLAY})
+source_group(Display/Windows               FILES ${DISPLAY_WINDOWS})
+source_group(Display/Windows/MainWindow    FILES ${DISPLAY_WINDOWS_MAINWINDOW})
+source_group(Display/Windows/WindowDiagram FILES ${DISPLAY_WINDOWS_WINDOWDIAGRAM})
+source_group(Settings                      FILES ${SETTINGS})
+source_group(Utils                         FILES ${UTILS})
 
 set_source_files_properties(
     Communicator/LAN/libnet/netserver.cpp
@@ -95,12 +93,11 @@ add_executable( ${PROJECT_NAME}
     ${COMMUNICATOR_LAN_LIBNET}
     ${COMMUNICATOR_RS232}
     ${COMMUNICATOR_SERVER}
-    ${WINDOWS}
-    ${WINDOWS_MAINWINDOW}
-    ${WINDOWS_WINDOWDIAGRAM}
     ${DATA}
     ${DISPLAY}
-    ${DISPLAY_DIAGRAM}
+    ${DISPLAY_WINDOWS}
+    ${DISPLAY_WINDOWS_MAINWINDOW}
+    ${DISPLAY_WINDOWS_WINDOWDIAGRAM}
     ${SETTINGS}
     ${UTILS}
 )

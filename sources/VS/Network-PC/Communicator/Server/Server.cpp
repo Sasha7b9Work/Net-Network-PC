@@ -3,7 +3,7 @@
 #include "Communicator/Server/Server.h"
 #include "Utils/Timer.h"
 #include "Settings/Settings.h"
-#include "Windows/MainWindow/MainWindow.h"
+#include "Display/Windows/MainWindow/MainWindow.h"
 
 
 namespace ServerMeasures

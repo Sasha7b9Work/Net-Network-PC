@@ -36,14 +36,20 @@ void ReceivedData::Update()
 
         buffer.RemoveFirst(20);
 
+        static int num_command = 0;
+        num_command++;
+
         if (!ParseCommand(bytes))
         {
-            static int counter = 0;
-            LOG_ERROR("Can not parse command %d", counter++);
+            static int prev_num = 0;
+
+            LOG_ERROR("Can not parse command %d, parsed %d", num_command, num_command - prev_num);
+
+            prev_num = num_command;
 
             if (!ParseCommandOld(bytes))                                // Это надо будет убрать, чтобы на всех датчиках был один алгоритм
             {
-                LOG_ERROR("Can not parse old command %d", counter++);
+//                LOG_ERROR("Can not parse old command %d", num_command);
             }
         }
     }

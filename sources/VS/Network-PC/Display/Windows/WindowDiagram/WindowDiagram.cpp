@@ -1,10 +1,10 @@
 ﻿// 2024/08/26 13:39:23 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Settings/Settings.h"
-#include "Windows/MainWindow/MainWindow.h"
-#include "Windows/WindowDiagram/WindowDiagram.h"
+#include "Display/Windows/MainWindow/MainWindow.h"
+#include "Display/Windows/WindowDiagram/WindowDiagram.h"
 #include "Data/Sensors.h"
-#include "Windows/WindowDiagram/Diagram.h"
+#include "Display/Windows/WindowDiagram/Diagram.h"
 
 
 FrameDiagram *FrameDiagram::self = nullptr;

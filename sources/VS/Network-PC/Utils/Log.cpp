@@ -1,7 +1,7 @@
 ﻿// 2022/08/25 08:50:23 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Log.h"
-#include "Windows/WindowLog.h"
+#include "Display/Windows/WindowLog.h"
 #include <cstdarg>
 #include <cstring>
 #include <cstdio>

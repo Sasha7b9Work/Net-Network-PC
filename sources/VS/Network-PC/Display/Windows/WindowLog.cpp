@@ -1,8 +1,8 @@
 // 2024/08/07 10:28:59 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Windows/WindowLog.h"
+#include "Display/Windows/WindowLog.h"
 #include "Settings/Settings.h"
-#include "Windows/MainWindow/MainWindow.h"
+#include "Display/Windows/MainWindow/MainWindow.h"
 
 
 enum
