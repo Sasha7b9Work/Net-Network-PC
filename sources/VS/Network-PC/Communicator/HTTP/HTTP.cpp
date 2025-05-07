@@ -14,6 +14,11 @@ namespace HTTP
 
 void HTTP::SendPOST(uint id, float temp, float humidity, float pressure, float dew_point, float illuminate)
 {
+    if (!SET::NETWORK::send_to_http.Get())
+    {
+        return;
+    }
+
     if (temp == 0.0f && humidity == 0.0f && pressure == 0.0f && dew_point == 0.0f && illuminate == 0.0f)
     {
         return;
@@ -35,6 +40,11 @@ void HTTP::SendPOST(uint id, float temp, float humidity, float pressure, float d
 
 void HTTP::SendPOST(uint id, float illuminate)
 {
+    if (!SET::NETWORK::send_to_http.Get())
+    {
+        return;
+    }
+
     wxWebRequest request = wxWebSession::GetDefault().CreateRequest(&MainWindow::GetEventHandler(), url);
 
     wxDateTime time = wxDateTime::Now();

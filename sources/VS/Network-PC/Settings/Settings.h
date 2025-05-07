@@ -33,13 +33,14 @@ namespace SET
     {
         extern TimeScale time_scale;                        // Здесь хранится индекс настройки
         extern Value<bool> measure_vis[Measure::Count];
-        extern Value<int>  time_http;                       // Через столько минут засылаем в сервер
     }
 
     namespace NETWORK
     {
-        extern Value<wxString> host_ip;
-        extern Value<int> host_port;
+        extern Value<wxString>  host_ip;
+        extern Value<int>       host_port;
+        extern Value<int>       time_http;                  // Через столько минут засылаем в сервер
+        extern Value<bool>      send_to_http;               // Посылать ли на сервер HTTP
     }
 
     namespace GUI

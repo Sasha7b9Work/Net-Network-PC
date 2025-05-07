@@ -7,8 +7,7 @@ namespace SET
 {
     namespace DIAGRAM
     {
-        Value<int> time_http{ "time_http", 1 };
-        TimeScale time_scale{ "time_scale", 1 };
+        TimeScale   time_scale{ "time_scale", 1 };
         Value<bool> measure_vis[Measure::Count] =
         {
             { "meas_vis_0", true },
@@ -30,7 +29,6 @@ namespace SET
         static void LoadSave(bool load)
         {
             time_scale.LoadSave(load);
-            time_http.LoadSave(load);
 
             for (int i = 0; i < Measure::Count; i++)
             {
@@ -46,11 +44,15 @@ namespace SET
 
     namespace NETWORK
     {
+        Value<int>      time_http{ "time_http", 1 };
+        Value<bool>     send_to_http{ "send_to_http", 1 };
         Value<wxString> host_ip{ "host_ip", "localhost" };
         Value<int>      host_port{ "host_port", 3333 };
 
         static void LoadSave(bool load)
         {
+            time_http.LoadSave(load);
+            send_to_http.LoadSave(load);
             host_ip.LoadSave(load);
             host_port.LoadSave(load);
         }
