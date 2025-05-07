@@ -28,14 +28,12 @@
 
 #include "wx/scopedptr.h"
 
-#include "wx/gtk/private/wrapgtk.h"
+#include "wx/private/elfversion.h"
+
+#include "wx/gtk/private/wrapgdk.h"
 #include "wx/gtk/private/backend.h"
 #ifdef GDK_WINDOWING_WAYLAND
-#include <gdk/gdkwayland.h>
 #include <wayland-egl.h>
-#endif
-#ifdef GDK_WINDOWING_X11
-#include <gdk/gdkx.h>
 #endif
 
 #include <EGL/egl.h>
@@ -637,6 +635,7 @@ wxGLCanvasEGL::~wxGLCanvasEGL()
     gs_alreadySetSwapInterval.erase(this);
 }
 
+wxELF_VERSION_COMPAT("_ZN13wxGLCanvasEGL23CreateWaylandSubsurfaceEv", "3.2.3")
 void wxGLCanvasEGL::CreateWaylandSubsurface()
 {
 #ifdef GDK_WINDOWING_WAYLAND
@@ -675,6 +674,7 @@ void wxGLCanvasEGL::CreateWaylandSubsurface()
 #endif
 }
 
+wxELF_VERSION_COMPAT("_ZN13wxGLCanvasEGL24DestroyWaylandSubsurfaceEv", "3.2.3")
 void wxGLCanvasEGL::DestroyWaylandSubsurface()
 {
 #ifdef GDK_WINDOWING_WAYLAND

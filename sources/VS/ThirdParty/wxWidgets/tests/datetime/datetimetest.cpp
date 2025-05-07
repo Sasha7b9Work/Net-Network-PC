@@ -877,6 +877,20 @@ void DateTimeTestCase::TestTimeFormat()
     CPPUNIT_ASSERT( dt.ParseFormat("23", "%e") );
     CPPUNIT_ASSERT_EQUAL( 23, dt.GetDay() );
 
+    SECTION("%-")
+    {
+        REQUIRE( dt.ParseFormat("17.5.2024", "%-d.%-m.%Y") );
+        CHECK( dt.GetDay() == 17 );
+        CHECK( dt.GetMonth() == wxDateTime::May );
+        CHECK( dt.GetYear() == 2024 );
+
+        REQUIRE( dt.ParseFormat("8.5.2024", "%-d.%-m.%Y") );
+        CHECK( dt.GetDay() == 8 );
+
+        REQUIRE( dt.ParseFormat("11.11.2024", "%-d.%-m.%Y") );
+        CHECK( dt.GetMonth() == wxDateTime::Nov );
+    }
+
     // test partially specified dates too
     wxDateTime dtDef(26, wxDateTime::Sep, 2008);
     CPPUNIT_ASSERT( dt.ParseFormat("17", "%d", dtDef) );
@@ -1446,6 +1460,14 @@ void DateTimeTestCase::TestDateTimeParse()
         {
             "Sun 20 Jun 2049 07:40:00 PM",
             { 20, wxDateTime::Jun, 2049, 19, 40,  0 },
+            true,
+            "",
+            false
+        },
+
+        {
+            "4242-04-02 4:20",
+            {  2, wxDateTime::Apr, 4242, 4, 20,  0 },
             true,
             "",
             false

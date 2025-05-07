@@ -8,11 +8,19 @@
 # Licence:     wxWindows licence
 #############################################################################
 
-if(DEFINED wxBUILD_CXX_STANDARD AND NOT wxBUILD_CXX_STANDARD STREQUAL COMPILER_DEFAULT)
+if(DEFINED CMAKE_CXX_STANDARD)
+    # User has explicitly set a CMAKE_CXX_STANDARD.
+elseif(DEFINED wxBUILD_CXX_STANDARD AND NOT wxBUILD_CXX_STANDARD STREQUAL COMPILER_DEFAULT)
+    # Standard is set using wxBUILD_CXX_STANDARD.
     set(CMAKE_CXX_STANDARD ${wxBUILD_CXX_STANDARD})
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+else()
+    # CMAKE_CXX_STANDARD not defined.
 endif()
 
 if(MSVC)
+    if(CMAKE_VERSION VERSION_LESS "3.15")
+    # CMake 3.15 and later use MSVC_RUNTIME_LIBRARY property, see functions.cmake
     # Determine MSVC runtime library flag
     set(MSVC_LIB_USE "/MD")
     set(MSVC_LIB_REPLACE "/MT")
@@ -40,6 +48,15 @@ if(MSVC)
               "Flags used by the CXX compiler during ${cfg_upper} builds." FORCE)
         endif()
     endforeach()
+    endif()
+
+    if(wxBUILD_SHARED AND wxBUILD_USE_STATIC_RUNTIME AND wxUSE_STD_IOSTREAM)
+        # Objects like std::cout are defined as extern in <iostream> and implemented in libcpmt.
+        # This is statically linked into wxbase (stdstream.cpp).
+        # When building an application with both wxbase and libcpmt,
+        # the linker gives 'multiply defined symbols' error.
+        message(WARNING "wxUSE_STD_IOSTREAM combined with wxBUILD_USE_STATIC_RUNTIME will fail to link when using std::cout or similar functions")
+    endif()
 
     if(wxBUILD_OPTIMISE)
         set(MSVC_LINKER_RELEASE_FLAGS " /LTCG /OPT:REF /OPT:ICF")
@@ -118,16 +135,12 @@ wx_string_append(wxBUILD_FILE_ID "${lib_flavour}")
 
 set(wxPLATFORM_ARCH)
 if(CMAKE_GENERATOR_PLATFORM)
-    if (CMAKE_GENERATOR_PLATFORM STREQUAL "x64")
-        set(wxPLATFORM_ARCH "x64")
-    elseif(CMAKE_GENERATOR_PLATFORM STREQUAL "ARM64")
-        set(wxPLATFORM_ARCH "arm64")
+    if(NOT CMAKE_GENERATOR_PLATFORM STREQUAL "Win32")
+        string(TOLOWER ${CMAKE_GENERATOR_PLATFORM} wxPLATFORM_ARCH)
     endif()
 elseif(CMAKE_VS_PLATFORM_NAME)
-    if (CMAKE_VS_PLATFORM_NAME STREQUAL "x64")
-        set(wxPLATFORM_ARCH "x64")
-    elseif(CMAKE_VS_PLATFORM_NAME STREQUAL "ARM64")
-        set(wxPLATFORM_ARCH "arm64")
+    if(NOT CMAKE_VS_PLATFORM_NAME STREQUAL "Win32")
+        string(TOLOWER ${CMAKE_VS_PLATFORM_NAME} wxPLATFORM_ARCH)
     endif()
 else()
     if(CMAKE_SIZEOF_VOID_P EQUAL 8)
@@ -235,9 +248,9 @@ if(wxUSE_MEDIACTRL AND DEFINED wxUSE_ACTIVEX AND NOT wxUSE_ACTIVEX)
     wx_option_force_value(wxUSE_MEDIACTRL OFF)
 endif()
 
-if(wxUSE_WEBVIEW AND DEFINED wxUSE_ACTIVEX AND NOT wxUSE_ACTIVEX)
-    message(WARNING "wxWebView requires wxActiveXContainer... disabled")
-    wx_option_force_value(wxUSE_WEBVIEW OFF)
+if(wxUSE_WEBVIEW AND wxUSE_WEBVIEW_IE AND DEFINED wxUSE_ACTIVEX AND NOT wxUSE_ACTIVEX)
+    message(WARNING "wxWebViewIE requires wxActiveXContainer... disabled")
+    wx_option_force_value(wxUSE_WEBVIEW_IE OFF)
 endif()
 
 if(wxUSE_OPENGL)
@@ -433,6 +446,11 @@ if(wxUSE_GUI)
             if(WXGTK3 AND OpenGL_EGL_FOUND AND wxUSE_GLCANVAS_EGL)
                 if(TARGET OpenGL::EGL)
                     set(OPENGL_LIBRARIES OpenGL::EGL ${OPENGL_LIBRARIES})
+                else()
+                    # It's possible for OpenGL::EGL not to be set even when EGL
+                    # is found, at least under Cygwin (see #23673), so use the
+                    # library directly like this to avoid link problems.
+                    set(OPENGL_LIBRARIES ${OPENGL_egl_LIBRARY} ${OPENGL_LIBRARIES})
                 endif()
                 set(OPENGL_INCLUDE_DIR ${OPENGL_INCLUDE_DIR} ${OPENGL_EGL_INCLUDE_DIRS})
                 find_package(WAYLANDEGL)
@@ -627,6 +645,11 @@ if(wxUSE_GUI)
         if(NOT CAIRO_FOUND)
             message(WARNING "Cairo not found, Cairo renderer won't be available")
             wx_option_force_value(wxUSE_CAIRO OFF)
+            if(WXQT AND NOT WIN32)
+                # Cairo is the only renderer for wxGraphicsContext
+                message(WARNING "No graphics renderer found, wxGraphicsContext won't be available")
+                wx_option_force_value(wxUSE_GRAPHICS_CONTEXT OFF)
+            endif()
         endif()
     endif()
 

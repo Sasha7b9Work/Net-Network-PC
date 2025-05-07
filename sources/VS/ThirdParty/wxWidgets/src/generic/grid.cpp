@@ -3047,11 +3047,7 @@ void wxGrid::Init()
     m_cellHighlightColour = wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT);
     m_cellHighlightPenWidth = 2;
     m_cellHighlightROPenWidth = 1;
-    if ( wxSystemSettings::GetAppearance().IsDark() )
-        m_gridFrozenBorderColour = *wxWHITE;
-    else
-        m_gridFrozenBorderColour = *wxBLACK;
-
+    m_gridFrozenBorderColour = wxSystemSettings::SelectLightDark(*wxBLACK, *wxWHITE);
     m_gridFrozenBorderPenWidth = 2;
 
     m_canDragRowMove = false;
@@ -5153,7 +5149,7 @@ void wxGrid::DoEndMoveRow(int pos)
 {
     wxASSERT_MSG( m_dragMoveRowOrCol != -1, "no matching DoStartMoveRow?" );
 
-    if ( SendEvent(wxEVT_GRID_ROW_MOVE, -1, m_dragMoveRowOrCol) != Event_Vetoed )
+    if ( SendEvent(wxEVT_GRID_ROW_MOVE, m_dragMoveRowOrCol, -1) != Event_Vetoed )
         SetRowPos(m_dragMoveRowOrCol, pos);
 
     m_dragMoveRowOrCol = -1;
