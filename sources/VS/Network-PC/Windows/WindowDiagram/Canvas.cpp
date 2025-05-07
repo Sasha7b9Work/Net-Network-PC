@@ -31,11 +31,6 @@ void Canvas::OnPaint(wxPaintEvent &)
 
     if (size.x && size.y)
     {
-        if (size.x < 50)
-        {
-            size.x = size.x;
-        }
-
         wxBitmap bitmap(size);
         wxMemoryDC memDC;
 

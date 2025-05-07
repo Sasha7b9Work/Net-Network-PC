@@ -13,7 +13,7 @@ struct Value
 
     }
 
-    virtual ~Value() { }
+    virtual ~Value() = default;
 
     void SetDefault(const T &_def)
     {

@@ -50,7 +50,7 @@ WindowTerminal::WindowTerminal() : wxFrame(nullptr, wxID_ANY, wxT("Термин�
         AddLine("Внешнее устройство не обнаружено. Работает эмулятор");
     }
 
-    wxRect rect = SET::GUI::window_scpi.Get().rect;
+    wxRect rect = SET::GUI::window_scpi.Get().rect; //-V807
 
     SetPosition({ rect.x, rect.y });
     SetSize({ rect.width, rect.height });

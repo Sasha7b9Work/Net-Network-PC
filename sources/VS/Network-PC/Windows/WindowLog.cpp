@@ -57,14 +57,16 @@ FrameLog::FrameLog() : wxFrame(nullptr, wxID_ANY, _("ÀÓ„"))
 
     wxTopLevelWindowMSW::Show();
 
-    wxRect rect = SET::GUI::window_log.Get().rect;
+    const WindowParameters window_log = SET::GUI::window_log.Get();
+
+    wxRect rect = window_log.rect;
 
     SetPosition({ rect.x, rect.y });
     SetSize({ rect.width, rect.height });
 
-    Show(SET::GUI::window_log.Get().shown);
+    Show(window_log.shown);
 
-    if (SET::GUI::window_log.Get().maximized)
+    if (window_log.maximized)
     {
         Maximize(true);
     }

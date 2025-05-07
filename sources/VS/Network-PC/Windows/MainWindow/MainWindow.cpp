@@ -137,7 +137,7 @@ void MainFrame::SetMeasure(uint id, const wxColour &color, uint8 type, float val
     {
         grid->AppendRows(1);
 
-        rows.emplace(std::pair<uint, int>(id, grid->GetNumberRows() - 1));
+        rows.try_emplace(id, grid->GetNumberRows() - 1);
 
         SetCellValue(grid->GetNumberRows() - 1, 0, (int)id, color);
     }

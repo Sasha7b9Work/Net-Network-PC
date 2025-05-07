@@ -130,7 +130,7 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
 
     if (sensor == pool.end())
     {
-        pool.emplace(pair<uint, Sensor>(id, Sensor(id, Pool::ColorForSensor())));
+        pool.try_emplace(id, Sensor( id, Pool::ColorForSensor() ));
     }
 
     sensor = pool.find(id);

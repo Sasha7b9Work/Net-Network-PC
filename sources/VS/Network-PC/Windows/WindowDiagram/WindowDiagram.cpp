@@ -30,7 +30,9 @@ FrameDiagram::FrameDiagram() :
 {
     Show(false);
 
-    wxRect rect = SET::GUI::window_diagram.Get().rect;
+    const WindowParameters params = SET::GUI::window_diagram.Get();
+
+    wxRect rect = params.rect;
 
     SetPosition({ rect.x, rect.y });
     SetSize({ rect.width, rect.height });
@@ -42,9 +44,9 @@ FrameDiagram::FrameDiagram() :
 
     PoolDiagram::Create(this);
 
-    Show(SET::GUI::window_diagram.Get().shown);
+    Show(params.shown);
 
-    if (SET::GUI::window_diagram.Get().maximized)
+    if (params.maximized)
     {
         Maximize(true);
     }
