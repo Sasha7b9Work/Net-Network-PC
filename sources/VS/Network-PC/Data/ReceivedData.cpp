@@ -47,10 +47,8 @@ void ReceivedData::Update()
 
             prev_num = num_command;
 
-            if (!ParseCommandOld(bytes))                                // Ёто надо будет убрать, чтобы на всех датчиках был один алгоритм
-            {
-//                LOG_ERROR("Can not parse old command %d", num_command);
-            }
+            // \todo удалить
+            ParseCommandOld(bytes);     // ѕытаемс€ распарсить по старому формату передачи данных
         }
     }
 }

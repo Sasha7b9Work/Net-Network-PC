@@ -119,8 +119,14 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
         0.0f
     };
 
+    if (type == Measure::Temperature)
+    {
+        LOG_WRITE("recv temperature from %08X", id);
+    }
+
     if (type >= Measure::Count)
     {
+        LOG_ERROR("Incorrect type %u", type);
         return;
     }
 

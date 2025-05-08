@@ -202,8 +202,8 @@ void Canvas::DrawSensor(wxMemoryDC &dc, const wxColour &color, const DataArray &
 
     dc.SetPen(wxPen(wxColor(0, 0, 0)));
 
-    DrawTextOnBackground(dc, wxString::Format("%10.2f", max).c_str(), width - 50, 0, 50, 15);
-    DrawTextOnBackground(dc, wxString::Format("%10.2f", min).c_str(), width - 50, height - 15, 50, 15);
+//    DrawTextOnBackground(dc, wxString::Format("%10.2f", max).c_str(), width - 50, 0, 50, 15);
+//  DrawTextOnBackground(dc, wxString::Format("%10.2f", min).c_str(), width - 50, height - 15, 50, 15);
 }
 
 

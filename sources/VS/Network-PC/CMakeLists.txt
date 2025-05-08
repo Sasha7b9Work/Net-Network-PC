@@ -32,8 +32,7 @@ if(WIN32)
         /wd4996    # Your code uses a function, class member, variable, or typedef that's marked deprecated
         /wd5026    # move constructor was implicitly defined as deleted
         /wd5027    # move assignment operator was implicitly defined as deleted
-        /wd5039    # 'xxx': pointer or reference to potentially throwing function passed to extern C
-                                    # function under -EHc.
+        /wd5039    # 'xxx': pointer or reference to potentially throwing function passed to extern C function under -EHc.
         /wd5045    # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
     )
 endif()
