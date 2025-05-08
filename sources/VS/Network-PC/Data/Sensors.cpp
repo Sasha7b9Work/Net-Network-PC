@@ -119,14 +119,8 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
         0.0f
     };
 
-    if (type == Measure::Temperature)
-    {
-        LOG_WRITE("recv temperature from %08X", id);
-    }
-
     if (type >= Measure::Count)
     {
-        LOG_ERROR("Incorrect type %u", type);
         return;
     }
 
@@ -157,7 +151,14 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
 
         meter.Reset();
 
-        HTTP::SendPOST(101, values[Measure::Temperature], values[Measure::Humidity], values[Measure::Pressure], values[Measure::DewPoint], values[Measure::Illuminate]);
+        if (id == 0xD5E0B863)
+        {
+            HTTP::SendPOST(101, values[Measure::Temperature], values[Measure::Humidity], values[Measure::Pressure], values[Measure::DewPoint], values[Measure::Illuminate]);
+        }
+        else
+        {
+            LOG_WRITE("Not device");
+        }
     }
 }
 
