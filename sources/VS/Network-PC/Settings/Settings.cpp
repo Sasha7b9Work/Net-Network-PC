@@ -42,6 +42,16 @@ namespace SET
         }
     }
 
+    namespace COM
+    {
+        Value<int> port_hc12{ "port_hc12", 1 };
+
+        static void LoadSave(bool load)
+        {
+            port_hc12.LoadSave(load);
+        }
+    }
+
     namespace NETWORK
     {
         Value<int>      time_http{ "time_http", 1 };
@@ -94,6 +104,7 @@ namespace SET
     static void LoadSave(bool load)
     {
         DIAGRAM::LoadSave(load);
+        COM::LoadSave(load);
         NETWORK::LoadSave(load);
         GUI::LoadSave(load);
     }

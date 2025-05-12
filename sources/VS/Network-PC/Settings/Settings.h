@@ -35,6 +35,12 @@ namespace SET
         extern Value<bool> measure_vis[Measure::Count];
     }
 
+    // Коммуникации
+    namespace COM
+    {
+        extern Value<int>       port_hc12;                  // К этому порту подключён hc12, получается
+    }
+
     namespace NETWORK
     {
         extern Value<wxString>  host_ip;

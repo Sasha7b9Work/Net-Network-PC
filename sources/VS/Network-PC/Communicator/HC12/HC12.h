@@ -4,7 +4,7 @@
 
 namespace HC12
 {
-    void Init();
+    void Init(int num_port);
 
     void Update();
 }

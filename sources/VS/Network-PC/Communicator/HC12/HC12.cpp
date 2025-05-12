@@ -7,20 +7,20 @@
 
 namespace HC12
 {
-    static const int NUM_PORTS = 32;
-
-    static bool opened[NUM_PORTS];
+    static int opened_port = -1;
 
     // „итает байты из всех возможных портов. ¬озвращает количество считанных байт
     static int ReadBytes();
 }
 
 
-void HC12::Init()
+void HC12::Init(int num_port)
 {
-    for (int i = 0; i < NUM_PORTS; i++)
+    num_port--;
+
+    if (RS232_OpenComport(num_port, 9600, "8N1", 0) == 0)
     {
-        opened[i] = (RS232_OpenComport(i, 9600, "8N1", 0) == 0);
+        opened_port = num_port;
     }
 }
 
@@ -37,20 +37,19 @@ int HC12::ReadBytes()
 {
     int readed_bytes = 0;
 
-    for (int i = 0; i < NUM_PORTS; i++)
+    if (opened_port != -1)
     {
-        if (opened[i])
+        static const int SIZE_BUFFER = 1000;
+
+        unsigned char buffer[SIZE_BUFFER];
+
+        int num_bytes = RS232_PollComport(opened_port, buffer, SIZE_BUFFER);
+
+        if (num_bytes != 0)
         {
-            unsigned char buffer[100];
+            ReceivedData::Append(buffer, num_bytes);
 
-            int num_bytes = RS232_PollComport(i, buffer, 16);
-
-            if (num_bytes != 0)
-            {
-                ReceivedData::Append(buffer, num_bytes);
-
-                readed_bytes += num_bytes;
-            }
+            readed_bytes += num_bytes;
         }
     }
 

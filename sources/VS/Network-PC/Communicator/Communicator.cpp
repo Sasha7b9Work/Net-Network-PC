@@ -3,11 +3,12 @@
 #include "Communicator/Communicator.h"
 #include "Communicator/HC12/HC12.h"
 #include "Communicator/LAN/ServerTCP.h"
+#include "Settings/Settings.h"
 
 
 void Communicator::Init()
 {
-    HC12::Init();
+    HC12::Init(SET::COM::port_hc12.Get());
     ServerTCP::Init(777);
 }
 
