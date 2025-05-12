@@ -26,31 +26,26 @@ void ReceivedData::Append(uint8 *data, int size)
 
 void ReceivedData::Update()
 {
-    if (buffer.GetElementCount() < 3)
+    while (buffer.GetElementCount() >= SIZE_MESSAGE)
     {
-        return;
-    }
+        if (buffer[0] != 'A')
+        {
+            buffer.RemoveFirst(1);
+            continue;;
+        }
 
-    if (buffer[0] != 'A')
-    {
-        buffer.RemoveFirst(1);
-        return;
-    }
+        if (buffer[1] != 'B')
+        {
+            buffer.RemoveFirst(2);
+            continue;;
+        }
 
-    if (buffer[1] != 'B')
-    {
-        buffer.RemoveFirst(2);
-        return;
-    }
+        if (buffer[2] != 'C')
+        {
+            buffer.RemoveFirst(3);
+            continue;
+        }
 
-    if (buffer[2] != 'C')
-    {
-        buffer.RemoveFirst(3);
-        return;
-    }
-
-    if (buffer.GetElementCount() >= SIZE_MESSAGE)
-    {
         char bytes[SIZE_MESSAGE];
 
         buffer.GetData((uint8 *)bytes, SIZE_MESSAGE);

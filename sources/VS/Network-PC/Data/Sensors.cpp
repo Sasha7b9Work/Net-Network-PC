@@ -131,7 +131,10 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
         return;
     }
 
-    values[type] = value;
+    if (id == 0xD5E0B863)
+    {
+        values[type] = value;
+    }
 
     auto sensor = pool.find(id);
 
@@ -152,19 +155,22 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
     static TimeMeterMS meter;
     static bool first = true;
 
-    if ((meter.ElapsedTime() > (uint)(1000 * 60 * SET::NETWORK::time_http.Get())) || (first && meter.ElapsedTime() > 5000))
+    if (values[Measure::Temperature] != 0)
     {
-        first = false;
-
-        meter.Reset();
-
-        if (id == 0xD5E0B863)
+        if ((meter.ElapsedTime() > (uint)(1000 * 60 * SET::NETWORK::time_http.Get())) || (first && meter.ElapsedTime() > 5000))
         {
-            HTTP::SendPOST(101, values[Measure::Temperature], values[Measure::Humidity], values[Measure::Pressure], values[Measure::DewPoint], values[Measure::Illuminate]);
-        }
-        else
-        {
-            LOG_WRITE("Not device");
+            first = false;
+
+            meter.Reset();
+
+            if (id == 0xD5E0B863)
+            {
+                HTTP::SendPOST(101, values[Measure::Temperature], values[Measure::Humidity], values[Measure::Pressure], values[Measure::DewPoint], values[Measure::Illuminate]);
+            }
+            else
+            {
+                LOG_WRITE("Not device");
+            }
         }
     }
 }

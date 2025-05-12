@@ -3,6 +3,7 @@
 #include "Communicator/HC12/HC12.h"
 #include "Communicator/RS232/rs232.h"
 #include "Data/ReceivedData.h"
+#include "Utils/Timer.h"
 
 
 namespace HC12
@@ -35,6 +36,9 @@ void HC12::Update()
 
 int HC12::ReadBytes()
 {
+    static int all_bytes = 0;
+    static TimeMeterMS meter;
+
     int readed_bytes = 0;
 
     if (opened_port != -1)
@@ -51,6 +55,15 @@ int HC12::ReadBytes()
 
             readed_bytes += num_bytes;
         }
+    }
+
+    all_bytes += readed_bytes;
+
+    if (meter.ElapsedTime() >= 1000)
+    {
+        LOG_WRITE("%d bytes / sec", all_bytes);
+        meter.Reset();
+        all_bytes = 0;
     }
 
     return readed_bytes;
