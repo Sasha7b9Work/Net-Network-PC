@@ -99,10 +99,6 @@ void ServerMeasures::Send(uint id, Measure::E type, float value)
         return;
     }
 
-    /*
-    * { "param":"20", "time":"30" }
-    */
-
     wxDateTime time = wxDateTime::Now();
 
     wxString message = wxString::Format("{\"id\":\"%08X\",\"%s\":\"%f\",\"time\":\"%d-%02d-%02d %02d:%02d:%02d\"}\r\n",

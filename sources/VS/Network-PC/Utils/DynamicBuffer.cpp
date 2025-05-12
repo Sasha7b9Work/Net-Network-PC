@@ -4,9 +4,9 @@
 #include <cstring>
 
 
-template      DynamicBuffer<SIZE_MESSAGE>::DynamicBuffer();
-template void DynamicBuffer<SIZE_MESSAGE>::Append(uint8 *, int);
-template void DynamicBuffer<SIZE_MESSAGE>::RemoveFirst(int);
+template      DynamicBuffer<SIZE_RECEIVED_BUFFER>::DynamicBuffer();
+template void DynamicBuffer<SIZE_RECEIVED_BUFFER>::Append(uint8 *, int);
+template void DynamicBuffer<SIZE_RECEIVED_BUFFER>::RemoveFirst(int);
 
 
 template      DynamicBuffer<128>::DynamicBuffer();

@@ -9,14 +9,14 @@
 
 namespace ReceivedData
 {
-    static DynamicBuffer <SIZE_MESSAGE>buffer;
+    static DynamicBuffer <SIZE_RECEIVED_BUFFER>buffer;
 
     static bool FindFirstABC();
 
-    static bool ParseCommand(char bytes[20]);
+    static bool ParseCommand(char bytes[SIZE_MESSAGE]);
 
     // Для старых устройств
-    static bool ParseCommandOld(char bytes[20]);
+    static bool ParseCommandOld(char bytes[SIZE_MESSAGE]);
 }
 
 
@@ -28,13 +28,13 @@ void ReceivedData::Append(uint8 *data, int size)
 
 void ReceivedData::Update()
 {
-    while (buffer.Size() >= 20 && FindFirstABC())
+    while (buffer.Size() >= SIZE_MESSAGE && FindFirstABC())
     {
-        char bytes[20];
+        char bytes[SIZE_MESSAGE];
 
-        std::memcpy(bytes, buffer.Data(), 20);
+        std::memcpy(bytes, buffer.Data(), SIZE_MESSAGE);
 
-        buffer.RemoveFirst(20);
+        buffer.RemoveFirst(SIZE_MESSAGE);
 
         static int num_command = 0;
         num_command++;
@@ -56,7 +56,7 @@ void ReceivedData::Update()
 
 bool ReceivedData::FindFirstABC()
 {
-    DynamicBuffer <20>removed;
+    DynamicBuffer <SIZE_RECEIVED_BUFFER>removed;
 
     int removed_bytes = 0;
 
@@ -97,13 +97,18 @@ bool ReceivedData::FindFirstABC()
 }
 
 
-bool ReceivedData::ParseCommand(char message[20])
+bool ReceivedData::ParseCommand(char message[SIZE_MESSAGE])
 {
     uint8 type = message[3];
 
     uint id;
 
     std::memcpy(&id, &message[4], 4);           // offset 4
+
+    if (type == Measure::Temperature)
+    {
+        LOG_WRITE("Receive temperature from device %08X", id);
+    }
 
     uint hash = 0;
 
@@ -119,18 +124,27 @@ bool ReceivedData::ParseCommand(char message[20])
 
         return true;
     }
+    else
+    {
+        LOG_ERROR("Invalid hash for measure %u device %08X", type, id);
+    }
 
     return false;
 }
 
 
-bool ReceivedData::ParseCommandOld(char message[20])
+bool ReceivedData::ParseCommandOld(char message[SIZE_MESSAGE])
 {
     uint8 type = message[3];
 
     uint id;
 
     std::memcpy(&id, &message[4], 4);
+
+    if (type == Measure::Temperature)
+    {
+        LOG_WRITE("Receive temperature from device %08X", id);
+    }
 
     float value = 0.0f;
 
@@ -145,6 +159,10 @@ bool ReceivedData::ParseCommandOld(char message[20])
         Sensor::Pool::AppendMeasure(id, type, value);
 
         return true;
+    }
+    else
+    {
+        LOG_ERROR("Invalid hash for measure %u device %08X", type, id);
     }
 
     return false;
