@@ -146,8 +146,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,1,237,0
- PRODUCTVERSION 0,1,237,0
+ FILEVERSION 0,1,238,0
+ PRODUCTVERSION 0,1,238,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -164,12 +164,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "TODO: <Company name>"
             VALUE "FileDescription", "TODO: <File description>"
-            VALUE "FileVersion", "0.1.237.0"
+            VALUE "FileVersion", "0.1.238.0"
             VALUE "InternalName", "TODO: <Internal name>"
             VALUE "LegalCopyright", "Copyright (C) 2024"
             VALUE "OriginalFilename", "TODO: <Original filename>"
             VALUE "ProductName", "TODO: <Product name>"
-            VALUE "ProductVersion", "0.1.237.0"
+            VALUE "ProductVersion", "0.1.238.0"
         END
     END
     BLOCK "VarFileInfo"

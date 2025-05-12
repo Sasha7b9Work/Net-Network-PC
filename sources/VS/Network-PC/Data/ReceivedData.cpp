@@ -49,7 +49,7 @@ void ReceivedData::Update()
         return;
     }
 
-    while (buffer.GetElementCount() >= SIZE_MESSAGE)
+    if (buffer.GetElementCount() >= SIZE_MESSAGE)
     {
         char bytes[SIZE_MESSAGE];
 

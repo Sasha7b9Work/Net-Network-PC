@@ -13,6 +13,7 @@ public:
     {
         if (IsFull())
         {
+            LOG_ERROR("Can not append element");
             return;
         }
 
@@ -39,6 +40,7 @@ public:
     {
         if (GetElementCount() == 0)
         {
+            LOG_ERROR("Empty buffer");
             return T(0);
         }
 
@@ -58,6 +60,7 @@ public:
     {
         if (i >= GetElementCount())
         {
+            LOG_ERROR("Invalid index");
             return T(0);
         }
 
