@@ -2,16 +2,14 @@
 #include "defines.h"
 #include "Data/ReceivedData.h"
 #include "Data/Sensors.h"
-#include "Utils/DynamicBuffer.h"
 #include "Utils/Math.h"
+#include "Utils/RingBuffer.h"
 #include <cstring>
 
 
 namespace ReceivedData
 {
-    static DynamicBuffer <SIZE_RECEIVED_BUFFER>buffer;
-
-    static bool FindFirstABC();
+    static RingBuffer <uint8, SIZE_RECEIVED_BUFFER> buffer;
 
     static bool ParseCommand(char bytes[SIZE_MESSAGE]);
 
@@ -28,13 +26,34 @@ void ReceivedData::Append(uint8 *data, int size)
 
 void ReceivedData::Update()
 {
-    while (buffer.Size() >= SIZE_MESSAGE && FindFirstABC())
+    if (buffer.GetElementCount() < 3)
+    {
+        return;
+    }
+
+    if (buffer[0] != 'A')
+    {
+        buffer.RemoveFirst(1);
+        return;
+    }
+
+    if (buffer[1] != 'B')
+    {
+        buffer.RemoveFirst(2);
+        return;
+    }
+
+    if (buffer[2] != 'C')
+    {
+        buffer.RemoveFirst(3);
+        return;
+    }
+
+    while (buffer.GetElementCount() >= SIZE_MESSAGE)
     {
         char bytes[SIZE_MESSAGE];
 
-        std::memcpy(bytes, buffer.Data(), SIZE_MESSAGE);
-
-        buffer.RemoveFirst(SIZE_MESSAGE);
+        buffer.GetData((uint8 *)bytes, SIZE_MESSAGE);
 
         static int num_command = 0;
         num_command++;
@@ -51,49 +70,6 @@ void ReceivedData::Update()
             ParseCommandOld(bytes);     // Пытаемся распарсить по старому формату передачи данных
         }
     }
-}
-
-
-bool ReceivedData::FindFirstABC()
-{
-    DynamicBuffer <SIZE_RECEIVED_BUFFER>removed;
-
-    int removed_bytes = 0;
-
-    while (buffer.Size() >= 3)
-    {
-        if (std::memcmp("ABC", buffer.Data(), 3) == 0)
-        {
-            return true;
-        }
-
-        uint8 byte = buffer.Data()[0];
-
-        removed.Append(&byte, 1);
-
-        buffer.RemoveFirst(1);
-
-        removed_bytes++;
-    }
-
-    if (removed_bytes != 0)
-    {
-        char data[128] = { 0 };
-
-        int i = 0;
-
-        for (; i < removed.Size(); i++)
-        {
-            data[i] = removed.Data()[i];
-        }
-
-        data[i] = 0;
-
-        static int counter = 0;
-        LOG_ERROR("error command %d %s", counter++, data);
-    }
-
-    return false;
 }
 
 
