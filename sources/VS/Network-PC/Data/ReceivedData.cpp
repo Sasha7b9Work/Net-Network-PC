@@ -77,6 +77,15 @@ bool ReceivedData::ParseCommand(char message[SIZE_MESSAGE])
 {
     uint8 type = message[3];
 
+    static int num_types[4] = { 0, 0, 0, 0 };
+
+    if (type < 4)
+    {
+        num_types[type]++;
+
+        LOG_WRITE("%d = %d, %d = %d, %d = %d, %d = %d", 0, num_types[0], 1, num_types[1], 2, num_types[2], 3, num_types[3]);
+    }
+
     uint id;
 
     std::memcpy(&id, &message[4], 4);           // offset 4
