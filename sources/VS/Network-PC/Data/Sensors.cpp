@@ -312,6 +312,6 @@ void StatServer::Log()
 
         int counter = pair.second;
 
-        LOG_WRITE("%X:%d    %d", key.first, key.second, counter);
+        LOG_WRITE("%8X:%12s    %d", key.first, Measure(key.second).GetTitle().c_str().AsChar(), counter);
     }
 }
