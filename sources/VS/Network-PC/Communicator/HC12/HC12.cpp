@@ -61,7 +61,7 @@ int HC12::ReadBytes()
 
     if (meter.ElapsedTime() >= 1000)
     {
-        LOG_WRITE("%d bytes / sec", all_bytes);
+//        LOG_WRITE("%d bytes / sec", all_bytes);
         meter.Reset();
         all_bytes = 0;
     }
