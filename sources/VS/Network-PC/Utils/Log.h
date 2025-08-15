@@ -2,14 +2,14 @@
 #pragma once
 
 
-#define LOG_WRITE(...)          Log::Write(__VA_ARGS__)
-#define LOG_ERROR(...)          Log::Error(__VA_ARGS__)
-#define LOG_ERROR_TRACE(...)
+#define LOG_WRITE(...)          Log::Write(__FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)
+#define LOG_ERROR(...)          Log::Error(__FILE__, __LINE__, __FUNCTION__, __VA_ARGS__)
+
 
 namespace Log
 {
     void Init();
     void DeInit();
-    void Write(char *format, ...);
-    void Error(char *format, ...);
+    void Write(char *file, int line, char *func, char *format, ...);
+    void Error(char *file, int line, char *func, char *format, ...);
 }

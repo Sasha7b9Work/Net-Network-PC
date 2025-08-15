@@ -58,7 +58,7 @@ void String<capacity>::SetFormat(pchar format, ...)
 
     if(num_symbols < 0 || num_symbols > capacity - 1)
     {
-        LOG_ERROR_TRACE("Very small string buffer %d, need %d:", capacity, num_symbols);
+        LOG_ERROR("Very small string buffer %d, need %d:", capacity, num_symbols);
     }
 }
 
@@ -73,7 +73,7 @@ String<capacity>::String(pchar format, ...)
 
     if(num_symbols < 0 || num_symbols > capacity - 1)
     {
-        LOG_ERROR_TRACE("Very small string buffer %d, need %d:", capacity, num_symbols);
+        LOG_ERROR("Very small string buffer %d, need %d:", capacity, num_symbols);
     }
 }
 
@@ -85,7 +85,7 @@ void String<capacity>::Append(pchar str)
 
     if (need_size > capacity)
     {
-        LOG_ERROR_TRACE("Very small string buffer %d, need %d:", capacity, need_size);
+        LOG_ERROR("Very small string buffer %d, need %d:", capacity, need_size);
 
         int pointer = Size();
 
@@ -112,7 +112,7 @@ void String<capacity>::AppendBytes(const void *bytes, int num_bytes)
 
     if (need_size > capacity)
     {
-        LOG_ERROR_TRACE("Very small string buffer %d, need %d:", capacity, need_size);
+        LOG_ERROR("Very small string buffer %d, need %d:", capacity, need_size);
         LOG_WRITE(c_str());
     }
     else
@@ -134,7 +134,7 @@ void String<capacity>::Append(char symbol)
     }
     else
     {
-        LOG_ERROR_TRACE("buffer is full");
+        LOG_ERROR("buffer is full");
     }
 }
 

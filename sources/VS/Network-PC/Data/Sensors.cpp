@@ -11,6 +11,17 @@
 using namespace std;
 
 
+// Для статистики принятых данных
+namespace StatServer
+{
+    static std::map<std::pair<uint, uint8>, int> counters;
+
+    static void Append(uint id, uint8 type);
+
+    static void Log();
+}
+
+
 map<uint, Sensor> Sensor::Pool::pool;
 
 
@@ -101,6 +112,8 @@ wxString Measure::GetUnits() const
 
 void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
 {
+    StatServer::Append(id, type);
+
     static float values[Measure::Count] =
     {
         0.0f,
@@ -206,7 +219,7 @@ void Sensor::AppendMeasure(uint8 type, float value)
     }
     else
     {
-        LOG_ERROR_TRACE("Bad type measure %d", type);
+        LOG_ERROR("Bad type measure %d", type);
     }
 }
 
@@ -264,4 +277,36 @@ float DataArray::Max(int from_end) const
     }
 
     return result;
+}
+
+
+void StatServer::Append(uint id, uint8 type)
+{
+    int counter = counters[std::make_pair(id, type)];
+
+    counter++;
+
+    counters[std::make_pair(id, type)] = counter;
+
+    static TimeMeterMS meter;
+
+    if (meter.ElapsedTime() > 5000)
+    {
+        meter.Reset();
+
+        Log();
+    }
+}
+
+
+void StatServer::Log()
+{
+    for (const auto &pair : counters)
+    {
+        std::pair<uint, uint8> key = pair.first;
+
+        int counter = pair.second;
+
+        LOG_WRITE("%X:%d    %d", key.first, key.second, counter);
+    }
 }

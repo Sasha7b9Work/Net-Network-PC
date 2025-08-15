@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Log.h"
 #include "Display/Windows/WindowLog.h"
+#include "Utils/StringUtils.h"
 #include <cstdarg>
 #include <cstring>
 #include <cstdio>
@@ -10,6 +11,7 @@
 namespace Log
 {
     static const int SIZE_BUFFER = 1024 * 10;
+    static int counter = 0;
 
     static wxString file_name{ wxGetCwd() + ".log" };
 
@@ -54,30 +56,42 @@ void Log::WriteLine(pchar line)
 }
 
 
-void Log::Write(char *format, ...)
+void Log::Write(char *file, int line, char *func, char *format, ...)
 {
-    char line[SIZE_BUFFER];
-    char *pointer = line;
+    char message[SIZE_BUFFER];
+    char *pointer = message;
     std::va_list args;
     va_start(args, format);
     std::vsprintf(pointer, format, args);
     va_end(args);
 
-    WriteLine(line);
+    char place[SIZE_BUFFER];
+    std::sprintf(place, "%s:%s:%3d", file, func, line);
+
+    char log_message[SIZE_BUFFER];
+    std::sprintf(log_message, "%3d : %s : %s", ++counter, SU::LeaveTheLastOnes(place, 30), message);
+
+    WriteLine(log_message);
 }
 
 
-void Log::Error(char *format, ...)
+void Log::Error(char *file, int line, char *func, char *format, ...)
 {
-    char line[SIZE_BUFFER];
-    std::strcpy(line, "!!! ERRROR !!!");
-    char *pointer = line + std::strlen(line);
+    char message[SIZE_BUFFER];
+    std::strcpy(message, "!!! ERRROR !!!");
+    char *pointer = message + std::strlen(message);
     std::va_list args;
     va_start(args, format);
     std::vsprintf(pointer, format, args);
     va_end(args);
 
-    WriteLine(line);
+    char place[SIZE_BUFFER];
+    std::sprintf(place, "%s:%s:%3d", file, func, line);
+
+    char log_message[SIZE_BUFFER];
+    std::sprintf(log_message, "%3d : %s : !!! ERROR !!! %s", ++counter, SU::LeaveTheLastOnes(place, 30), message);
+
+    WriteLine(log_message);
 }
 
 
