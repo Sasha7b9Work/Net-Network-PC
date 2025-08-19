@@ -12,6 +12,8 @@ namespace ReceivedData
     static RingBuffer <uint8, SIZE_RECEIVED_BUFFER> buffer;
 
     static bool ParseCommand(char bytes[SIZE_MESSAGE]);
+
+    static void ParseCommandOld(char bytes[SIZE_MESSAGE]);
 }
 
 
@@ -47,15 +49,15 @@ void ReceivedData::Update()
 
         buffer.GetData((uint8 *)bytes, SIZE_MESSAGE);
 
-        static int num_command = 0;
-        num_command++;
-
-        ParseCommand(bytes);
+        if (!ParseCommand(bytes))
+        {
+            ParseCommandOld(bytes);
+        }
     }
 }
 
 
-bool ReceivedData::ParseCommand(char message[SIZE_MESSAGE])
+void ReceivedData::ParseCommandOld(char message[SIZE_MESSAGE])
 {
     uint8 type = message[3];
 
@@ -74,13 +76,38 @@ bool ReceivedData::ParseCommand(char message[SIZE_MESSAGE])
     if (Math::CalculateHash(&value, 4) == hash)
     {
         Sensor::Pool::AppendMeasure(id, type, value);
-
-        return true;
     }
     else
     {
         LOG_ERROR("Error received. Invalid hash for measure %u device %08X", type, id);
     }
+}
+
+
+bool ReceivedData::ParseCommand(char message[SIZE_MESSAGE])
+{
+    uint8 type = message[3];
+
+    uint id;
+
+    std::memcpy(&id, &message[4], 4);           // offset 4, id
+
+    float value = 0.0f;
+
+    std::memcpy(&value, &message[8], 4);        // offset 12, value
+
+    uint hash = 0;
+
+    std::memcpy(&hash, &message[12], 4);       // offset 16, value
+
+    if (Math::CalculateHash(message, 12) == hash)
+    {
+        Sensor::Pool::AppendMeasure(id, type, value);
+
+        return true;
+    }
+
+    LOG_ERROR("Error received. Invalid hash for measure %u device %08X", type, id);
 
     return false;
 }
