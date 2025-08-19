@@ -3,5 +3,5 @@
 
 
 // Размер сообщения от HC-12
-#define SIZE_MESSAGE 20
+#define SIZE_MESSAGE 16
 #define SIZE_RECEIVED_BUFFER (SIZE_MESSAGE * 100)

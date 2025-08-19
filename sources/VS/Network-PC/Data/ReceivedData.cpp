@@ -59,31 +59,17 @@ bool ReceivedData::ParseCommand(char message[SIZE_MESSAGE])
 {
     uint8 type = message[3];
 
-    static int num_types[4] = { 0, 0, 0, 0 };
-
-    if (type < 4)
-    {
-        num_types[type]++;
-
-//        LOG_WRITE("%d = %d, %d = %d, %d = %d, %d = %d", 0, num_types[0], 1, num_types[1], 2, num_types[2], 3, num_types[3]);
-    }
-
     uint id;
 
-    std::memcpy(&id, &message[4], 4);           // offset 4
-
-    if (type == Measure::Temperature)
-    {
-//        LOG_WRITE("Receive temperature from device %08X", id);
-    }
+    std::memcpy(&id, &message[4], 4);           // offset 4, id
 
     uint hash = 0;
 
-    std::memcpy(&hash, &message[8], 4);        // offset 12
+    std::memcpy(&hash, &message[8], 4);         // offset 12, hash
 
     float value = 0.0f;
 
-    std::memcpy(&value, &message[12], 4);       // offset 16
+    std::memcpy(&value, &message[12], 4);       // offset 16, value
 
     if (Math::CalculateHash(&value, 4) == hash)
     {
