@@ -112,13 +112,6 @@ wxString Measure::GetUnits() const
 
 void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
 {
-    if (id != 0xD5E0B863 &&
-        id != 0x6F &&
-        id != 0xA606B321)
-    {
-        LOG_ERROR("Unknown device");
-    }
-
     StatServer::Append(id, type);
 
     static float values[Measure::Count] =
