@@ -10,6 +10,21 @@ uint Timer::CurrentTime()
 }
 
 
+wxString Timer::GetDateTime()
+{
+    wxDateTime now = wxDateTime::Now();
+
+    return wxString::Format("%02d:%02d:%02d-%02d:%02d:%02d",
+        now.GetHour(),
+        now.GetMinute(),
+        now.GetSecond(),
+        now.GetDay(),
+        now.GetMonth(),
+        now.GetYear()
+    );
+}
+
+
 TimeMeterMS::TimeMeterMS()
 {
     Reset();

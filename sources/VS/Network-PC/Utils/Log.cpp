@@ -3,6 +3,7 @@
 #include "Log.h"
 #include "Display/Windows/WindowLog.h"
 #include "Utils/StringUtils.h"
+#include "Utils/Timer.h"
 #include <cstdarg>
 #include <cstring>
 #include <cstdio>
@@ -13,11 +14,9 @@ namespace Log
     static const int SIZE_BUFFER = 1024 * 10;
     static int counter = 0;
 
-    static wxString file_name{ wxGetCwd() + ".log" };
+    static wxString file_name{ wxGetCwd() + "\\Network-PC.log" };
 
     static wxTextFile log_file{ file_name };
-
-    static wxString GetTime();
 
     // Ограничивает размер файла лога, чтобы не тормозил работу приложения
     static void CutSize();
@@ -34,12 +33,14 @@ void Log::Init()
 
     WindowLog::Create();
 
-    LOG_WRITE("\n\n *** Start application in %s ***", GetTime().c_str().AsChar());
+    LOG_WRITE("                   *** Start application in %s ***", Timer::GetDateTime().c_str().AsChar());
 }
 
 
 void Log::DeInit()
 {
+    LOG_WRITE("                   *** Exit application in %s ***\n", Timer::GetDateTime().c_str().AsChar());
+
     WindowLog::Delete();
 }
 
@@ -69,7 +70,7 @@ void Log::Write(char *file, int line, char *func, char *format, ...)
     std::sprintf(place, "%s:%s:%3d", file, func, line);
 
     char log_message[SIZE_BUFFER];
-    std::sprintf(log_message, "%3d : %s : %s", ++counter, SU::LeaveTheLastOnes(place, 30), message);
+    std::sprintf(log_message, "%3d:%s: %s : %s", ++counter, Timer::GetDateTime().c_str().AsChar(), SU::LeaveTheLastOnes(place, 30), message);
 
     WriteLine(log_message);
 }
@@ -104,19 +105,4 @@ void Log::CutSize()
             log_file.RemoveLine(0);
         }
     }
-}
-
-
-wxString Log::GetTime()
-{
-    wxDateTime now = wxDateTime::Now();
-
-    return wxString::Format("%02d:%02d:%02d-%02d:%02d:%02d",
-        now.GetHour(),
-        now.GetMinute(),
-        now.GetSecond(),
-        now.GetDay(),
-        now.GetMonth(),
-        now.GetYear()
-    );
 }
