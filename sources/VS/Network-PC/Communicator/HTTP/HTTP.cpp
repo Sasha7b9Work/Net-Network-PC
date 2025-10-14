@@ -20,6 +20,8 @@ namespace HTTP
     static const wxString url = "https://www.recontr.com/post-data.php";
     static const wxString content_type = "application/x-www-form-urlencoded"; 
     static const wxString key = "api_key=PtmAT51b3j4F8";
+
+    static float GetLastMeasure(Sensor *, Measure::E);
 }
 
 
@@ -55,6 +57,10 @@ uint HTTP::UUIDS::Get(uint id)
     {
         return 101;
     }
+    else if (id == 0x766b5dc9)      // Спящее устройство
+    {
+        return 102;
+    }
 
     return id;
 }
@@ -64,7 +70,7 @@ void HTTP::Update()
 {
     static TimeMeterMS meter;
 
-    if ((int)meter.ElapsedTime() > SET::NETWORK::time_http.Get() * 60 * 1000)
+    if ((int)meter.ElapsedTime() > SET::NETWORK::time_http.Get() * 10000)
     {
         meter.Reset();
 
@@ -72,7 +78,25 @@ void HTTP::Update()
 
         while (sensor)
         {
+            float temp = GetLastMeasure(sensor, Measure::Temperature);
+            float humidity = GetLastMeasure(sensor, Measure::Humidity);
+            float pressure = GetLastMeasure(sensor, Measure::Pressure);
+            float dew_point = GetLastMeasure(sensor, Measure::DewPoint);
+            float illuminate = GetLastMeasure(sensor, Measure::Illuminate);
+
+            SendPOST(sensor->Id(), temp, humidity, pressure, dew_point, illuminate);
+
             sensor = Sensor::Pool::Next(sensor);
         }
     }
+}
+
+
+float HTTP::GetLastMeasure(Sensor *sens, Measure::E meas)
+{
+    const DataArray &data = sens->GetMeasures(meas);
+
+    const DataPoint &point = data.Last();
+
+    return point.value;
 }

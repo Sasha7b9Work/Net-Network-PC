@@ -63,7 +63,7 @@ struct DataArray
 
     void PushBack(const DataPoint &point) { array.push_back(point); }
 
-    DataPoint &Last() { return Size() ? *(array.end() - 1) : DataPoint::null; }
+    const DataPoint &Last() const { return Size() ? *(array.end() - 1) : DataPoint::null; }
 
     // Рассчитывает мин/макс на from_end элементах с конца
     float Min(int from_end) const;
@@ -84,6 +84,11 @@ public:
     const DataArray &GetMeasures(Measure::E type) const { return measures[type]; }
 
     wxColour GetColor() const { return color; }
+
+    uint Id() const
+    {
+        return id;
+    }
 
 private:
 

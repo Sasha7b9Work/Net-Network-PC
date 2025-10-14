@@ -158,7 +158,7 @@ void Sensor::AppendMeasure(uint8 type, float value)
     {
         DataPoint point(value);
 
-        if (measures[type].Size() && (measures[type].Last().time == point.time))
+        if (measures[type].Size() && (point.time == measures[type].Last().time))
         {
             // В это время измерение уже получено - отбрасываем
         }
