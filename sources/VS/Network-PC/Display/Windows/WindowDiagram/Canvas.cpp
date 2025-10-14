@@ -139,6 +139,8 @@ void Canvas::DrawAllSensors(wxMemoryDC &dc)
 
             if (fabsf(min_value - max_value) < 0.0001f)
             {
+                sensor = Sensor::Pool::Next(sensor);
+
                 continue;
             }
 
