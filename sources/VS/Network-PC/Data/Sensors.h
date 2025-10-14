@@ -99,13 +99,20 @@ public:
     {
         static void AppendMeasure(uint id, uint8 type, float value);
 
-        static const std::map<uint, Sensor> &GetPool() { return pool; };
-
         static int CountSensors() { return pool.size(); };
+
+        static Sensor *Find(uint id);
+
+        static void Append(const Sensor &);
+
+        //--- Функции доступа ---
+        static Sensor *First();
+        static Sensor *Next(Sensor *);
+        //-----------------------
 
     private:
 
-        static std::map<uint, Sensor> pool;
+        static std::vector<Sensor> pool;
 
         static wxColour ColorForSensor();
     };

@@ -22,7 +22,7 @@ namespace StatServer
 }
 
 
-map<uint, Sensor> Sensor::Pool::pool;
+vector<Sensor> Sensor::Pool::pool;
 
 
 DataPoint DataPoint::null{ 0.0f, {0, 0, 0} };
@@ -114,24 +114,6 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
 {
     StatServer::Append(id, type);
 
-    static float values[Measure::Count] =
-    {
-        0.0f,
-        0.0f,
-        0.0f,
-        0.0f,
-        0.0f,
-        0.0f,
-        0.0f,
-        0.0f,
-        0.0f,
-        0.0f,
-        0.0f,
-        0.0f,
-        0.0f,
-        0.0f
-    };
-
     if (type >= Measure::Count)
     {
         LOG_ERROR("Unknown measure type %u", type);
@@ -139,35 +121,20 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
         return;
     }
 
-    auto sensor = pool.find(id);
+    Sensor *sensor = Find(id);
 
-    if (sensor == pool.end())                                                   // Создаём новый сенсор, если сообщения от такого ещё не приходили
+    if (!sensor)                                                   // Создаём новый сенсор, если сообщения от такого ещё не приходили
     {
-        pool.try_emplace(id, Sensor( id, Pool::ColorForSensor() ));
+        Append(Sensor( id, Pool::ColorForSensor()));
     }
 
-    sensor = pool.find(id);
+    sensor = Find(id);
 
-    if (sensor != pool.end())
+    if (sensor)
     {
-        sensor->second.AppendMeasure(type, value);                              // И добавляем в него измерение
+        sensor->AppendMeasure(type, value);                              // И добавляем в него измерение
 
-        MainWindow::SetMeasure(id, sensor->second.GetColor(), type, value);
-    }
-
-    static TimeMeterMS meter;
-    static bool first = true;
-
-    if (values[Measure::Temperature] != 0)
-    {
-        if ((meter.ElapsedTime() > (uint)(1000 * 60 * SET::NETWORK::time_http.Get())) || (first && meter.ElapsedTime() > 5000))
-        {
-            first = false;
-
-            meter.Reset();
-
-            HTTP::SendPOST(101, values[Measure::Temperature], values[Measure::Humidity], values[Measure::Pressure], values[Measure::DewPoint], values[Measure::Illuminate]);
-        }
+        MainWindow::SetMeasure(id, sensor->GetColor(), type, value);
     }
 }
 
@@ -292,4 +259,63 @@ void StatServer::Log()
 
         LOG_WRITE("%8X:%12s    %d", key.first, Measure(key.second).GetTitle().c_str().AsChar(), counter);
     }
+}
+
+
+Sensor *Sensor::Pool::First()
+{
+    if (pool.size())
+    {
+        return &pool[0];
+    }
+
+    return nullptr;
+}
+
+
+Sensor *Sensor::Pool::Next(Sensor *prev)
+{
+    for (uint i = 0; i < pool.size(); i++)
+    {
+        if (&pool[i] == prev && i != pool.size() - 1)
+        {
+            return &pool[i + 1];
+        }
+    }
+
+    return nullptr;
+}
+
+
+Sensor *Sensor::Pool::Find(uint id)
+{
+    for (uint i = 0; i < pool.size(); i++)
+    {
+        if (pool[i].id == id)
+        {
+            return &pool[i];
+        }
+    }
+
+    return nullptr;
+}
+
+
+void Sensor::Pool::Append(const Sensor &sensor)
+{
+    if (pool.size() == 0)
+    {
+        pool.reserve(1024);
+    }
+
+    for (uint i = 0; i < pool.size(); i++)
+    {
+        if (pool[i].id == sensor.id)
+        {
+            LOG_ERROR("Sensor with id %u already exist", sensor.id);
+            return;
+        }
+    }
+
+    pool.push_back(sensor);
 }

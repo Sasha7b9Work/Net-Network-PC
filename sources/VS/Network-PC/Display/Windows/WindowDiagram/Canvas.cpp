@@ -114,9 +114,9 @@ void Canvas::SetSizeArea(int width, int height)
 
 void Canvas::DrawAllSensors(wxMemoryDC &dc)
 {
-    const map<uint, Sensor> &pool = Sensor::Pool::GetPool();
+    Sensor *sensor = Sensor::Pool::First();
 
-    if (pool.empty())
+    if (!sensor)
     {
         return;
     }
@@ -125,11 +125,9 @@ void Canvas::DrawAllSensors(wxMemoryDC &dc)
     float max = -1e20f;
     float scale = 0.0f;
 
-    for (auto element : pool)
+    while (sensor)
     {
-        const Sensor &sensor = element.second;
-
-        const DataArray &measures = sensor.GetMeasures(type);
+        const DataArray &measures = sensor->GetMeasures(type);
 
         if (measures.Size() > 1)
         {
@@ -156,18 +154,22 @@ void Canvas::DrawAllSensors(wxMemoryDC &dc)
 
             scale = ((float)height - 20.0f) / (max - min);
         }
+
+        sensor = Sensor::Pool::Next(sensor);
     }
 
-    for (auto element : pool)
-    {
-        const Sensor &sensor = element.second;
+    sensor = Sensor::Pool::First();
 
-        const DataArray &measures = sensor.GetMeasures(type);
+    while (sensor)
+    {
+        const DataArray &measures = sensor->GetMeasures(type);
 
         if (measures.Size() > 1)
         {
-            DrawSensor(dc, sensor.GetColor(), measures, min, max, scale);
+            DrawSensor(dc, sensor->GetColor(), measures, min, max, scale);
         }
+
+        sensor = Sensor::Pool::Next(sensor);
     }
 }
 

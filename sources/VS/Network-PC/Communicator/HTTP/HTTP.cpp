@@ -2,6 +2,8 @@
 #include "defines.h"
 #include "Communicator/HTTP/HTTP.h"
 #include "Display/Windows/MainWindow/MainWindow.h"
+#include "Utils/Timer.h"
+#include "Data/Sensors.h"
 
 
 namespace HTTP
@@ -58,24 +60,19 @@ uint HTTP::UUIDS::Get(uint id)
 }
 
 
-//void HTTP::SendPOST(uint id, float illuminate)
-//{
-//    if (!SET::NETWORK::send_to_http.Get())
-//    {
-//        return;
-//    }
-//
-//    wxWebRequest request = wxWebSession::GetDefault().CreateRequest(&MainWindow::GetEventHandler(), url);
-//
-//    wxDateTime time = wxDateTime::Now();
-//
-//    wxString body = wxString::Format("api_key=PtmAT51b3j4F8&device=%u&location=Ya.Kolasa 73&Illuminate=%f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
-//        id, illuminate,
-//        time.GetYear(), time.GetMonth() + 1, time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());
-//
-//    request.SetData(body, content_type);
-//
-//    request.Start();
-//}
+void HTTP::Update()
+{
+    static TimeMeterMS meter;
 
+    if ((int)meter.ElapsedTime() > SET::NETWORK::time_http.Get() * 60 * 1000)
+    {
+        meter.Reset();
 
+        Sensor *sensor = Sensor::Pool::First();
+
+        while (sensor)
+        {
+            sensor = Sensor::Pool::Next(sensor);
+        }
+    }
+}
