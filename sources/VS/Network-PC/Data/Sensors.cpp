@@ -132,11 +132,6 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
         0.0f
     };
 
-    if (type == Measure::Temperature)
-    {
-//        LOG_WRITE("Receive temperature %f from device %08X", value, id);
-    }
-
     if (type >= Measure::Count)
     {
         LOG_ERROR("Unknown measure type %u", type);
@@ -144,14 +139,9 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
         return;
     }
 
-    if (id == 0xD5E0B863)
-    {
-        values[type] = value;
-    }
-
     auto sensor = pool.find(id);
 
-    if (sensor == pool.end())
+    if (sensor == pool.end())                                                   // Создаём новый сенсор, если сообщения от такого ещё не приходили
     {
         pool.try_emplace(id, Sensor( id, Pool::ColorForSensor() ));
     }
@@ -160,7 +150,7 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
 
     if (sensor != pool.end())
     {
-        sensor->second.AppendMeasure(type, value);
+        sensor->second.AppendMeasure(type, value);                              // И добавляем в него измерение
 
         MainWindow::SetMeasure(id, sensor->second.GetColor(), type, value);
     }
@@ -176,14 +166,7 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
 
             meter.Reset();
 
-            if (id == 0xD5E0B863)
-            {
-                HTTP::SendPOST(101, values[Measure::Temperature], values[Measure::Humidity], values[Measure::Pressure], values[Measure::DewPoint], values[Measure::Illuminate]);
-            }
-            else
-            {
-                LOG_WRITE("Not device");
-            }
+            HTTP::SendPOST(101, values[Measure::Temperature], values[Measure::Humidity], values[Measure::Pressure], values[Measure::DewPoint], values[Measure::Illuminate]);
         }
     }
 }

@@ -6,6 +6,15 @@
 
 namespace HTTP
 {
+    struct UUIDS
+    {
+        uint Get(uint);
+    private:
+        std::map<uint, uint> uiids;     // Первое число - приходящий ID, второе - то, что мы отправляем
+    };
+
+    static UUIDS uiids;
+
     static const wxString url = "https://www.recontr.com/post-data.php";
     static const wxString content_type = "application/x-www-form-urlencoded"; 
     static const wxString key = "api_key=PtmAT51b3j4F8";
@@ -28,8 +37,8 @@ void HTTP::SendPOST(uint id, float temp, float humidity, float pressure, float d
 
     wxDateTime time = wxDateTime::Now();
 
-    wxString body = wxString::Format("api_key=PtmAT51b3j4F8&device=%u&model=bckm-md&location=Street&temperature=%.1f&humidity=%.1f&pressure=%.1f&DevPoint=%.1f&Illuminate=%.1f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
-        id, temp, humidity, pressure, dew_point, illuminate,
+    wxString body = wxString::Format("api_key=PtmAT51b3j4F8&device=%u&model=bckm-mk3&location=Street&temperature=%.1f&humidity=%.1f&pressure=%.1f&DevPoint=%.1f&Illuminate=%.1f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
+        uiids.Get(id), temp, humidity, pressure, dew_point, illuminate,
         time.GetYear(), time.GetMonth() + 1, time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());
 
     request.SetData(body, content_type);
@@ -38,23 +47,35 @@ void HTTP::SendPOST(uint id, float temp, float humidity, float pressure, float d
 }
 
 
-void HTTP::SendPOST(uint id, float illuminate)
+uint HTTP::UUIDS::Get(uint id)
 {
-    if (!SET::NETWORK::send_to_http.Get())
+    if (id == 0xD5E0B863)
     {
-        return;
+        return 101;
     }
 
-    wxWebRequest request = wxWebSession::GetDefault().CreateRequest(&MainWindow::GetEventHandler(), url);
-
-    wxDateTime time = wxDateTime::Now();
-
-    wxString body = wxString::Format("api_key=PtmAT51b3j4F8&device=%u&location=Ya.Kolasa 73&Illuminate=%f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
-        id, illuminate,
-        time.GetYear(), time.GetMonth() + 1, time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());
-
-    request.SetData(body, content_type);
-
-    request.Start();
+    return id;
 }
+
+
+//void HTTP::SendPOST(uint id, float illuminate)
+//{
+//    if (!SET::NETWORK::send_to_http.Get())
+//    {
+//        return;
+//    }
+//
+//    wxWebRequest request = wxWebSession::GetDefault().CreateRequest(&MainWindow::GetEventHandler(), url);
+//
+//    wxDateTime time = wxDateTime::Now();
+//
+//    wxString body = wxString::Format("api_key=PtmAT51b3j4F8&device=%u&location=Ya.Kolasa 73&Illuminate=%f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
+//        id, illuminate,
+//        time.GetYear(), time.GetMonth() + 1, time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());
+//
+//    request.SetData(body, content_type);
+//
+//    request.Start();
+//}
+
 
