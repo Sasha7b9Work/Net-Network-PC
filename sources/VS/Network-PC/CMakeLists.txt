@@ -2,9 +2,7 @@
 
 project (Network-PC)
 
-#set(CMAKE_UNITY_BUILD OFF)
-
-#set(CMAKE_UNITY_BUILD_BATCH_SIZE 8)
+set(CMAKE_UNITY_BUILD OFF)
 
 include_directories(
     .
@@ -102,6 +100,6 @@ add_executable( ${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME}
-    wxbase32ud wxmsw32ud_core wxbase32ud_net wxzlibd wxpngd
+    wxbase33ud wxmsw33ud_core wxbase33ud_net wxzlibd wxpngd
     Ws2_32 Comctl32 Rpcrt4
 )
