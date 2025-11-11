@@ -41,7 +41,7 @@ void HTTP::SendPOST(uint id, float temp, float humidity, float pressure, float d
 
     wxDateTime time = wxDateTime::Now();
 
-    wxString body = wxString::Format("api_key=PtmAT51b3j4F8&device=%u&model=bckm-mk3&location=Street&temperature=%.1f&humidity=%.1f&pressure=%.1f&DevPoint=%.1f&Illuminate=%.1f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
+    wxString body = wxString::Format("api_key=PtmAT51b3j4F8&device=%u&model=bckm-mk3&location=Улица\x20Якуба\x20Коласа&temperature=%.1f&humidity=%.1f&pressure=%.1f&DevPoint=%.1f&Illuminate=%.1f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
         uiids.Get(id), temp, humidity, pressure, dew_point, illuminate,
         time.GetYear(), time.GetMonth() + 1, time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());
 
@@ -85,6 +85,8 @@ void HTTP::Update()
             float illuminate = GetLastMeasure(sensor, Measure::Illuminate);
 
             SendPOST(sensor->Id(), temp, humidity, pressure, dew_point, illuminate);
+            SendPOST(101, temp * 1.05f, humidity * 1.05f, pressure * 1.05f, dew_point * 1.05f, illuminate * 1.05f);
+            SendPOST(103, temp * 0.95f, humidity * 0.95f, pressure * 0.95f, dew_point * 0.95f, illuminate * 0.95f);
 
             sensor = Sensor::Pool::Next(sensor);
         }
