@@ -29,6 +29,55 @@ namespace HTTP
     static const wxString key = "api_key=PtmAT51b3j4F8";
 
     static float GetLastMeasure(Sensor *, Measure::E);
+
+    struct StructMeasure
+    {
+        void Set(uint id, float v)
+        {
+            values[id] = v;
+        }
+
+        float Get(uint id) const
+        {
+            auto it = values.find(id);
+
+            if (it != values.end())
+            {
+                return it->second;
+            }
+
+            return 0.0f;
+        }
+
+    private:
+
+        std::map<uint, float> values;
+    };
+
+    static StructMeasure meas_temp;
+    static StructMeasure meas_humidity;
+    static StructMeasure meas_pressure;
+    static StructMeasure meas_dew_point;
+    static StructMeasure meas_illuminate;
+
+    struct StructTimer
+    {
+        TimeMeterMS &GetMeter(uint id)
+        {
+            if (meters.find(id) == meters.end())
+            {
+                meters[id] = TimeMeterMS();
+            }
+
+            return meters[id];
+        }
+
+    private:
+
+        std::map<uint, TimeMeterMS> meters;
+    };
+
+    static StructTimer timers;
 }
 
 
@@ -39,41 +88,68 @@ void HTTP::SendPOST(uint id, float temp, float humidity, float pressure, float d
         return;
     }
 
-    if (temp == 0.0f && humidity == 0.0f && pressure == 0.0f && dew_point == 0.0f && illuminate == 0.0f)
+    if (temp != 0.0f)
     {
-        return;
+        meas_temp.Set(id, temp);
+    }
+    else if (humidity != 0.0f)
+    {
+        meas_humidity.Set(id, humidity);
+    }
+    else if (pressure != 0.0f)
+    {
+        meas_pressure.Set(id, pressure);
+    }
+    else if (dew_point != 0.0f)
+    {
+        meas_dew_point.Set(id, dew_point);
+    }
+    else if (illuminate != 0.0f)
+    {
+        meas_illuminate.Set(id, illuminate);
     }
 
-    wxWebRequest request = wxWebSession::GetDefault().CreateRequest(&MainWindow::GetEventHandler(), url);
+    TimeMeterMS &meter = timers.GetMeter(id);
 
-    wxDateTime time = wxDateTime::Now();
+    if (meter.ElapsedTime() >= 10000)
+    {
+        meter.Reset();
 
-    wxString body = wxString::Format("api_key=PtmAT51b3j4F8&device=%u&model=bckm-mk3&location=Улица\x20Якуба\x20Коласа&temperature=%.1f&humidity=%.1f&pressure=%.1f&DevPoint=%.1f&Illuminate=%.1f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
-        uiids.Get(id), temp, humidity, pressure, dew_point, illuminate,
-        time.GetYear(), time.GetMonth() + 1, time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());
+        wxWebRequest request = wxWebSession::GetDefault().CreateRequest(&MainWindow::GetEventHandler(), url);
 
-    request.SetData(body, content_type);
+        wxDateTime time = wxDateTime::Now();
 
-    request.Start();
+        wxString body = wxString::Format("api_key=PtmAT51b3j4F8&device=%u&model=bckm-mk3&location=Улица\x20Якуба\x20Коласа&temperature=%.1f&humidity=%.1f&pressure=%.1f&DevPoint=%.1f&Illuminate=%.1f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
+            uiids.Get(id), meas_temp.Get(id), meas_humidity.Get(id), meas_pressure.Get(id), meas_dew_point.Get(id), meas_illuminate.Get(id),
+            time.GetYear(), time.GetMonth() + 1, time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());
+
+        request.SetData(body, content_type);
+
+        request.Start();
+    }
 }
 
 
 uint HTTP::UUIDS::Get(uint id)
 {
-    if (id == 0xD5E0B863)
+    if (id == 0xD5E0B863)           // С дисплеем
     {
         return 101;
     }
-    else if (id == 0x766b5dc9)      // Спящее устройство
+    else if (id == 0xa606b321)      // Без дисплея
     {
         return 102;
+    }
+    else if (id == 0x766b5dc9)      // Спящее устройство
+    {
+        return 103;
     }
 
     return id;
 }
 
 
-void HTTP::Update()
+void HTTP::_Update()
 {
     static TimeMeterMS meter;
 

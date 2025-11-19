@@ -26,5 +26,5 @@ void Application::Update()
 
     FrameDiagram::self->UpdateArea();
 
-    HTTP::Update();
+//    HTTP::Update();
 }

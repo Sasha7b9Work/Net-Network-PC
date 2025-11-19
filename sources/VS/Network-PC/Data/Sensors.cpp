@@ -136,6 +136,38 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
 
         MainWindow::SetMeasure(id, sensor->GetColor(), type, value);
     }
+
+    float temp = 0.0f;
+    float humidity = 0.0f;
+    float pressure = 0.0f;
+    float dew_point = 0.0f;
+    float illuminate = 0.0f;
+
+    if (type == Measure::Temperature || type == Measure::Humidity || type == Measure::Pressure || type == Measure::DewPoint || type == Measure::Illuminate)
+    {
+        if (type == Measure::Temperature)
+        {
+            temp = value;
+        }
+        else if (type == Measure::Humidity)
+        {
+            humidity = value;
+        }
+        else if (type == Measure::Pressure)
+        {
+            pressure = value;
+        }
+        else if (type == Measure::DewPoint)
+        {
+            dew_point = value;
+        }
+        else if (type == Measure::Illuminate)
+        {
+            illuminate = value;
+        }
+
+        HTTP::SendPOST(id, temp, humidity, pressure, dew_point, illuminate);
+    }
 }
 
 
