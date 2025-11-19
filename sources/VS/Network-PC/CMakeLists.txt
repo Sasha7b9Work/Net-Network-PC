@@ -7,12 +7,10 @@ set(CMAKE_UNITY_BUILD OFF)
 include_directories(
     .
     ../../VS/ThirdParty/wxWidgets/include
-    ../../generated/ThirdParty/lib/vc_dll/mswud
-    ../../generated/ThirdParty/lib/vc_lib/mswud
+    ../../generated/ThirdParty/lib/vc_lib/mswu
 )
 
 link_directories(
-    ../../generated/ThirdParty/lib/vc_dll
     ../../generated/ThirdParty/lib/vc_lib
 )
 
@@ -26,6 +24,9 @@ if(WIN32)
         /wd4514    # 'function' : unreferenced inline function has been removed
         /wd4625    # 'derived class' : copy constructor was implicitly defined as deleted because a base class copy constructor is inaccessible or deleted
         /wd4626    # 'derived class' : assignment operator was implicitly defined as deleted because a base class assignment operator is inaccessible or deleted
+        /wd4710
+        /wd4711
+        /wd4738
         /wd4820    # 'bytes' bytes padding added after construct 'member_name'
         /wd4996    # Your code uses a function, class member, variable, or typedef that's marked deprecated
         /wd5026    # move constructor was implicitly defined as deleted
@@ -100,6 +101,6 @@ add_executable( ${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME}
-    wxbase33ud wxmsw33ud_core wxbase33ud_net wxzlibd wxpngd
+    wxbase33u wxmsw33u_core wxbase33u_net wxzlib wxpng
     Ws2_32 Comctl32 Rpcrt4
 )
