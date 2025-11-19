@@ -29,8 +29,6 @@ void Log::Init()
 {
     wxFile::Exists(file_name) ? log_file.Open() : log_file.Create();
 
-    CutSize();
-
     WindowLog::Create();
 
     LOG_WRITE("                   *** Start application in %s ***", Timer::GetDateTime().c_str().AsChar());
@@ -98,11 +96,8 @@ void Log::Error(char *file, int line, char *func, char *format, ...)
 
 void Log::CutSize()
 {
-    if (log_file.GetLineCount() > 10000)
+    while (log_file.GetLineCount() > 5000)
     {
-        while (log_file.GetLineCount() > 9500)
-        {
-            log_file.RemoveLine(0);
-        }
+        log_file.RemoveLine(0);
     }
 }
