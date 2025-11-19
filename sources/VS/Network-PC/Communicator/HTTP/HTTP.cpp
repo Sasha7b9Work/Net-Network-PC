@@ -6,6 +6,13 @@
 #include "Data/Sensors.h"
 
 
+/*
+
+    https://www.recontr.com/charts33.php
+
+*/
+
+
 namespace HTTP
 {
     struct UUIDS
@@ -85,8 +92,18 @@ void HTTP::Update()
             float illuminate = GetLastMeasure(sensor, Measure::Illuminate);
 
             SendPOST(sensor->Id(), temp, humidity, pressure, dew_point, illuminate);
-            SendPOST(101, temp * 1.05f, humidity * 1.05f, pressure * 1.05f, dew_point * 1.05f, illuminate * 1.05f);
-            SendPOST(103, temp * 0.95f, humidity * 0.95f, pressure * 0.95f, dew_point * 0.95f, illuminate * 0.95f);
+
+            float k = 1.05f;
+            SendPOST(101, temp * k, humidity * k, pressure * k, dew_point * k, illuminate * k);
+
+            k = 0.95f;
+            SendPOST(103, temp * k, humidity * k, pressure * k, dew_point * k, illuminate * k);
+
+            k = 1.1f;
+            SendPOST(104, temp * k, humidity * k, pressure * k, dew_point * k, illuminate * k);
+
+            k = 0.9f;
+            SendPOST(105, temp * k, humidity * k, pressure * k, dew_point * k, illuminate * k);
 
             sensor = Sensor::Pool::Next(sensor);
         }
