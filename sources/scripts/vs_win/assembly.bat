@@ -12,16 +12,16 @@ goto HINT
 if %isMake%==0 goto BUILDING
 echo Making GUI version...
 cd ../..
-rmdir generated\GUI /s /q
+rmdir generated\Network-PC /s /q
 cd scripts/vs_win
 @echo on
-cmake ../../VS/CMakeLists.txt -B../../generated/GUI  -G "Visual Studio 17 2022" -A Win32 -DCMAKE_BUILD_TYPE=Release -DBUILD_USE_STATIC_RUNTIME=ON
+cmake ../../CMakeLists.txt -B../../generated/Network-PC  -G "Visual Studio 17 2022" -A Win32 -DCMAKE_BUILD_TYPE=Release -DBUILD_USE_STATIC_RUNTIME=ON
 @echo off
 
 :BUILDING
 if %isBuild%==0 goto EXIT
 @echo on
-MSBuild.exe ../../generated/GUI/Network-PC.sln -clp:ErrorsOnly;WarningsOnly -nologo /m
+MSBuild.exe ../../generated/Network-PC/Network-PC.sln -clp:ErrorsOnly;WarningsOnly -nologo /m
 @echo off
 goto EXIT
 
