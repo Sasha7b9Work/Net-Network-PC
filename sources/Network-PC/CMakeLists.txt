@@ -7,11 +7,11 @@ set(CMAKE_UNITY_BUILD OFF)
 include_directories(
     .
     ../ThirdParty/wxWidgets/include
-    ../generated/ThirdParty/lib/vc_lib/mswu
+    ../generated/ThirdParty/lib/vc_x64_lib/mswu
 )
 
 link_directories(
-    ../generated/ThirdParty/lib/vc_lib
+    ../generated/ThirdParty/lib/vc_x64_lib
 )
 
 
@@ -28,6 +28,7 @@ if(WIN32)
         /wd4711
         /wd4738
         /wd4820    # 'bytes' bytes padding added after construct 'member_name'
+        /wd4865    # '<unnamed-enum-XXX>': the underlying type will change from 'int' to '__int64' when '/Zc:enumTypes' is specified on the command line
         /wd4996    # Your code uses a function, class member, variable, or typedef that's marked deprecated
         /wd5026    # move constructor was implicitly defined as deleted
         /wd5027    # move assignment operator was implicitly defined as deleted

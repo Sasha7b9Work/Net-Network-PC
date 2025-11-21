@@ -10,7 +10,7 @@ namespace net__ {
     class netclient : public netbase {
     
     public:
-        netclient( unsigned int maxConnections);
+        netclient( size_t maxConnections);
         ~netclient();
     
         //Open a connection and return connection ID

@@ -1,1 +1,1 @@
-start ..\..\generated\Network-PC\Network-PC.sln
+start ..\..\generated\Network-PC\Network-PC.slnx
