@@ -10,8 +10,6 @@
 
 namespace HTTP
 {
-    void _Update();
-
     // Послать значения измерений так как они идут по порядку в TypeMeasure
     void SendPOST(uint id, float temp, float humidity, float pressure, float dew_point, float illuminate);
 }

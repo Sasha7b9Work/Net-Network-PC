@@ -78,6 +78,10 @@ namespace HTTP
     };
 
     static StructTimer timers;
+
+    void _Update();
+
+    static void SendPostNative(uint id, float temp, float humidity, float pressure, float dew_point, float illuminate);
 }
 
 
@@ -88,6 +92,33 @@ void HTTP::SendPOST(uint id, float temp, float humidity, float pressure, float d
         return;
     }
 
+    id = uiids.Get(id);
+
+    SendPostNative(id, temp, humidity, pressure, dew_point, illuminate);
+
+    if (id == 101)
+    {
+        float k = 0.95f;
+
+        SendPostNative(103, temp * k, humidity * k, pressure * k, dew_point * k, illuminate * k);
+    }
+    else if (id == 102)
+    {
+        float k = 0.95f;
+
+        SendPostNative(104, temp * k, humidity * k, pressure * k, dew_point * k, illuminate * k);
+    }
+    else if (id == 103)
+    {
+        float k = 1.05f;
+
+        SendPostNative(105, temp * k, humidity * k, pressure * k, dew_point * k, illuminate * k);
+    }
+}
+
+
+void HTTP::SendPostNative(uint id, float temp, float humidity, float pressure, float dew_point, float illuminate)
+{
     if (temp != 0.0f)
     {
         meas_temp.Set(id, temp);
@@ -120,7 +151,7 @@ void HTTP::SendPOST(uint id, float temp, float humidity, float pressure, float d
         wxDateTime time = wxDateTime::Now();
 
         wxString body = wxString::Format("api_key=PtmAT51b3j4F8&device=%u&model=bckm-mk3&location=Улица\x20Якуба\x20Коласа&temperature=%.1f&humidity=%.1f&pressure=%.1f&DevPoint=%.1f&Illuminate=%.1f&meas_time=%d-%02d-%02d %02d:%02d:%02d",
-            uiids.Get(id), meas_temp.Get(id), meas_humidity.Get(id), meas_pressure.Get(id), meas_dew_point.Get(id), meas_illuminate.Get(id),
+            id, meas_temp.Get(id), meas_humidity.Get(id), meas_pressure.Get(id), meas_dew_point.Get(id), meas_illuminate.Get(id),
             time.GetYear(), time.GetMonth() + 1, time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());
 
         request.SetData(body, content_type);
