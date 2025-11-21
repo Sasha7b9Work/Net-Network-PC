@@ -80,6 +80,6 @@ def CorrectResource(name_file):
                 file.write(line)
             file.close()
 
-WriteVersionToDefines("sources/VS/Network-PC/defines.h")
+WriteVersionToDefines("sources/Network-PC/defines.h")
 
-CorrectResource("sources/VS/Network-PC/resources/resources.rc")
+CorrectResource("sources/Network-PC/resources/resources.rc")
