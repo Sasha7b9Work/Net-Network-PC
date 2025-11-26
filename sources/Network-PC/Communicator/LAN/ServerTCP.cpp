@@ -57,7 +57,7 @@ size_t ServerTCP::OnReceiveData(net__::netpacket *packet, void *) //-V2009
 
     size_t num_bytes = packet->get_maxsize();
 
-    buffer.Append(packet->get_ptr(), num_bytes);
+    buffer.Append(packet->get_ptr(), (int)num_bytes);
 
     while (buffer.Size() >= 12)
     {

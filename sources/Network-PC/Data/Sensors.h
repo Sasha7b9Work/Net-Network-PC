@@ -104,7 +104,7 @@ public:
     {
         static void AppendMeasure(uint id, uint8 type, float value);
 
-        static int CountSensors() { return pool.size(); };
+        static int CountSensors() { return (int)pool.size(); };
 
         static Sensor *Find(uint id);
 

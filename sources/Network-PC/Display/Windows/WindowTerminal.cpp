@@ -193,7 +193,7 @@ void WindowTerminal::History::Add(const wxString &txt)
         (history[history.size() - 1].compare(txt) != 0))
     {
         history.push_back(txt);
-        position = history.size() - 1;
+        position = (uint)(history.size() - 1);
     }
 }
 
@@ -226,7 +226,7 @@ wxString WindowTerminal::History::Prev()
 
     wxString result = history[position];
 
-    position = (position == 0) ? (history.size() - 1) : (position - 1);
+    position = (position == 0) ? (uint)(history.size() - 1) : (position - 1);
 
     return result;
 }
