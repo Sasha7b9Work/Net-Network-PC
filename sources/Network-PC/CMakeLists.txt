@@ -2,7 +2,9 @@
 
 project (Network-PC)
 
-set(CMAKE_UNITY_BUILD OFF)
+#set(CMAKE_UNITY_BUILD OFF)
+
+#set(CMAKE_UNITY_BUILD_BATCH_SIZE 4)
 
 include_directories(
     .
@@ -77,9 +79,9 @@ set_source_files_properties(
     Communicator/LAN/libnet/netserver.cpp
     Communicator/LAN/libnet/netbase.cpp
     Communicator/LAN/libnet/netclient.cpp
+    Communicator/LAN/libnet/netpacket.cpp
     PROPERTIES SKIP_UNITY_BUILD_INCLUSION ON
 )
-
 
 add_executable( ${PROJECT_NAME}
     ${RESOURCES}

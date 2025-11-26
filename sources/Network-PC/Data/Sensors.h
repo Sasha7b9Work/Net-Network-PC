@@ -22,6 +22,9 @@ struct Measure
         RotateAngleRel,     // Относительный угол поворота
         RotateAngleFull,    // Полный угол поворота
         RotateAngleSpeed,   // Скорость поворота
+//        ConcentrationCH4,   // Концентрация метана
+//        CarbonMonoxide,     // С0  угарный газ
+//        CarbonDioxide,      // C02 углекислый газ
         Count
     };
 
