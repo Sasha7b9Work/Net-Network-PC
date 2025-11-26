@@ -6,9 +6,9 @@
 
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 1
-#define VERSION_BUILD 271
+#define VERSION_BUILD 272
 
-#define DATE_BUILD "2025-11-26 12:21:28"
+#define DATE_BUILD "2025-11-26 12:30:37"
 
 
 typedef const char *pchar;
@@ -18,6 +18,13 @@ typedef unsigned short uint16;
 typedef unsigned int uint;
 typedef signed char int8;
 typedef const char *pchar;
+
+
+struct StructText
+{
+    StructText(pchar t) : text(t) { }
+    pchar text;
+};
 
 
 #include "Utils/Log.h"

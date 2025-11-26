@@ -23,7 +23,10 @@ namespace SET
             { "meas_vis_10", true },
             { "meas_vis_11", true },
             { "meas_vis_12", true },
-            { "meas_vis_13", true }
+            { "meas_vis_13", true },
+            { "meas_vis_14", true },
+            { "meas_vis_15", true },
+            { "meas_vis_16", true }
         };
 
         static void LoadSave(bool load)

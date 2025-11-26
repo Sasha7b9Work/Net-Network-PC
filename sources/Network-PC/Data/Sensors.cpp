@@ -30,7 +30,7 @@ DataPoint DataPoint::null{ 0.0f, {0, 0, 0} };
 
 wxString Measure::GetTitle() const
 {
-    static const pchar titles[Measure::Count][Lang::Count] =
+    static const StructText titles[Measure::Count][Lang::Count] =
     {
         { "Температура",       "Temperature" },
         { "Давление",          "Pressure" },
@@ -45,10 +45,13 @@ wxString Measure::GetTitle() const
         { "Дистанция",         "Distance" },
         { "Поворот",           "Rotate" },
         { "Поворот абс",       "Rotate abs" },
-        { "Скорость поворота", "Rotate speed" }
+        { "Скорость поворота", "Rotate speed" },
+        { "Метан",             "Methane" },
+        { "Угарный газ",       "Carbon monoxide" },
+        { "Углекислый газ",    "Carbon dioxide" }
     };
 
-    return titles[type][SET::GUI::lang.Get()];
+    return titles[type][SET::GUI::lang.Get()].text;
 }
 
 
@@ -88,7 +91,7 @@ int Measure::NumColumn() const
 
 wxString Measure::GetUnits() const
 {
-    static const pchar units[Measure::Count][Lang::Count] =
+    static const StructText units[Measure::Count][Lang::Count] =
     {
         { "С",      "С"    },
         { "гПа",    "гПа"  },
@@ -103,10 +106,13 @@ wxString Measure::GetUnits() const
         { "м",      "m"    },
         { "град",   "град" },
         { "град",   "град" },
-        { "град/с", "град/с"}
+        { "град/с", "град/с" },
+        { "%%",     "%%" },
+        { "ppm",    "ppm" },
+        { "ppm",    "ppm" }
     };
 
-    return units[type][SET::GUI::lang.Get()];
+    return units[type][SET::GUI::lang.Get()].text;
 }
 
 
