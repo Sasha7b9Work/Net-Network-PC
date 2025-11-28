@@ -86,9 +86,9 @@ void Canvas::DrawTimeScale(wxMemoryDC &dc)
 
         dc.DrawText(Time(time).ToString().c_str(), { x + 1, y - 15 });
 
-        time = time.Subtract(wxTimeSpan::Seconds(SET::DIAGRAM::time_scale.SecsToPixel()));
+        time = time.Subtract(wxTimeSpan::Seconds(SET::DIAGRAM::time_scale.SecsToPixel() * dx));
 
-        x -= dx;
+        x -= dx; 
     }
 }
 
