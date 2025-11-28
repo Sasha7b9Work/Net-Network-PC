@@ -52,7 +52,6 @@ private:
 
 struct DataPoint
 {
-    DataPoint(float);
     DataPoint(float, const Time &);
     float value;
     Time time;

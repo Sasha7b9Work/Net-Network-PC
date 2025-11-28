@@ -194,7 +194,7 @@ void Sensor::AppendMeasure(uint8 type, float value)
 {
     if (type < Measure::Count)
     {
-        DataPoint point(value);
+        DataPoint point(value, Clock::CurrentTime());
 
         if (measures[type].Size() && (point.time == measures[type].Last().time))
         {
@@ -209,11 +209,6 @@ void Sensor::AppendMeasure(uint8 type, float value)
     {
         LOG_ERROR("Bad type measure %d", type);
     }
-}
-
-
-DataPoint::DataPoint(float _value) : value(_value), time(Clock::CurrentTime())
-{
 }
 
 
