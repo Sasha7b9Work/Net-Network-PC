@@ -123,7 +123,7 @@ void Canvas::DrawAllSensors(wxMemoryDC &dc)
 
     float min = 1e20f;
     float max = -1e20f;
-    float scale = 0.0f;
+    float scale = 1e4f;
 
     while (sensor)
     {
@@ -154,7 +154,12 @@ void Canvas::DrawAllSensors(wxMemoryDC &dc)
                 max = max_value;
             }
 
-            scale = ((float)height - 20.0f) / (max - min);
+            float sc = (float)height / (max - min);
+
+            if (sc < scale)
+            {
+                scale = sc;
+            }
         }
 
         sensor = Sensor::Pool::Next(sensor);
@@ -195,8 +200,8 @@ void Canvas::DrawSensor(wxMemoryDC &dc, const wxColour &color, const DataArray &
         int x_end = TimeToX(point->time);
         int x_start = TimeToX((point - 1)->time);
 
-        int y_end = height - 10 - (int)((point->value - min) * scale);
-        int y_start = height - 10 - (int)(((point - 1)->value - min) * scale);
+        int y_end = height - (int)((point->value - min) * scale);
+        int y_start = height - (int)(((point - 1)->value - min) * scale);
 
         dc.DrawLine({ x_start, y_start }, { x_end, y_end });
 
