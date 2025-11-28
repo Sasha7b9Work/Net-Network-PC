@@ -9,3 +9,11 @@ int TimeScale::SecsToPixel() const
 
     return scales[value];
 }
+
+
+wxDateTime TimeScale::GetTimeSecondsBack(const wxDateTime &time, int num_pixels) const
+{
+    int num_seconds = SecsToPixel() * num_pixels;
+
+    return time - wxTimeSpan::Seconds(num_seconds);
+}

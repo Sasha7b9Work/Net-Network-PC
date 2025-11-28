@@ -194,7 +194,7 @@ void Sensor::AppendMeasure(uint8 type, float value)
 {
     if (type < Measure::Count)
     {
-        DataPoint point(value, Clock::CurrentTime());
+        DataPoint point(value, wxDateTime::Now());
 
         if (measures[type].Size() && (point.time == measures[type].Last().time))
         {
@@ -212,51 +212,45 @@ void Sensor::AppendMeasure(uint8 type, float value)
 }
 
 
-DataPoint::DataPoint(float _value, const Time &_time) : value(_value), time(_time)
+DataPoint::DataPoint(float _value, const wxDateTime &_time) : value(_value), time(_time)
 {
 }
 
 
-float DataArray::Min(int from_end) const
+float DataArray::Min(const wxDateTime &from_end) const
 {
     float result = 1e10f;
 
-    int index = (int)array.size() - from_end;
-
-    if (index < 0)
+    for (int i = (int)array.size() - 1; i >= 0; i--)
     {
-        index = 0;
-    }
+        DataPoint point = array[i];
 
-    for (uint i = index; i < array.size(); i++)
-    {
-        if (array[i].value < result)
+        if (point.time < from_end)
         {
-            result = array[i].value;
+            return result;
         }
+
+        result = std::min(point.value, result);
     }
 
     return result;
 }
 
 
-float DataArray::Max(int from_end) const
+float DataArray::Max(const wxDateTime &from_end) const
 {
     float result = -1e10f;
 
-    int index = (int)array.size() - from_end;
-
-    if (index < 0)
+    for (int i = (int)array.size() - 1; i >= 0; i--)
     {
-        index = 0;
-    }
+        DataPoint point = array[i];
 
-    for (uint i = index; i < array.size(); i++)
-    {
-        if (array[i].value > result)
+        if (point.time < from_end)
         {
-            result = array[i].value;
+            return result;
         }
+
+        result = std::max(point.value, result);
     }
 
     return result;

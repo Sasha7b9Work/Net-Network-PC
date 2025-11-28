@@ -70,11 +70,11 @@ void Canvas::DrawTimeScale(wxMemoryDC &dc)
 {
     int dx = 60;
 
-    Time time = Clock::CurrentTime();
+    wxDateTime time = wxDateTime::Now();
 
-    int x = GetClientSize().GetWidth() - time.sec;
+    int x = GetClientSize().GetWidth() - time.GetSecond();
 
-    time.sec = 0;
+    time.SetSecond(0);
 
     int y = GetClientSize().GetHeight();
 
@@ -84,24 +84,22 @@ void Canvas::DrawTimeScale(wxMemoryDC &dc)
     {
         dc.DrawLine(x, 0, x, y);
 
-        dc.DrawText(time.ToString().c_str(), { x + 1, y - 15 });
+        dc.DrawText(Time(time).ToString().c_str(), { x + 1, y - 15 });
 
-        time.SubMin(SET::DIAGRAM::time_scale.SecsToPixel());
+        time = time.Subtract(wxTimeSpan::Seconds(SET::DIAGRAM::time_scale.SecsToPixel()));
 
         x -= dx;
     }
 }
 
 
-int Canvas::TimeToX(const Time &time)
+int Canvas::TimeToX(const wxDateTime &time)
 {
     int width = GetClientSize().GetWidth();
 
-    Time current_time = Clock::CurrentTime();
+    long seconds = (wxDateTime::Now() - time).GetSeconds().ToLong();
 
-    Time difference = current_time - time;
-
-    return width - (difference.ToSec() / SET::DIAGRAM::time_scale.SecsToPixel());
+    return width - (seconds / SET::DIAGRAM::time_scale.SecsToPixel());
 }
 
 
@@ -134,8 +132,10 @@ void Canvas::DrawAllSensors(wxMemoryDC &dc)
             int width = GetClientSize().GetWidth();
             int height = GetClientSize().GetHeight();
 
-            float min_value = measures.Min(width);
-            float max_value = measures.Max(width);
+            wxDateTime from_end = SET::DIAGRAM::time_scale.GetTimeSecondsBack(wxDateTime::Now(), width);
+
+            float min_value = measures.Min(from_end);
+            float max_value = measures.Max(from_end);
 
             if (fabsf(min_value - max_value) < 0.0001f)
             {

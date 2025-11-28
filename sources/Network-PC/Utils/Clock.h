@@ -3,30 +3,15 @@
 #include "Utils/String.h"
 
 
-struct Time
+class Time
 {
-    int sec;
-    int min;
-    int hour;
+public:
 
-    // Отнять количество минут
-    void SubMin(int);
+    Time(const wxDateTime &_time) : time(_time) { }
 
     String<> ToString() const;
 
-    int ToSec() const;
+private:
 
-//    static Time Get
-
-    bool operator==(const Time &rhs) { return (rhs.sec == sec) && (rhs.min == min) && (rhs.hour == hour); }
-
-    const Time operator-(const Time &rhs);
+    wxDateTime time;
 };
-
-
-namespace Clock
-{
-    void Update();
-
-    Time &CurrentTime();
-}

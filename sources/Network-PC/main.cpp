@@ -18,8 +18,6 @@ using namespace std;
 
 void Application::Update()
 {
-    Clock::Update();
-
     Communicator::Update();
 
     ReceivedData::Update();

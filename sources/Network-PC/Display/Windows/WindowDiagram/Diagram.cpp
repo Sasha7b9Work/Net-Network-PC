@@ -73,13 +73,13 @@ void PoolDiagram::SetSizeArea(int width, int height)
 
 void PoolDiagram::UpdateArea()
 {
-    Time time = Clock::CurrentTime();
+    wxDateTime time = wxDateTime::Now();
 
-    static int prev = time.sec;
+    static int prev = time.GetSecond();
 
-    if (prev != time.sec)
+    if (prev != time.GetSecond())
     {
-        prev = time.sec;
+        prev = time.GetSecond();
 
         frame->Refresh();
     }

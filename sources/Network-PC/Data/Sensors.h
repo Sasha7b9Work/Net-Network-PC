@@ -52,9 +52,9 @@ private:
 
 struct DataPoint
 {
-    DataPoint(float, const Time &);
+    DataPoint(float, const wxDateTime &);
     float value;
-    Time time;
+    wxDateTime time;
     static DataPoint null;
 };
 
@@ -67,9 +67,9 @@ struct DataArray
 
     const DataPoint &Last() const { return Size() ? *(array.end() - 1) : DataPoint::null; }
 
-    // Рассчитывает мин/макс на from_end элементах с конца
-    float Min(int from_end) const;
-    float Max(int from_end) const;
+    // Рассчитывает мин/макс на элементах, которые не дальше времени from_end с конца
+    float Min(const wxDateTime &from_end) const;
+    float Max(const wxDateTime &from_end) const;
 
     std::vector<DataPoint> array;
 };
