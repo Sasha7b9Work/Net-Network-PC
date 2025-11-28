@@ -93,16 +93,6 @@ void Canvas::DrawTimeScale(wxMemoryDC &dc)
 }
 
 
-int Canvas::TimeToX(const wxDateTime &time)
-{
-    int width = GetClientSize().GetWidth();
-
-    long seconds = (wxDateTime::Now() - time).GetSeconds().ToLong();
-
-    return width - (seconds / SET::DIAGRAM::time_scale.SecsToPixel());
-}
-
-
 void Canvas::SetSizeArea(int width, int height)
 {
     SetMinClientSize({ width, height } );
@@ -197,8 +187,11 @@ void Canvas::DrawSensor(wxMemoryDC &dc, const wxColour &color, const DataArray &
 
     do
     {
-        int x_end = TimeToX(point->time);
-        int x_start = TimeToX((point - 1)->time);
+        uint dx_end = SET::DIAGRAM::time_scale.GetDeltaPixels(wxDateTime::Now(), point->time);
+        uint dx_start = SET::DIAGRAM::time_scale.GetDeltaPixels(wxDateTime::Now(), (point - 1)->time);
+
+        int x_end = width - dx_end;
+        int x_start = width - dx_start;
 
         int y_end = height - (int)((point->value - min) * scale);
         int y_start = height - (int)(((point - 1)->value - min) * scale);

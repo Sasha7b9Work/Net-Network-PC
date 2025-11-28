@@ -17,3 +17,18 @@ wxDateTime TimeScale::GetTimeSecondsBack(const wxDateTime &time, int num_pixels)
 
     return time - wxTimeSpan::Seconds(num_seconds);
 }
+
+
+uint TimeScale::GetDeltaPixels(wxDateTime t1, wxDateTime t2)
+{
+    if (t2 > t1)
+    {
+        wxDateTime temp = t1;
+        t1 = t2;
+        t2 = temp;
+    }
+
+    wxLongLong num_seconds = (t1 - t2).GetSeconds();
+
+    return (num_seconds / (wxLongLong)SecsToPixel()).ToLong();
+}

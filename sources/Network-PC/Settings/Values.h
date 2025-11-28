@@ -64,4 +64,7 @@ struct TimeScale : public Value<int>
 
     // ¬озвращает врем€, отсто€щее на num_pixels назад
     wxDateTime GetTimeSecondsBack(const wxDateTime &time, int num_pixels) const;
+
+    // ¬озвращает разницу между временами в пиксел€х
+    uint GetDeltaPixels(wxDateTime t1, wxDateTime t2);
 };

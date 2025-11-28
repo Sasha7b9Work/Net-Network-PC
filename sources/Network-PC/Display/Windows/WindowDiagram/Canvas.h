@@ -33,7 +33,4 @@ private:
     void DrawTimeScale(wxMemoryDC &);
 
     void DrawTextOnBackground(wxMemoryDC &, pchar, int x, int y, int width, int height);
-
-    // Преобразует время в координату х на графике
-    int TimeToX(const wxDateTime &);
 };
