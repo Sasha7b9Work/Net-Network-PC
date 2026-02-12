@@ -1,11 +1,11 @@
-// 2024/08/08 21:19:24 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+п»ї// 2024/08/08 21:19:24 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Settings/Config.h"
 #include "Utils/Clock.h"
 
 
-// class_cast - дополнительный необязательный тип, к которому будет приводится возвращаемое значение.
-// Обычно кастуется int к перечислению
+// class_cast - РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅС‹Р№ С‚РёРї, Рє РєРѕС‚РѕСЂРѕРјСѓ Р±СѓРґРµС‚ РїСЂРёРІРѕРґРёС‚СЃСЏ РІРѕР·РІСЂР°С‰Р°РµРјРѕРµ Р·РЅР°С‡РµРЅРёРµ.
+// РћР±С‹С‡РЅРѕ РєР°СЃС‚СѓРµС‚СЃСЏ int Рє РїРµСЂРµС‡РёСЃР»РµРЅРёСЋ
 template<class T, class class_cast = T>
 struct Value
 {
@@ -58,13 +58,13 @@ private:
 
 struct TimeScale : public Value<int>
 {
-    TimeScale(pchar _key, const int &_def) : Value(_key, _def) { }
+    TimeScale(pchar _key, int _def) : Value(_key, _def) { }
 
     int SecsToPixel() const;
 
-    // Возвращает время, отстоящее на num_pixels назад
+    // Р’РѕР·РІСЂР°С‰Р°РµС‚ РІСЂРµРјСЏ, РѕС‚СЃС‚РѕСЏС‰РµРµ РЅР° num_pixels РЅР°Р·Р°Рґ
     wxDateTime GetTimeSecondsBack(const wxDateTime &time, int num_pixels) const;
 
-    // Возвращает разницу между временами в пикселях
+    // Р’РѕР·РІСЂР°С‰Р°РµС‚ СЂР°Р·РЅРёС†Сѓ РјРµР¶РґСѓ РІСЂРµРјРµРЅР°РјРё РІ РїРёРєСЃРµР»СЏС…
     uint GetDeltaPixels(wxDateTime t1, wxDateTime t2);
 };

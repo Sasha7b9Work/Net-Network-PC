@@ -167,7 +167,7 @@ void Sensor::Pool::AppendMeasure(uint id, uint8 type, float value)
         {
             dew_point = value;
         }
-        else if (type == Measure::Illuminate)
+        else if (type == Measure::Illuminate) //-V547
         {
             illuminate = value;
         }

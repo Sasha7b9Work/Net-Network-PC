@@ -57,7 +57,7 @@ void Log::WriteLine(pchar line)
 
 void Log::Write(char *file, int line, char *func, char *format, ...)
 {
-    char message[SIZE_BUFFER];
+    char message[SIZE_BUFFER - SIZE_BUFFER / 10];
     char *pointer = message;
     std::va_list args;
     va_start(args, format);
@@ -76,7 +76,7 @@ void Log::Write(char *file, int line, char *func, char *format, ...)
 
 void Log::Error(char *file, int line, char *func, char *format, ...)
 {
-    char message[SIZE_BUFFER];
+    char message[SIZE_BUFFER - SIZE_BUFFER / 10];
     std::strcpy(message, "!!! ERRROR !!!");
     char *pointer = message + std::strlen(message);
     std::va_list args;

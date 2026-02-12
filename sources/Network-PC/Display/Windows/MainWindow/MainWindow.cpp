@@ -146,7 +146,7 @@ void MainFrame::SetMeasure(uint id, const wxColour &color, uint8 type, float val
 
     Measure::E type_meas = (Measure::E)type;
 
-    if (type_meas >= Measure::Count)
+    if (type_meas >= Measure::Count || row == rows.end())
     {
         return;
     }
